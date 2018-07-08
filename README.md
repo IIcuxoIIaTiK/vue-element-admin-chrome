@@ -59,7 +59,8 @@ $ npm run build # or yarn build
 
 2. Click on the "Load unpacked extension" button and select the `vue-element-admin-chrome/dist` directory located at the place you have cloned the source or unzipped the pre-build extension.
 
-3. Disable the chrome extension
+3. Disable the chrome extension as the css styles ar conflicting for now
+
 ![Imgur](https://i.imgur.com/dOoTuzi.png)
 
 voila
