@@ -2,7 +2,7 @@
   <div id="app">
     <div  :class="['st-container', menuEffect != '' ? menuEffect : 'st-effect', menuState ? 'st-menu-open' : '']"  
           v-click-outside="onClickOutside">
-      <button :class="['snk-button', menuState ? 'snk-button-hidden' : '']" @click="openMenu">SNK</button>
+      <button :class="['snk-button', menuState ? 'snk-button-hidden' : '']" @click="openMenu">Sniperkit</button>
       <nav :class="['st-menu', menuEffect != '' ? menuEffect : 'st-effect']">
         <router-view></router-view>
         <slot name="nav"></slot>
@@ -10,7 +10,7 @@
       <div class="st-pusher" @click="closeMenu">
         <div class="st-content">
           <div id="body-wrapper" class="st-content-inner">
-            <slot></slot>
+            <!--<slot></slot>-->
           </div>
         </div>
       </div>
@@ -19,7 +19,6 @@
 </template>
 
 <script>
-
 // import AdminPanel from '@/content/components/admin/content.vue'
 import AdminPanel from '@/content/components/admin-lite/root.vue'
 
