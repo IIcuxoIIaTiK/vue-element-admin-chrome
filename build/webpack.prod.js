@@ -17,7 +17,7 @@ module.exports = merge(baseWebpack, {
     new webpack.HashedModuleIdsPlugin(),
     new ZipPlugin({
       path: '..',
-      filename: 'extension.zip'
+      filename: 'eadmin-extension.prod.zip'
     })
   ]
 })
