@@ -32,12 +32,10 @@ module.exports = {
     'http://github.com/',
     'https://github.com/'
   ],
-  /*
   browser_action: {
     default_title: 'title',
     default_popup: 'pages/popup.html'
   },
-  */
   commands: {
     add_to_queue: {
       suggested_key: {
@@ -58,8 +56,8 @@ module.exports = {
     persistent: false,
     page: 'pages/background.html'
   },
-  // devtools_page: 'pages/devtools.html',
-  // options_page: 'pages/options.html',
+  devtools_page: 'pages/devtools.html',
+  options_page: 'pages/options.html',
   content_scripts: [{
     js: [
       'js/manifest.js',
@@ -125,7 +123,6 @@ module.exports = {
 
       'js/content.js'
     ],
-    // run_at: 'document_end',
     run_at: 'document_idle',
     matches: [
       // '<all_urls>',
@@ -139,7 +136,7 @@ module.exports = {
   content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'",
   // content_security_policy: "script-src 'self' 'unsafe-eval'  https://fonts.googleapis.com https://code.jquery.com; object-src 'self'",
   web_accessible_resources: [
-    // 'panel.html',
+    'panel.html',
     'js/content.js'
   ]
 }
