@@ -1,9 +1,23 @@
 # vue-element-admin-chrome
 
-## Requirements
-node v10.5.0
-npm v6.1.0
-yarn v1.7.0
+## Environment
+- node v10.5.0
+- npm v6.1.0
+- yarn v1.7.0
+
+## Goals
+- use vue-admin-element as a sidepanel to unify/integrate some useful features for github/gitlab/bitbucket browsing:
+- examples:
+    - add a dynamic/searchable list with package dependency insights
+        - ref: https://github.com/BrainMaestro/packagehub
+    - add a tree of all files in the repository
+        - ref: https://github.com/buunguyen/octotree 
+    - add tabs for golang projects with godoc related informations
+        - ref: https://gotools.org/github.com/joeshaw/envdecode
+    - add tooltip/hovercards effects on github links
+        - ref: https://github.com/Justineo/github-hovercard
+    - more references available
+        - ref: https://github.com/stefanbuck/awesome-browser-extensions-for-github
 
 ## Install
 
@@ -43,7 +57,7 @@ $ npm run build # or yarn build
 1. Next, open the "Extensions" page ([chrome://extensions/](chrome://extensions/)) in the browser and check the "Developer mode" checkbox.
 ![load_extension](https://developer.chrome.com/static/images/get_started/load_extension.png)
 
-2. Click on the "Load unpacked extension" button and select the `vue-element-admin-chrome/dist` directory located at the place you have cloned the source.
+2. Click on the "Load unpacked extension" button and select the `vue-element-admin-chrome/dist` directory located at the place you have cloned the source or unzipped the pre-build extension.
 
 ## Run
 1. Open github.com repository page
