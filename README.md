@@ -60,7 +60,9 @@ $ npm run build # or yarn build
 2. Click on the "Load unpacked extension" button and select the `vue-element-admin-chrome/dist` directory located at the place you have cloned the source or unzipped the pre-build extension.
 
 3. Disable the chrome extension
-![disable_extension](https://i0.wp.com/mashtips.com/wp-content/uploads/2018/07/Chrome-Extensions-Disable.png?resize=600%2C313&ssl=1)
+![Imgur](https://i.imgur.com/dOoTuzi.png)
+
+voila
 
 ## Run
 1. Open github.com repository page
