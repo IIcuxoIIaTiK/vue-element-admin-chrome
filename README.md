@@ -87,4 +87,4 @@ voila
 - https://github.com/PanJiaChen/vue-element-admin
 - https://github.com/YuraDev/vue-chrome-extension-template
 - https://github.com/ALiangLiang/vue-webpack-chrome-extension-template
-- https://github.com/cucygh/vue-chrome-extension-example#/dashboard
+- https://github.com/cucygh/vue-chrome-extension-example
