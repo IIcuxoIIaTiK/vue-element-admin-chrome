@@ -35,9 +35,10 @@ $ npm run build # or yarn build
   - https://github.com/syntacticsolutions/Golang-Vue-Webpack#/form/index
   - https://github.com/syntacticsolutions/Golang-Vue-Webpack#/example/tree
 2. Open Extension
-[Imgur](https://i.imgur.com/IynzqjF.png)
+![Imgur](https://i.imgur.com/IynzqjF.png)
+
 3. Explore Extension
-[Imgur](https://i.imgur.com/JR98wXP.png)
+![Imgur](https://i.imgur.com/JR98wXP.png)
 
 ### References
 - https://github.com/YuraDev/vue-chrome-extension-template
