@@ -7,6 +7,23 @@ yarn v1.7.0
 
 ## Install
 
+### Pre-built extension (faster)
+```bash
+# download pre-build 'DEVELOPMENT' extension
+$ wget -nc https://github.com/sniperkit/vue-element-admin-chrome/raw/master/eadmin-extension.dev.zip # dev (recommended)
+$ unzip eadmin-extension.dev.zip
+# jump to section "Add Chrome Extension"
+```
+
+or
+
+```bash
+# download pre-build 'PRODUCTION' extension
+$ wget -nc https://github.com/sniperkit/vue-element-admin-chrome/raw/master/eadmin-extension.prod.zip
+$ unzip eadmin-extension.prod.zip
+# jump to section "Add Chrome Extension"
+```
+
 ### Build
 ```bash
 # clone project locally
