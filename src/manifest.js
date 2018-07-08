@@ -127,8 +127,6 @@ module.exports = {
     ],
     // run_at: 'document_end',
     run_at: 'document_idle',
-    // run_at: 'document_idle',
-    // run_at: 'document_end',
     matches: [
       // '<all_urls>',
       'https://*.sniperkit.com/*',
@@ -138,8 +136,8 @@ module.exports = {
   }],
   default_locale: 'en',
   manifest_version: 2,
-  // content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  content_security_policy: "script-src 'self' 'unsafe-eval'  https://fonts.googleapis.com https://code.jquery.com; object-src 'self'",
+  content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  // content_security_policy: "script-src 'self' 'unsafe-eval'  https://fonts.googleapis.com https://code.jquery.com; object-src 'self'",
   web_accessible_resources: [
     // 'panel.html',
     'js/content.js'
