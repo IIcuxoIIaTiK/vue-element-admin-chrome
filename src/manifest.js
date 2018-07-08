@@ -126,7 +126,6 @@ module.exports = {
     run_at: 'document_idle',
     matches: [
       // '<all_urls>',
-      'https://*.sniperkit.com/*',
       'https://github.com/*'
     ],
     all_frames: false
