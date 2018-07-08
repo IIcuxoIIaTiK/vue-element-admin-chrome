@@ -5,6 +5,11 @@
 - npm v6.1.0
 - yarn v1.7.0
 
+### Requirements
+* Node >= v5
+* NPM >= v3
+* Webpack v3
+
 ## Goals
 1. **use vue-admin-element as a sidepanel to unify/integrate some useful features for github/gitlab/bitbucket browsing:**
   - examples:
