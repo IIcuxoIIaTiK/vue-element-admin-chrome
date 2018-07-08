@@ -40,7 +40,9 @@ $ npm run build # or yarn build
 3. Explore Extension
 ![Imgur](https://i.imgur.com/JR98wXP.png)
 
-### References
+### Credits
+- https://github.com/PanJiaChen/vueAdmin-template
+- https://github.com/PanJiaChen/vue-element-admin
 - https://github.com/YuraDev/vue-chrome-extension-template
 - https://github.com/ALiangLiang/vue-webpack-chrome-extension-template
 - https://github.com/cucygh/vue-chrome-extension-example#/dashboard
