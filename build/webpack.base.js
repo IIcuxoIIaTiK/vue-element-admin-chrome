@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-// const webpack = require('webpack-stream')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ChromeReloadPlugin = require('wcer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -14,15 +13,15 @@ let resolve = (dir) => path.join(rootDir, 'src', dir)
 module.exports = {
   entry: {
     // popup
-    // popup: resolve('./popup'),
-    // tab: resolve('./tab'),
+    popup: resolve('./popup'),
+    tab: resolve('./tab'),
     // options
-    // options: resolve('./options'),
+    options: resolve('./options'),
     // content
     content: resolve('./content'),
     // devtool
-    // devtools: resolve('./devtools'),
-    // panel: resolve('./devtools/panel'),
+    devtools: resolve('./devtools'),
+    panel: resolve('./devtools/panel'),
     // background
     background: resolve('./background'),
   },
@@ -38,7 +37,6 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': path.join(rootDir, 'src')
-      // '@': resolve('src')
     }
   },
   module: {
@@ -98,19 +96,18 @@ module.exports = {
   plugins: [
 	new CleanWebpackPlugin(['*'], { root: path.join(rootDir, 'dist') }),
     // Customize your extension structure.
-    // Customize your extension structure.
     // popup-tab
-    // htmlPage('home', 'app', ['manifest', 'vendor', 'tab']),
-    // htmlPage('popup', 'popup', ['manifest', 'vendor', 'popup']),
+    htmlPage('home', 'app', ['manifest', 'vendor', 'tab']),
+    htmlPage('popup', 'popup', ['manifest', 'vendor', 'popup']),
     // dev-tools
-    // htmlPage('panel', 'panel', ['manifest', 'vendor', 'panel']),
-    // htmlPage('devtools', 'devtools', ['manifest', 'vendor', 'devtools']),
+    htmlPage('panel', 'panel', ['manifest', 'vendor', 'panel']),
+    htmlPage('devtools', 'devtools', ['manifest', 'vendor', 'devtools']),
     // options/settings page
-    // htmlPage('options', 'options', ['manifest', 'vendor', 'options']),
+    htmlPage('options', 'options', ['manifest', 'vendor', 'options']),
     // background scripts
     htmlPage('background', 'background', ['manifest', 'vendor', 'background']),
     // content scripts
-    // htmlPage('content', 'content', ['manifest', 'vendor', 'content']),
+    htmlPage('content', 'content', ['manifest', 'vendor', 'content']),
     // End customize
     new CopyWebpackPlugin([{ from: path.join(rootDir, 'static') }]),
     new ChromeReloadPlugin({

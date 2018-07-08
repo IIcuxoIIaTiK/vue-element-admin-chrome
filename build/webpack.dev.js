@@ -1,5 +1,4 @@
 const webpack = require('webpack')
-// const webpack = require('webpack-stream')
 const merge = require('webpack-merge')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const ZipPlugin = require('zip-webpack-plugin')
@@ -11,7 +10,7 @@ module.exports = merge(baseWebpack, {
   module: { rules: styleLoaders({ sourceMap: false }) },
   devtool: '#cheap-module-source-map',
   plugins: [
-    // new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
     new FriendlyErrorsPlugin(),
     new ZipPlugin({
