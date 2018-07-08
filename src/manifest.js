@@ -28,7 +28,6 @@ module.exports = {
     'tabCapture',
     'clipboardWrite',
     'clipboardRead',
-    'https://*.sniperkit.com/*',
     'http://github.com/',
     'https://github.com/'
   ],
