@@ -18,6 +18,14 @@ eadmin-extension.prod.zip
 eadmin-extension.dev.zip
 extension.zip
 
+*.pem
+*.crt
+*.key
+
+.secret*
+.env
+secret.*
+
 .dev
 .dev/
 .dev/*
