@@ -2,6 +2,22 @@ const { resolve } = require('path')
 const { extract } = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+// auto increaseVersion of manifest.json
+exports.increaseVersion = (package) => {
+  if (increaseVersion.versionUpdated) return
+  increaseVersion.versionUpdated = true
+
+  let version = package.version
+  const max = 20
+  const vs = version.split('.').map(i => +i)
+  let len = vs.length
+  while (len--) {
+    if (++vs[len] < max) break
+    vs[len] = 0
+  }
+  package.version = vs.join('.')
+}
+
 exports.htmlPage = (title, filename, chunks, template) => new HtmlWebpackPlugin({
   title,
   hash: true,

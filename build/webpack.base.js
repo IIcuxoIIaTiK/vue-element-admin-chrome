@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const chalk = require('chalk')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ChromeReloadPlugin = require('wcer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -64,6 +65,31 @@ module.exports = {
           image: 'xlink:href'
         }
       }
+
+    // }, {
+    //  test: /\.css$/,
+    //  use: ["style-loader", "css-loader", "postcss-loader"]
+
+    /*
+    }, {
+      test: /\.css$/,
+      exclude: /node_modules/,
+      use: [
+          {
+              loader: 'style-loader',
+          },
+          {
+              loader: 'css-loader',
+              options: {
+                  importLoaders: 1,
+              }
+          },
+          {
+              loader: 'postcss-loader'
+          }
+      ]
+    */
+
     }, {
       test: /\.js$/,
       loader: 'babel-loader',
