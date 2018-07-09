@@ -1,4 +1,4 @@
- //覆盖一些element-ui样式
+ // Cover some element-ui styles
 
  .el-breadcrumb__inner, .el-breadcrumb__inner a{
   font-weight: 400!important;
@@ -44,7 +44,7 @@
    }
  }
 
- //暂时性解决dialog 问题 https://github.com/ElemeFE/element/issues/2461
+ // Temporarily solve the problem of dialog: https://github.com/ElemeFE/element/issues/2461
  .el-dialog {
    transform: none;
    left: 0;
@@ -52,7 +52,7 @@
    margin: 0 auto;
  }
 
- //文章页textarea修改样式
+ // Article page textarea modification style
  .article-textarea {
    textarea {
      padding-right: 40px;

@@ -4,7 +4,9 @@
 	  <content-placeholders-heading />
 	</content-placeholders>
 </default>
+
 <script>
 </script>
+
 <style>
 </style>
