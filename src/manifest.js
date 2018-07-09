@@ -69,7 +69,7 @@ module.exports = {
       'js/2.2.js',
       'js/3.3.js',
       'js/4.4.js',
-      // 'js/5.5.js',
+      'js/5.5.js',
       // 'js/inject.js',
       'js/content.js'
     ],

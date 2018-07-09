@@ -1,4 +1,4 @@
-const { resolve } = require('./utils')
+const { resolve } = require('path')
 
 module.exports = {
   name: 'chrome-ext',

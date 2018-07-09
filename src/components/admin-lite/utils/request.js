@@ -3,10 +3,24 @@ import { Message, MessageBox } from 'element-ui'
 import store from '../store'
 import { getToken } from '@/components/admin-lite/utils/auth'
 
+// nb. temporary hack to switch between env or local backend, needs to be moved and wrapped by webpack...
+export function checkBackendApiEnv () {
+  var baseAPI = process.env.BASE_API
+  if (typeof process.env.BASE_API === 'undefined' || !process.env.BASE_API) {
+    baseAPI = 'http://localhost:3000/api'
+  }
+  // add override case by passing argument to function...
+  return baseAPI
+}
+
+console.log('process.env.BASE_API', process.env.BASE_API)
+console.log('checkBackendApiEnv()', checkBackendApiEnv())
+
 // Create an axios instance
 const service = axios.create({
-  baseURL: process.env.BASE_API, // Api's base_url
+  baseURL: checkBackendApiEnv(), // Api's base_url or local backend (dockerized or not...)
   timeout: 5000 // Request timeout
+  // headers: {'X-Custom-Header': 'foobar'}
 })
 
 // Request interceptor
