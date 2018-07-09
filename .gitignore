@@ -8,5 +8,12 @@ node_modules
 npm-debug.log
 *.log
 
+dist
+dist/
+dist/*
+dist/**
+
+eadmin-extension.prod.zip
+eadmin-extension.dev.zip
 # Backpack build
 # extension.zip

@@ -19,8 +19,7 @@
 </template>
 
 <script>
-// import AdminPanel from '@/content/components/admin/content.vue'
-import AdminPanel from '@/content/components/admin-lite/root.vue'
+import AdminPanel from '@/components/admin-lite/root.vue'
 
 export default {
   name: 'App',

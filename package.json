@@ -12,6 +12,7 @@
     ]
   },
   "dependencies": {
+    "@finpo/vue2-dependency-selector": "^0.1.0",
     "@formschema/native": "^1.1.1",
     "@google-cloud/vision": "^0.20.0",
     "@vuex-orm/plugin-search": "^0.23.4",
@@ -129,6 +130,7 @@
     "vue-relay": "^1.6.0",
     "vue-resource": "^1.5.1",
     "vue-router": "3.0.1",
+    "vue-select": "^2.4.0",
     "vue-simple-events": "^1.1.2",
     "vue-socket-cluster": "^1.0.3",
     "vue-socket.io": "^2.1.1-b",
@@ -137,6 +139,7 @@
     "vue-super": "^0.1.0",
     "vue-sync": "^3.2.0",
     "vue-text-highlight": "^1.1.1",
+    "vue-time-slot": "^0.0.1",
     "vue-uuid": "^1.0.0",
     "vue-wamp": "^1.6.1",
     "vue-websocket": "^0.2.2",
@@ -147,6 +150,7 @@
     "vuedraggable": "^2.16.0",
     "vuejs-storage": "^2.4.0",
     "vuency": "^0.1.7",
+    "vuequery": "^1.0.0",
     "vuex": "3.0.1",
     "vuex-api": "^0.1.8",
     "vuex-cache": "^1.1.1",
