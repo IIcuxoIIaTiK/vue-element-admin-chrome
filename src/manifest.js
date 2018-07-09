@@ -70,11 +70,11 @@ module.exports = {
       'js/3.3.js',
       'js/4.4.js',
       'js/5.5.js',
-      // 'js/inject.js',
+      'js/6.6.js',
       'js/content.js'
     ],
-    run_at: 'document_end',
-    // run_at: 'document_idle',
+    // run_at: 'document_end',
+    run_at: 'document_idle',
     matches: [
       // '<all_urls>',
       'https://github.com/*'

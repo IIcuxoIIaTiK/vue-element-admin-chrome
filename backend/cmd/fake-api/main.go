@@ -1,20 +1,31 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"os/signal"
 	"path/filepath"
 
-	"github.com/jijeshmohan/janus/config"
-	"github.com/jijeshmohan/janus/server"
+	"github.com/sniperkit/janus/config"
+	"github.com/sniperkit/janus/server"
 )
 
 const VERSION = "1.3.0"
 
+var (
+	currentWorkDir, _ = os.Getwd()
+	configPrefixPath  = flag.String("config-dir", currentWorkDir, "Config prefix path")
+	configFilename    = flag.String("config-file", "config.json", "Config filename")
+	resDefaultDir     = filepath.Join(currentWorkDir, "data")
+	resPrefixPath     = flag.String("resource-dir", resDefaultDir, "Resources prefix path")
+)
+
 func main() {
 	fmt.Printf("Janus - fake rest api server (%s) \n", VERSION)
-	c := getConfig()
+	flag.Parse()
+
+	c := getConfig(*configPrefixPath, *configFilename, *resPrefixPath)
 
 	go server.Start(c)
 	ch := make(chan os.Signal, 1)
@@ -25,19 +36,17 @@ func main() {
 }
 
 // getConfig get the configuration from the config file.
-func getConfig() *config.Config {
-	path, err := os.Getwd()
+func getConfig(configPrefixPath, configFilename, resPrefixPath string) *config.Config {
+	configFile := filepath.Join(configPrefixPath, configFilename)
+	c, err := config.ParseFile(configFile)
 	if err != nil {
-		fmt.Println("Unable to get the current working directory")
+		fmt.Printf("Config prefix path: %s\n", configPrefixPath)
+		fmt.Printf("Config file name: %s\n", configFilename)
+		fmt.Printf("Config file path: %s\n", configFile)
+		fmt.Printf("Loading config error: %s\n", err.Error())
 		os.Exit(1)
 	}
 
-	c, err := config.ParseFile(filepath.Join(path, "config.json"))
-	if err != nil {
-		fmt.Printf("Config file error: %s\n", err.Error())
-		os.Exit(1)
-	}
-
-	c.Path = path
+	c.Path = resPrefixPath
 	return c
 }
