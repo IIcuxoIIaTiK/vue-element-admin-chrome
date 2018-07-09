@@ -37,6 +37,35 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/vcs',
+    component: Layout,
+    redirect: '/vcs/github-search',
+    name: 'Vcs',
+    meta: { title: 'VCS', icon: 'vcs' },
+    children: [
+      {
+        path: 'github-search',
+        name: 'GithubSearch',
+        component: () => import('@/components/admin-lite/views/vcs/github/search.vue'),
+        meta: { title: 'Github Search', icon: 'github-search' }
+      }
+      /*,
+      {
+        path: 'gitlab',
+        name: 'Gitlab',
+        component: () => import('@/components/admin-lite/views/vcs/gitlab/index'),
+        meta: { title: 'Gitlab', icon: 'gitlab' }
+      },
+      {
+        path: 'bitbucket',
+        name: 'Bitbucket',
+        component: () => import('@/components/admin-lite/views/vcs/bitbucket/index'),
+        meta: { title: 'Bitbucket', icon: 'bitbucket' }
+      }*/
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',

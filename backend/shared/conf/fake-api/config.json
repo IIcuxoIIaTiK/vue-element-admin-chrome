@@ -102,6 +102,12 @@
       "status": 200,
       "method": "GET",
       "file": "../../testdata/fake-api/vcs/gh-search.json"
+    },
+    {
+      "url": "/api/vcs/github/tree",
+      "status": 200,
+      "method": "GET",
+      "file": "../../testdata/fake-api/vcs/gh-tree.json"
     }
   ]
 }
