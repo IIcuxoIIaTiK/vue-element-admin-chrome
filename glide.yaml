@@ -1,0 +1,7 @@
+package: github.com/sniperkit/vue-element-admin-chrome
+import:
+- package: github.com/fsnotify/fsnotify
+- package: github.com/jijeshmohan/janus
+  subpackages:
+  - config
+  - server

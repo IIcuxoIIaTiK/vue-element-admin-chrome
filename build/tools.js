@@ -77,3 +77,49 @@ exports.styleLoaders = function (options) {
   }
   return output
 }
+
+exports.createNotifierCallback = () => {
+  const notifier = require('node-notifier')
+
+  return (severity, errors) => {
+    if (severity !== 'error') return
+
+    const error = errors[0]
+    const filename = error.file && error.file.split('!').pop()
+
+    notifier.notify({
+      title: packageConfig.name,
+      message: severity + ': ' + error.name,
+      subtitle: filename || '',
+      icon: path.join(__dirname, 'logo.png')
+    })
+  }
+}
+
+const PageOptions = {
+  title: '',
+  hash: true,
+  cache: true,
+  inject: 'body',
+  filename: 'pages/temp.html',
+  template: resolve('./page.ejs'),
+  appMountId: 'app',
+  chunks: [],
+}
+
+exports.page = options => {
+  const {
+    title,
+    name,
+    chunks,
+    template
+  } = options
+  return new HtmlWebpackPlugin(Object.assign({}, PAGE_OPTIONS, {
+    title,
+    chunks,
+    template: template || PAGE_OPTIONS.template,
+    filename: `pages/${name}.html`
+  }))
+}
+
+exports.assetsPath = p => path.posix.join('assets', p)

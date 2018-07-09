@@ -13,7 +13,57 @@ dist/
 dist/*
 dist/**
 
+# Backpack build
 eadmin-extension.prod.zip
 eadmin-extension.dev.zip
-# Backpack build
-# extension.zip
+extension.zip
+
+.dev
+.dev/
+.dev/*
+.dev/**
+
+bin
+bin/
+bin/*
+bin/**
+
+vendor
+vendor/
+vendor/*
+vendor/**
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Folders
+_obj
+_test
+__pycache__
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+*.cgo1.go
+*.cgo2.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+
+_testmain.go
+
+*.exe
+*.test
+*.prof
+.idea/
+*.iml
+.gx/
+dist
+
+# Development environment files
+.ackrc
+.tags*
+*.sw?

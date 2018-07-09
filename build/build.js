@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const Crx = require("crx-webpack-plugin")
 const generatePem = require('./generate-pem')
-const prodConf = require('./webpack.prod.conf')
+const prodConf = require('./webpack.prod')
 const crxConf = require('./crx-conf')
 
 generatePem(crxConf.keyPath).then(info => {

@@ -3,12 +3,12 @@
 const path = require('path')
 const fs = require('fs')
 
-const BUNDLE_DIR = path.join(__dirname, '../dist')
+const BUNDLE_DIR = path.join(__dirname, '../dist/js')
 const bundles = [
   'background.js',
   'options.js',
   'popup.js',
-  'contentScripts/index.js'
+  'content.js'
 ]
 
 const evalRegexForProduction = /;([a-z])=function\(\){return this}\(\);try{\1=\1\|\|Function\("return this"\)\(\)\|\|\(0,eval\)\("this"\)}catch\(t\){"object"==typeof window&&\(\1=window\)}/g
