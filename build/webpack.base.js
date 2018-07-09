@@ -110,6 +110,11 @@ module.exports = {
     htmlPage('content', 'content', ['manifest', 'vendor', 'content']),
     // End customize
     new CopyWebpackPlugin([{ from: path.join(rootDir, 'static') }]),
+    /*
+    new WebpackShellPlugin({
+      onBuildEnd: ['node scripts/remove-evals.js'],
+    }),
+    */
     new ChromeReloadPlugin({
       port: 9090,
       manifest: path.join(rootDir, 'src', 'manifest.js')
