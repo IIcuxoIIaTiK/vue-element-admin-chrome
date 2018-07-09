@@ -19,6 +19,8 @@ module.exports = {
     options: resolve('./options'),
     // content
     content: resolve('./content'),
+    // components
+    // components: resolve('./components'),
     // devtool
     devtools: resolve('./devtools'),
     panel: resolve('./devtools/panel'),
@@ -108,6 +110,8 @@ module.exports = {
     htmlPage('background', 'background', ['manifest', 'vendor', 'background']),
     // content scripts
     htmlPage('content', 'content', ['manifest', 'vendor', 'content']),
+    // components
+    // htmlPage('components', 'components', ['manifest', 'vendor', 'components']),
     // End customize
     new CopyWebpackPlugin([{ from: path.join(rootDir, 'static') }]),
     /*

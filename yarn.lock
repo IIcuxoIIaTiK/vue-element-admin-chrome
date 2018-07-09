@@ -133,6 +133,10 @@
     quicktask "1.1.0"
     xstream "10.x || 11.x"
 
+"@finpo/vue2-dependency-selector@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@finpo/vue2-dependency-selector/-/vue2-dependency-selector-0.1.0.tgz#4f282539c4432664f1f4452cb7d7f7d9806c87c5"
+
 "@formschema/native@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@formschema/native/-/native-1.1.1.tgz#52b69b7ea5c6c28e3083fa229aef2f42f5af21f9"
@@ -12738,6 +12742,10 @@ vue-router@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
 
+vue-select@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-2.4.0.tgz#ef06547fe857f3259841ab2f3d29c5d8a1e52630"
+
 vue-simple-events@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vue-simple-events/-/vue-simple-events-1.1.2.tgz#caebc81bd293b6abff4969d8e5f21b66c996a858"
@@ -12808,6 +12816,10 @@ vue-text-highlight@^1.1.1:
   dependencies:
     clone-regexp "^2.1.0"
 
+vue-time-slot@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/vue-time-slot/-/vue-time-slot-0.0.1.tgz#a239051c08c80efe4b0528d26bea41ffa92225bc"
+
 vue-uuid@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/vue-uuid/-/vue-uuid-1.0.0.tgz#eaf7631e1c5fcabcd06c0031caa5f7dab740c90d"
@@ -12848,7 +12860,7 @@ vue@2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.1.6.tgz#2fc0024c07479ac6bc7d34a2cd5ef9ca5e90b143"
 
-vue@^2.1.8, vue@^2.3.0, vue@^2.3.4, vue@^2.4.2, vue@^2.5.10, vue@^2.5.13, vue@^2.5.14, vue@^2.5.16, vue@^2.5.2:
+vue@^2.1.6, vue@^2.1.8, vue@^2.3.0, vue@^2.3.4, vue@^2.4.2, vue@^2.5.10, vue@^2.5.13, vue@^2.5.14, vue@^2.5.16, vue@^2.5.2:
   version "2.5.16"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
@@ -12872,6 +12884,12 @@ vuency@^0.1.7:
   dependencies:
     ency "0.0.21"
     vue "^2.1.8"
+
+vuequery@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vuequery/-/vuequery-1.0.0.tgz#e61317a83c0fb1a265114ff7969a9861a99298fc"
+  dependencies:
+    vue "^2.1.6"
 
 vuestic-installer@^0.1.1:
   version "0.1.1"
