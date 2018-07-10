@@ -46,22 +46,15 @@ export const constantRouterMap = [
       {
         path: 'github-search',
         name: 'GithubSearch',
-        component: () => import('@/components/admin-lite/views/vcs/github/search.vue'),
+        component: () => import('@/components/admin-lite/views/vcs/github/search'),
         meta: { title: 'Github Search', icon: 'github-search' }
-      }
-      /*,
-      {
-        path: 'gitlab',
-        name: 'Gitlab',
-        component: () => import('@/components/admin-lite/views/vcs/gitlab/index'),
-        meta: { title: 'Gitlab', icon: 'gitlab' }
       },
       {
-        path: 'bitbucket',
-        name: 'Bitbucket',
-        component: () => import('@/components/admin-lite/views/vcs/bitbucket/index'),
-        meta: { title: 'Bitbucket', icon: 'bitbucket' }
-      }*/
+        path: 'github-tree',
+        name: 'GithubRepoTree',
+        component: () => import('@/components/admin-lite/views/vcs/github/tree'),
+        meta: { title: 'Github Tree', icon: 'github-tree' }
+      }
     ]
   },
 

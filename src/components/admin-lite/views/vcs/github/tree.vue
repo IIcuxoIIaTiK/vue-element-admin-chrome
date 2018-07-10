@@ -18,9 +18,9 @@ import { getTree } from '@/components/admin-lite/api/3rdparty/github'
 export default {
   data () {
     return {
-      tree: null,
-      treeLoading: true
-      filterText: '',
+      res: null,
+      resLoading: true,
+      filterText: ''
     }
   },
   filters: {
@@ -33,22 +33,27 @@ export default {
       return statusMap[status]
     }
   },
+  mounted () {
+    console.log('github-tree mounted')
+  },
   created () {
+    console.log('github-tree created')
     this.fetchData()
   },
   methods: {
     fetchData () {
-      this.treeLoading = true
-      getTree(this.listQuery).then(response => {
-        this.tree = response.data.tree
-        this.treeLoading = false
+      this.resLoading = true
+      console.log('github-tree fetchData')
+      getTree(this.treeQuery).then(response => {
+        this.res = response.data.tree
+        this.resLoading = false
       })
     },
     filterNode (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     }
-  }
+  },
   watch: {
     filterText (val) {
       this.$refs.tree2.filter(val)

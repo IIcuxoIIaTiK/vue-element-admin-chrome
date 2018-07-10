@@ -76,6 +76,7 @@ module.exports = {
       'js/5.5.js',
       'js/6.6.js',
       'js/7.7.js',
+      'js/8.8.js',
       'js/content.js'
     ],
     // run_at: 'document_end',
