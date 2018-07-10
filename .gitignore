@@ -14,9 +14,9 @@ dist/*
 dist/**
 
 # Backpack build
-eadmin-extension.prod.zip
-eadmin-extension.dev.zip
-extension.zip
+# eadmin-extension.prod.zip
+# eadmin-extension.dev.zip
+# extension.zip
 
 *.pem
 *.crt
