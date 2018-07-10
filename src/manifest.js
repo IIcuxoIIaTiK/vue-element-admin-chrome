@@ -24,12 +24,16 @@ module.exports = {
     'storage',
     'contextMenus',
     'cookies',
+    "webNavigation",
     'notifications',
     'tabCapture',
     'clipboardWrite',
     'clipboardRead',
     'http://github.com/',
-    'https://github.com/'
+    'https://github.com/',
+    'https://libraries.io/api/',
+    'http://localhost:3000/api/',
+    'https://localhost:3000/api/',
   ],
   browser_action: {
     default_title: 'title',
@@ -71,6 +75,7 @@ module.exports = {
       'js/4.4.js',
       'js/5.5.js',
       'js/6.6.js',
+      'js/7.7.js',
       'js/content.js'
     ],
     // run_at: 'document_end',
@@ -84,7 +89,7 @@ module.exports = {
   default_locale: 'en',
   manifest_version: 2,
   // content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  content_security_policy: "script-src 'self' 'unsafe-eval' https://fonts.googleapis.com https://code.jquery.com; object-src 'self'",
+  content_security_policy: "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com https://fonts.googleapis.com https://code.jquery.com; object-src 'self'",
   web_accessible_resources: [
     'panel.html',
     "icons/*.*",

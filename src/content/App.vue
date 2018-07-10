@@ -1,12 +1,18 @@
 <template>
   <div id="app">
-    <div  :class="['st-container', menuEffect != '' ? menuEffect : 'st-effect', menuState ? 'st-menu-open' : '']"  
+    <div :class="['st-container', 
+                  menuExtend ? 'st-menu-wide' : '',
+                  menuEffect != '' ? menuEffect : 'st-effect', 
+                  menuState ? 'st-menu-open' : '']"  
           v-click-outside="onClickOutside">
       <button :class="['snk-button', menuState ? 'snk-button-hidden' : '']" @click="openMenu">Sniperkit</button>
-      <nav :class="['st-menu', menuEffect != '' ? menuEffect : 'st-effect']">
-        <router-view></router-view>
-        <slot name="nav"></slot>
-      </nav>
+      <div v-resize:throttle.100="onResize">
+        <nav :class="['st-menu', menuEffect != '' ? menuEffect : 'st-effect']">
+          <router-view></router-view>
+          <slot name="nav"></slot>
+        </nav>
+        <resize-observer @notify="handleResize" />
+      </div>
       <div class="st-pusher" @click="closeMenu">
         <div class="st-content">
           <div id="body-wrapper" class="st-content-inner">
@@ -27,10 +33,15 @@ export default {
     AdminPanel
   },
   data: () => ({
+    // menuWidth: 300,
     menuState: false,
-    menuEffect: 'st-effect-11',
+    menuExtend: false,
+    menuEffect: 'st-effect-1',
     bodyHost: document.querySelectorAll('body > *')
   }),
+  // directives: {
+  // resize
+  // },
   computed: { },
   mounted () {
     console.log('[chrome-ext] - content mounted !!!')
@@ -44,6 +55,12 @@ export default {
     console.log('[chrome-ext] - content created !!!')
   },
   methods: {
+    handleResize (e, el) {
+      console.log('handleResize')
+    },
+    changeSize (w) {
+      document.getElementById('st-menu').width = w
+    },
     onClickOutside (e, el) {
       console.log('onClickOutside')
       if (this.menuState) {
@@ -186,18 +203,24 @@ export default {
     transition: opacity 0.5s;
   }
 
+  .st-menu-wide {
+    width: 950px!important;    
+  }
+
   .st-menu {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 100;
     visibility: hidden;
-    width: 550px;
+    width: 1000px;
     height: 100%;
     /* background: rgba(0,0,0,0.8); */
     background: #eee;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
+    resize: horizontal;
+    overflow: auto;
   }
 
   .st-menu::after {

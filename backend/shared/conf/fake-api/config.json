@@ -31,6 +31,32 @@
       "method": "POST"
     },
     {
+      "url": "/api/user/login",
+      "status": 200,
+      "content_type": "application/json",
+      "method": "POST",
+      "file": "../../testdata/fake-api/user/login.json"
+    },
+    {
+      "url": "/api/user/logout",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "url": "/api/user/info?token=admin",
+      "status": 200,
+      "content_type": "application/json",
+      "method": "GET",
+      "file": "../../testdata/fake-api/user/info.admin.json"
+    },
+    {
+      "url": "/api/table/list",
+      "status": 200,
+      "content_type": "application/json",
+      "method": "GET",
+      "file": "../../testdata/fake-api/table/list.json"
+    },
+    {
       "url": "/api/accounts",
       "status": 200,
       "content_type": "application/json",

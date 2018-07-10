@@ -19,8 +19,8 @@ console.log('checkBackendApiEnv()', checkBackendApiEnv())
 // Create an axios instance
 const service = axios.create({
   baseURL: checkBackendApiEnv(), // Api's base_url or local backend (dockerized or not...)
-  timeout: 5000 // Request timeout
-  // headers: {'X-Custom-Header': 'foobar'}
+  timeout: 5000, // Request timeout
+  headers: {'X-Auth-Token': 'sample_token'}
 })
 
 // Request interceptor
@@ -31,7 +31,9 @@ service.interceptors.request.use(config => {
   return config
 }, error => {
   // Do something with request error
-  console.log(error) // for debug
+  if (store.getters.debug) {
+    console.log(error) // for debug
+  }
   Promise.reject(error)
 })
 
@@ -41,8 +43,16 @@ service.interceptors.response.use(
   /**
   * Code is non-20000 is a mistake can be combined with their own business to modify
   */
+    if (store.getters.debug) {
+      console.log('service.interceptors.response', response)
+      console.log('service.interceptors.response.status', response.status)
+      console.log('service.interceptors.response.data', response.data)
+    }
+
     const res = response.data
-    if (res.code !== 20000) {
+
+    if (response.status !== 200) {
+    // if (res.status !== 20000 || res.status !== 200) {
       Message({
         message: res.message,
         type: 'error',
@@ -50,7 +60,17 @@ service.interceptors.response.use(
       })
 
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+      // write a better wrapper for codeStatus error classification/notification
+      /*
+        eg:
+        func (this StatusCode) Informational() bool { return this >= 100 && this < 200 }
+        func (this StatusCode) Successful() bool    { return this >= 200 && this < 300 }
+        func (this StatusCode) Redirection() bool   { return this >= 300 && this < 400 }
+        func (this StatusCode) BadRequest() bool    { return this >= 400 && this < 500 }
+        func (this StatusCode) ServerError() bool   { return this >= 500 && this < 600 }
+      */
+      if (response.status === 500) {
+      // if (res.status === 50008 || res.status === 50012 || res.status === 50014 || res.status === 500) {
         MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
           confirmButtonText: 're-signin',
           cancelButtonText: 'cancel',
@@ -61,13 +81,15 @@ service.interceptors.response.use(
           })
         })
       }
-      return Promise.reject(new Error('error'))
+      return Promise.reject(new Error('error, status: ' + response.status))
     } else {
       return response.data
     }
   },
   error => {
-    console.log('err' + error)// for debug
+    if (store.getters.debug) {
+      console.log('err' + error) // for debug
+    }
     Message({
       message: error.message,
       type: 'error',

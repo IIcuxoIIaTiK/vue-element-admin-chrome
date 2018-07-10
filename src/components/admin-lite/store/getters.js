@@ -1,4 +1,7 @@
 const getters = {
+  gateway: state => state.gateway.config,
+  extension: state => state.extension,
+  debug: state => state.app.debug,
   sidebar: state => state.app.sidebar,
   language: state => state.app.language,
   device: state => state.app.device,
