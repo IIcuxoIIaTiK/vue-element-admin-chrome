@@ -4,16 +4,16 @@
     <el-tree class="filter-tree" 
         :data="res" 
         :props="defaultProps" 
-        default-expand-all 
         :filter-node-method="filterNode" 
+        v-loading.body="resLoading" 
         ref="tree2">
     </el-tree>
-
   </div>
 </template>
 
 <script>
 import { getTree } from '@/components/admin-lite/api/3rdparty/github'
+var _ = require('lodash/core')
 
 export default {
   data () {
@@ -24,7 +24,9 @@ export default {
       defaultProps: {
         children: 'children',
         size: 'size',
-        label: 'path'
+        label: 'path',
+        type: 'type',
+        url: 'url'
       }
     }
   },
@@ -39,24 +41,64 @@ export default {
     }
   },
   mounted () {
-    console.log('github-tree mounted')
+    // console.log('github-tree mounted')
   },
   created () {
-    console.log('github-tree created')
+    // console.log('github-tree created')
     this.fetchData()
   },
   methods: {
     fetchData () {
       this.resLoading = true
-      console.log('github-tree fetchData')
+      // console.log('github-tree fetchData')
       getTree(this.treeQuery).then(response => {
-        this.res = response.tree
+        var res
+        this.arrangeIntoTree(response.tree, function (tree) {
+          // console.log('tree: ', tree)
+          res = _.sortBy(tree, ['type'], ['asc'])
+        })
+        // console.log('res: ', res)
+        this.res = res
+        // console.log('this.res: ', this.res)
         this.resLoading = false
       })
     },
     filterNode (value, data) {
       if (!value) return true
       return data.path.indexOf(value) !== -1
+    },
+    arrangeIntoTree (entries, cb) {
+      var tree = []
+      _.each(entries, function (e) {
+        var pathParts = e.path.split('/')
+        pathParts.shift() // Remove first blank element from the parts array.
+        var currentLevel = tree // initialize currentLevel to root
+        _.each(pathParts, function (part) {
+          // check to see if the path already exists.
+          var existingPath = _.find(currentLevel, {path: part})
+          if (existingPath) {
+            // The path to this item was already in the tree, so don't add it again.
+            // Set the current level to this path's children
+            currentLevel = existingPath.children
+          } else {
+            // humanize ?!
+            var size = e.size
+            if (e.size === undefined) {
+              size = 0
+            }
+            var newPart = {
+              path: part,
+              children: [],
+              type: e.type,
+              size: size,
+              url: e.url
+            }
+            currentLevel.push(newPart)
+            currentLevel = newPart.children
+          }
+        })
+      })
+      cb(tree)
     }
   },
   watch: {
