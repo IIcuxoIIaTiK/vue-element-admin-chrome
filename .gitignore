@@ -1,0 +1,9 @@
+*.bleve
+debug
+.DS_Store
+config.toml
+import
+index
+crec
+*.test
+*.prof
