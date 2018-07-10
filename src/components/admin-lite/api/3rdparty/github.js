@@ -1,6 +1,6 @@
 import request from '@/components/admin-lite/utils/request'
 
-export function getList (params) {
+export function getSearchResults (params) {
   return request({
     url: '/vcs/github/search',
     method: 'get',

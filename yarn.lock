@@ -2997,6 +2997,10 @@ css-color-names@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
 
+css-element-queries@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/css-element-queries/-/css-element-queries-0.4.0.tgz#cb5bcde9d980ac3699e7471f798e70600088d3de"
+
 css-line-break@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/css-line-break/-/css-line-break-1.0.1.tgz#19f2063a33e95fb2831b86446c0b80c188af450a"
@@ -13212,6 +13216,17 @@ vue-relay@^1.6.0:
   dependencies:
     fbjs "^0.8.16"
     relay-runtime "^1.6.0"
+
+vue-resize-directive@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-resize-directive/-/vue-resize-directive-1.0.1.tgz#8d3d5e44e1b5b850d4c0bda8f1ed063e9d5406e2"
+  dependencies:
+    css-element-queries "^0.4.0"
+    lodash.debounce "^4.0.8"
+
+vue-resize@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/vue-resize/-/vue-resize-0.4.4.tgz#dee9b8dd1b189e7e3f6ec47f86c60694a241bb17"
 
 vue-resource@1.0.3:
   version "1.0.3"

@@ -4,6 +4,8 @@ import Vue from 'vue'
 // external - components
 // --> https://github.com/nchutchind/vue-outside-events
 import vOutsideEvents from 'vue-outside-events'
+import vResize from 'vue-resize'
+import 'vue-resize/dist/vue-resize.css'
 
 import 'normalize.css/normalize.css'// A modern alternative to CSS resets
 
@@ -23,6 +25,8 @@ import '@/components/admin-lite/icons' // icon
 Vue.use(ElementUI, { locale })
 
 Vue.use(vOutsideEvents)
+// Vue.use(vResize)
+Vue.component('resize-observer', vResize.ResizeObserver)
 
 Vue.config.productionTip = false
 
