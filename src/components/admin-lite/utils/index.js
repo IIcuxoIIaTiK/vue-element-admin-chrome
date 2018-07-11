@@ -2,7 +2,7 @@
  * Created by jiachenpan on 16/11/18.
  */
 
-export function parseTime(time, cFormat) {
+export function parseTime (time, cFormat) {
   if (arguments.length === 0) {
     return null
   }
@@ -23,7 +23,7 @@ export function parseTime(time, cFormat) {
     s: date.getSeconds(),
     a: date.getDay()
   }
-  const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
+  const timeStr = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key]
     if (key === 'a') return ['one', 'two', 'three', 'four', 'five', 'six', 'day'][value - 1]
     if (result.length > 0 && value < 10) {
@@ -31,10 +31,10 @@ export function parseTime(time, cFormat) {
     }
     return value || 0
   })
-  return time_str
+  return timeStr
 }
 
-export function formatTime(time, option) {
+export function formatTime (time, option) {
   time = +time * 1000
   const d = new Date(time)
   const now = Date.now()
@@ -58,7 +58,7 @@ export function formatTime(time, option) {
 }
 
 // 格式化时间
-export function getQueryObject(url) {
+export function getQueryObject (url) {
   url = url == null ? window.location.href : url
   const search = url.substring(url.lastIndexOf('?') + 1)
   const obj = {}
@@ -78,7 +78,7 @@ export function getQueryObject(url) {
  * @param {Sting} val input value
  * @returns {number} output value
  */
-export function getByteLen(val) {
+export function getByteLen (val) {
   let len = 0
   for (let i = 0; i < val.length; i++) {
     if (val[i].match(/[^\x00-\xff]/ig) != null) {
@@ -88,7 +88,7 @@ export function getByteLen(val) {
   return Math.floor(len)
 }
 
-export function cleanArray(actual) {
+export function cleanArray (actual) {
   const newArray = []
   for (let i = 0; i < actual.length; i++) {
     if (actual[i]) {
@@ -98,7 +98,7 @@ export function cleanArray(actual) {
   return newArray
 }
 
-export function param(json) {
+export function param (json) {
   if (!json) return ''
   return cleanArray(Object.keys(json).map(key => {
     if (json[key] === undefined) return ''
@@ -107,7 +107,7 @@ export function param(json) {
   })).join('&')
 }
 
-export function param2Obj(url) {
+export function param2Obj (url) {
   const search = url.split('?')[1]
   if (!search) {
     return {}
@@ -115,13 +115,13 @@ export function param2Obj(url) {
   return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
 }
 
-export function html2Text(val) {
+export function html2Text (val) {
   const div = document.createElement('div')
   div.innerHTML = val
   return div.textContent || div.innerText
 }
 
-export function objectMerge(target, source) {
+export function objectMerge (target, source) {
   /* Merges two  objects,
      giving the last one precedence */
   if (typeof target !== 'object') {
@@ -141,7 +141,7 @@ export function objectMerge(target, source) {
   return target
 }
 
-export function scrollTo(element, to, duration) {
+export function scrollTo (element, to, duration) {
   if (duration <= 0) return
   const difference = to - element.scrollTop
   const perTick = difference / duration * 10
@@ -153,7 +153,7 @@ export function scrollTo(element, to, duration) {
   }, 10)
 }
 
-export function toggleClass(element, className) {
+export function toggleClass (element, className) {
   if (!element || !className) {
     return
   }
@@ -170,7 +170,7 @@ export function toggleClass(element, className) {
 export const pickerOptions = [
   {
     text: 'Today',
-    onClick(picker) {
+    onClick (picker) {
       const end = new Date()
       const start = new Date(new Date().toDateString())
       end.setTime(start.getTime())
@@ -178,7 +178,7 @@ export const pickerOptions = [
     }
   }, {
     text: 'Last week',
-    onClick(picker) {
+    onClick (picker) {
       const end = new Date(new Date().toDateString())
       const start = new Date()
       start.setTime(end.getTime() - 3600 * 1000 * 24 * 7)
@@ -186,7 +186,7 @@ export const pickerOptions = [
     }
   }, {
     text: 'Last month',
-    onClick(picker) {
+    onClick (picker) {
       const end = new Date(new Date().toDateString())
       const start = new Date()
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
@@ -194,7 +194,7 @@ export const pickerOptions = [
     }
   }, {
     text: 'Last 3 months',
-    onClick(picker) {
+    onClick (picker) {
       const end = new Date(new Date().toDateString())
       const start = new Date()
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
@@ -202,7 +202,7 @@ export const pickerOptions = [
     }
   }]
 
-export function getTime(type) {
+export function getTime (type) {
   if (type === 'start') {
     return new Date().getTime() - 3600 * 1000 * 24 * 90
   } else {
@@ -210,10 +210,10 @@ export function getTime(type) {
   }
 }
 
-export function debounce(func, wait, immediate) {
+export function debounce (func, wait, immediate) {
   let timeout, args, context, timestamp, result
 
-  const later = function() {
+  const later = function () {
     // get the last trigger interval
     const last = +new Date() - timestamp
 
@@ -230,7 +230,7 @@ export function debounce(func, wait, immediate) {
     }
   }
 
-  return function(...args) {
+  return function (...args) {
     context = this
     timestamp = +new Date()
     const callNow = immediate && !timeout

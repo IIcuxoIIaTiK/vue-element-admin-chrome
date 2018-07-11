@@ -4,7 +4,9 @@
 - faceted search
 - elastic
 - json schema
-- 
+- node 
+- flow based
+- data flow
 
 ## List
 - Control flow
