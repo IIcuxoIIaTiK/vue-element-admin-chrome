@@ -1,6 +1,8 @@
 # IDE
 .vscode
 
+.staging
+
 # dependencies
 node_modules
 

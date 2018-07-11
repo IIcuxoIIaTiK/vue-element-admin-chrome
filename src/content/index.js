@@ -25,7 +25,6 @@ import '@/components/admin-lite/icons' // icon
 Vue.use(ElementUI, { locale })
 
 Vue.use(vOutsideEvents)
-// Vue.use(vResize)
 Vue.component('resize-observer', vResize.ResizeObserver)
 
 Vue.config.productionTip = false

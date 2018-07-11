@@ -3570,6 +3570,10 @@ chownr@^1.0.1, chownr@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.0.1.tgz#e2a75042a9551908bebd25b8523d5f9769d79181"
 
+chrome-promise@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/chrome-promise/-/chrome-promise-3.0.2.tgz#31e273e32ef10eb86a8cb4d61c7a843362d29463"
+
 chrome-webstore-upload-cli@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/chrome-webstore-upload-cli/-/chrome-webstore-upload-cli-1.1.1.tgz#3f8a3211c4d6f474ba3ca597e2bcb9aab227d44b"

@@ -1,9 +1,0 @@
-ID = "cnn-topstories"
-Description = "CNN news feed / Top stories"
-URL = "www.cnn.com"
-ContentURL = "http://rss.cnn.com/rss/cnn_topstories.rss"
-Processors = ["ExternalLinkRemover"]
-Regions = ["US"]
-Language = "en"
-MaxContentAge = 3
-Domains = {"orf.at"=0.9, "news.google.com"=0.8}

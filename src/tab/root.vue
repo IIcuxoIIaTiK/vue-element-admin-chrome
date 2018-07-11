@@ -1,9 +1,12 @@
-<template lang="pug">
-    div
-      el-button(type="primary" @click="tab") New tab 
+<template>
+  <div id="app">
+    <what-did-you-do></what-did-you-do>
+  </div>
 </template>
+
 <script>
   export default {
+    name: 'snk-extension-tab',
     data: () => ({
     }),
     computed: { },

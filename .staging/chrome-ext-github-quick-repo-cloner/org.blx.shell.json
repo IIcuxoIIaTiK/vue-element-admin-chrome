@@ -1,9 +1,0 @@
-{
-    "name": "org.blx.shell",
-    "description": "Chrome Native Host to relay commands into the shell",
-    "path": "HOST_PATH",
-    "type": "stdio",
-    "allowed_origins": [
-        "chrome-extension://jdgockjkbkdoeohncamdpldnmbkfoimp/"
-    ]
-}
