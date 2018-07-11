@@ -134,6 +134,12 @@
       "status": 200,
       "method": "GET",
       "file": "../../testdata/fake-api/vcs/gh-tree.json"
+    },
+    {
+      "url": "/api/vcs/github/tree/large",
+      "status": 200,
+      "method": "GET",
+      "file": "../../testdata/fake-api/vcs/gh-tree.large.json"
     }
   ]
 }
