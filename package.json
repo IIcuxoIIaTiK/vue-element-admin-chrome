@@ -1,0 +1,37 @@
+{
+  "name": "better-search-for-github",
+  "version": "1.3.0",
+  "description": "Save your favorite filters when searching in github repos",
+  "main": "gulpfile.js",
+  "firefox_id": "@github-better-filters",
+  "devDependencies": {
+    "event-stream": "~3.1.5",
+    "gulp": "^3.9.1",
+    "gulp-json-editor": "^2.2.1",
+    "gulp-rimraf": "~0.1.1",
+    "gulp-shell": "^0.2.5",
+    "gulp-zip": "~0.3.4",
+    "jpm": "^1.0.7",
+    "lodash": "^3.10.0",
+    "run-sequence": "~0.3.2"
+  },
+  "dependencies": {
+    "animate.css": "^3.3.1",
+    "jquery": "^2.1.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "gulp watch",
+    "build": "gulp dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/xcambar/browser-extention.git"
+  },
+  "author": "Xavier Cambar <xcambar@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xcambar/github-better-filters/issues"
+  },
+  "homepage": "https://github.com/xcambar/github-better-filters"
+}
