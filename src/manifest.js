@@ -60,6 +60,7 @@ module.exports = {
     page: 'pages/background.html'
   },
   devtools_page: 'pages/devtools.html',
+
   options_page: 'pages/options.html',
   content_scripts: [{
     css: [

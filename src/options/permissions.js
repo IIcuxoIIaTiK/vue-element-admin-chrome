@@ -1,5 +1,6 @@
+
 import router from './router'
-import store from './store'
+import store from '@/components/admin-lite/store'
 
 import NProgress from 'nprogress' // Progress bar
 import 'nprogress/nprogress.css'// Progress bar style sheet

@@ -1,53 +1,19 @@
 <template>
   <div id="app">
-    <img src="../assets/logo.png">
-    <h1>{{ msg }}</h1>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+
+import 'normalize.css/normalize.css'// A modern alternative to CSS resets
+
+import 'element-ui/lib/theme-chalk/index.css'
+
+import '@/components/admin-lite/styles/index.scss' // local css
+import '@/components/admin-lite/icons' // icon
+
 export default {
-  name: 'app',
-  computed: { },
-  mounted () { },
-  created () {
-    console.log('options created !!!')
-  },
-  data () {
-    return {
-      msg: 'This is options page !'
-    }
-  }
+  name: 'SnkExtensionOpts'
 }
 </script>
-
-<style lang="scss">
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-
-</style>
