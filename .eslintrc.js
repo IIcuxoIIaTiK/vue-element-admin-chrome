@@ -31,6 +31,8 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    // one-var
+    'one-var': 0,
     // no-useless-escape
     'no-useless-escape': 0,
     // spaced-comment
@@ -41,7 +43,7 @@ module.exports = {
     'no-control-regex': 0,
     // allow paren-less arrow functions
     'arrow-parens': 0,
-    // 
+    // space-before-function-paren
     'space-before-function-paren': 1,
     // allow async-await
     'generator-star-spacing': 0,

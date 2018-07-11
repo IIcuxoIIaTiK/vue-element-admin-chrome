@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import root from './root.vue'
 
-// import SnkTab from './snk/root.vue'
-// import MinoTab from './mino/root.vue'
-import SnkWhatDidYouDoTab from './wdydt/root.vue'
+// import Content from './whymt.vue'
+// import store from '@/tab/whymt/store/store.js'
+import Content from './mino.vue'
+import store from '@/tab/mino/store'
 
 Vue.config.productionTip = false
 
@@ -13,11 +13,9 @@ document.body.appendChild(snkTab)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  SnkWhatDidYouDoTab,
-  // SnkMinoTab,
-  // SnkTab,
-  render: h => h(root)
-})
+  // el: "#root",
+  store: store,
+  render: h => h(Content)
+}).$mount(snkTab)
 
 console.log('[chrome-ext] - tab initialized...')

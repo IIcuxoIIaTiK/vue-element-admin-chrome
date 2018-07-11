@@ -19,9 +19,11 @@ module.exports = {
     'background',
     'unlimitedStorage',
     'storage',
+    'downloads',
+    'bookmarks',
+    'topSites',
     'nativeMessaging',
     'unlimitedStorage',
-    'storage',
     'contextMenus',
     'cookies',
     "webNavigation",
@@ -34,7 +36,13 @@ module.exports = {
     'https://libraries.io/api/',
     'http://localhost:3000/api/',
     'https://localhost:3000/api/',
+    'chrome://favicon/',
+    'http://*/*',
+    'https://*/*'
   ],
+  chrome_url_overrides: {
+    'newtab': 'pages/app.html'
+  },
   browser_action: {
     default_title: 'title',
     default_popup: 'pages/popup.html'
