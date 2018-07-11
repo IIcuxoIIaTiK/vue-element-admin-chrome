@@ -1,41 +1,44 @@
+# Rosco Pecoltran
+
+default: help
+
+all: zoekt-refresh
+
 print-%: ; @echo $*=$($*)
 
-ZOEKT_IDX_ALL 		:= $(CURDIR)/.meta/search/zoekt
-ZOEKT_IDX_CORE 		:= $(CURDIR)/.meta/search/zoekt/core
-ZOEKT_IDX_STAGING 	:= $(CURDIR)/.meta/search/staging
-
-zoekt-idx: zoekt-idx-refresh ## index all source code available in this repo
-
-zoekt-web: ## start zoekt's UI webservice to search source code
-	@zoekt-webserver -listen :6070 
-
-zoekt-api: ## start zoekt's UI webservice to search source code
-	@zoekt-webserver -index  -listen :6070
+ZOEKT_IDX_DIR 		:= $(CURDIR)/.meta/search/zoekt
+ZOEKT_EXCLUDE_DIRS 	:= $(CURDIR)/.meta,.git,.hg,.svn,/node_modules/,node_modules,/build/,bin,temp,tmp,_build*,_log* #,.staging 
+ZOEKT_MAX_FILESIZE 	:= 32768
+ZOEKT_UI_ADDR 		:= :6070
+ZOEKT_API_ADDR 		:= :2379
 
 zoekt-clean: ## remove all source code trigram indices for this repo
-	@rm -fr $(CURDIR)/.meta/search/zoekt/*
+	@rm -fr $(ZOEKT_IDX_DIR)/*
 
-zoekt-idx-refresh: zoekt-clean zoekt-idx-all zoekt-idx-src zoekt-idx-staging ## refresh zoekt's all code indices/shards
+zoekt-refresh: zoekt-clean zoekt-index ## refresh zoekt's all code indices/shards
 
-zoekt-idx-all: ## index all available source code recursively from current dir (in ./)
-	@zoekt-index -file_limit 65536 -index $(CURDIR)/.meta/search/zoekt .
+# todo: need to create a function to loop over indexable dirs by passing them as a variable
+zoekt-index: ## index all available source code recursively from current dir (in ./)
+	@zoekt-index -file_limit $(ZOEKT_MAX_FILESIZE) -index $(ZOEKT_IDX_DIR) -ignore_dirs $(ZOEKT_EXCLUDE_DIRS) .
+	@zoekt-index -file_limit $(ZOEKT_MAX_FILESIZE) -index $(ZOEKT_IDX_DIR) -ignore_dirs $(ZOEKT_EXCLUDE_DIRS) ./src
+	@zoekt-index -file_limit $(ZOEKT_MAX_FILESIZE) -index $(ZOEKT_IDX_DIR) -ignore_dirs $(ZOEKT_EXCLUDE_DIRS) ./.staging
 
-zoekt-idx-core: ## index project source code only (in ./src folder)
-	@zoekt-index -file_limit 65536 -index $(CURDIR)/.meta/search/zoekt/src ./core
+zoekt-web: ## start zoekt's UI webservice to search source code
+	@zoekt-webserver -listen $(ZOEKT_UI_ADDR) 
 
-zoekt-idx-staging: ## index source code for staging references (in ./.staging folder)
-	@zoekt-index -file_limit 65536 -index $(CURDIR)/.meta/search/zoekt/staging .staging
+zoekt-api: ## start zoekt's UI webservice to search source code
+	@zoekt-webserver -index $(ZOEKT_IDX_DIR) -listen $(ZOEKT_API_ADDR)
 
 zs-%: ## search request in all source code 
-	@zoekt -index_dir $(CURDIR)/.meta/search/zoekt '"$*"'
+	@zoekt -index_dir $(ZOEKT_IDX_DIR) '"$*"'
 
 zsc-%: ## search request in core sources
-	@zoekt -index_dir $(CURDIR)/.meta/search/zoekt/core '"$*"'
+	@zoekt -index_dir $(ZOEKT_IDX_DIR) '"$*"'
 
 zss-%: ## search request in all staging references source code 
-	@zoekt -index_dir $(CURDIR)/.meta/search/zoekt/staging '"$*"'
+	@zoekt -index_dir $(ZOEKT_IDX_DIR) '"$*"'
 
 help: ## this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {sub("\\\\n",sprintf("\n%22c"," "), $$2);printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-.PHONY: zoekt-idx-refresh zoekt-clean zoekt-idx-all zoekt-idx-src zoekt-idx-staging help print-% zs-% zss-% zsc-%
+.PHONY: zoekt-refresh zoekt-clean zoekt-index help print-% zs-% zss-% zsc-%
