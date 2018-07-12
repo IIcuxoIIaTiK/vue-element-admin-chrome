@@ -23,6 +23,20 @@ module.exports = {
       }
     }
   },
+  /*
+  // https://github.com/xabikos/vscode-javascript/issues/27
+  autoFixOnSave: true,
+  validate: [
+    {
+      language: 'vue',
+      autoFix: true
+    },
+    {
+      language: 'javascript',
+      autoFix: true
+    }
+  ],
+  */
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'standard',
   // required to lint *.vue files

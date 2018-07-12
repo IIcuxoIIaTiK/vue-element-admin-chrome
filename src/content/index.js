@@ -22,6 +22,15 @@ import store from '@/components/admin-lite/store'
 import '@/components/admin-lite/icons' // icon
 // import '@/components/admin-lite/permission' // permission control
 
+import ElSearchTablePagination from 'el-search-table-pagination'
+
+// Default use axios as HTTP tool
+Vue.use(ElSearchTablePagination)
+
+// or set a custom HTTP tool
+// import axios from 'axios'
+// Vue.use(ElSearchTablePagination, { axios })
+
 Vue.use(ElementUI, { locale })
 
 Vue.use(vOutsideEvents)

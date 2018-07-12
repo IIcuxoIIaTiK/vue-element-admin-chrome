@@ -1,0 +1,78 @@
+{
+  "name": "snk-v2",
+  "version": "0.4.1",
+  "manifest_version": 2,
+  "description": "Sniperkit - Chrome extension (vue.js)",
+  "homepage_url": "https://github.com/sniperkit/snk.golang.chrome-extension",
+  "author": "Rosco Pecoltran",
+  "content_security_policy" : "default-src 'self'; connect-src *;",
+  "permissions": [
+    "https://assets-cdn.github.com/*",
+    "https://camo.githubusercontent.com/*"
+  ],
+  "icons": {
+    "16": "assets/icons/snk16.png",
+    "48": "assets/icons/snk48.png",
+    "128": "assets/icons/snk128.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "nativeMessaging",
+    "https://*.sniperkit.com/*",
+    "http://github.com/",
+    "https://github.com/"
+  ],
+  "web_accessible_resources": [
+    "src/content_inject.js",
+    "assets/html/sidebar.html",
+    "assets/html/sidebar-vuejs.html",
+    "assets/lib/classie.js",
+    "assets/lib/sidebar_effects.js",
+    "assets/3rdparty/material/fonts/*.*",
+    "assets/3rdparty/octicons/fonts/*.*",
+    "assets/3rdparty/devicons/fonts/*.*"
+  ],
+  "background" : {
+    "scripts" : [
+      "src/background.js",
+      "assets/3rdparty/jquery/jquery-3.3.1.min.js"
+    ]
+  },
+  "options_page": "assets/html/options.html",
+  "options_ui": {
+      "page": "assets/src/options.html",
+      "chrome_style": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*", 
+        "http://github.com/*", 
+        "https://gist.github.com/*"
+      ],
+      "css": [
+        "assets/3rdparty/material/material-icons.css",
+        "assets/css/contents/file_icon.css", 
+        "assets/3rdparty/octicons/css/octicons.css",
+        "assets/3rdparty/devicons/css/devicons.css"
+      ],
+      "js": [
+          "assets/3rdparty/jquery/jquery-3.3.1.min.js",
+          "assets/lib/classie.js",
+          "assets/lib/sidebar_effects.js",
+          "src/content_inject.js",
+          "src/content_sidebar.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "browser_action": {
+    "default_icon": {
+      "16": "assets/icons/snk16.png",
+      "48": "assets/icons/snk48.png",
+      "128": "assets/icons/snk128.png"
+    },
+    "default_title": "SNK v2 (vue.js)"
+  }
+}

@@ -50,6 +50,12 @@ export const constantRouterMap = [
         meta: { title: 'Github Search', icon: 'github-search' }
       },
       {
+        path: 'github-issue',
+        name: 'GithubIssues',
+        component: () => import('@/components/admin-lite/views/vcs/github/issues'),
+        meta: { title: 'Github Issues Paginate', icon: 'github-issue' }
+      },
+      {
         path: 'github-tree',
         name: 'GithubRepoTree',
         component: () => import('@/components/admin-lite/views/vcs/github/tree'),

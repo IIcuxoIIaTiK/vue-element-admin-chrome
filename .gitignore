@@ -1,6 +1,17 @@
 # IDE
 .vscode
 
+.DS_Store
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+
+
 .staging
 
 # dependencies
@@ -16,9 +27,9 @@ dist/*
 dist/**
 
 # Backpack build
-# eadmin-extension.prod.zip
-# eadmin-extension.dev.zip
-# extension.zip
+eadmin-extension.prod.zip
+eadmin-extension.dev.zip
+extension.zip
 
 *.pem
 *.crt
