@@ -31,6 +31,8 @@ eadmin-extension.prod.zip
 eadmin-extension.dev.zip
 extension.zip
 
+src/components/Custom/Collect/Browse/Bookmarks/Goblet
+
 *.pem
 *.crt
 *.key
