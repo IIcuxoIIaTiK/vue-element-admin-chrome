@@ -56,6 +56,11 @@ vendor/
 vendor/*
 vendor/**
 
+.meta
+.meta/
+.meta/*
+.meta/**
+
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
 *.o
 *.a
