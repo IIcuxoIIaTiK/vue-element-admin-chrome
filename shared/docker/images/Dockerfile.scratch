@@ -1,0 +1,10 @@
+FROM scratch
+
+MAINTAINER Rosco Pecoltran <rosco.pecoltran@msn.com>
+LABEL copyright="Rosco Pecoltran"
+
+# COPY THE THE NOOP UTILITY INTO THE BIN DIRECTORY
+COPY snk_linux_amd64 /bin/snk
+
+# RUN COMMAND
+CMD ["/bin/snk"]

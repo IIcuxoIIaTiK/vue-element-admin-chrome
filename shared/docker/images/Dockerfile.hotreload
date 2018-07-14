@@ -1,0 +1,28 @@
+# START FROM GO ALPINE
+FROM golang:1.10.3-alpine3.7
+
+MAINTAINER Rosco Pecoltran <rosco.pecoltran@msn.com>
+LABEL copyright="Rosco Pecoltran"
+
+# ADD GIT TO DOWNLOAD GO DEPENDENCIES
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git openssh-client
+
+# INSTALL GRCP PACKAGE FOR GRPC-SERVICES
+RUN go get -u google.golang.org/grpc \
+    && go get -u golang.org/x/net/context \
+    && go get -u github.com/golang/protobuf/proto \
+    && go get github.com/smartystreets/goconvey
+
+# COPY THE HOT RELOAD UTILITY INTO THE BIN DIRECTORY
+COPY snk-hot-reload_linux_amd64 /bin/snk-hot-reload
+
+# THE PROJECT TO WATCH SHOULD BE CONNECTED ON THE /APP VOLUME
+VOLUME ["/app"]
+
+# EXPOSE PORT 80 FOR EXTERNAL CONNECTIONS AND 8080 FOR GOCONVEY
+EXPOSE 80 8080
+
+# SYMLINK THE APPLICATION DIRECTORY INTO THE GOLANG SOURCE, WATCH FOR CHANGES
+# AND AUTOMATICALLY REBUILD THE APPLICATION
+CMD ["/bin/snk-hot-reload"]
