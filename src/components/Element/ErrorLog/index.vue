@@ -44,13 +44,13 @@
 <script>
 export default {
   name: 'errorLog',
-  data() {
+  data () {
     return {
       dialogTableVisible: false
     }
   },
   computed: {
-    errorLogs() {
+    errorLogs () {
       return this.$store.getters.errorLogs
     }
   }

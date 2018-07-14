@@ -31,6 +31,7 @@ export default {
     classObj () {
       return {
         hideSidebar: !this.sidebar.opened,
+        openSidebar: this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
         mobile: this.device === 'mobile'
       }
@@ -46,12 +47,18 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "../../styles/mixin.scss";
+
   .app-wrapper {
     @include clearfix;
     position: relative;
     height: 100%;
     width: 100%;
+    &.mobile.openSidebar{
+      position: fixed;
+      top: 0;
+    }
   }
+
   .drawer-bg {
     background: #000;
     opacity: 0.3;

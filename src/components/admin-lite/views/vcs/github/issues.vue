@@ -1,5 +1,11 @@
 <template>
   <div class="app-container">
+    <!--
+    Github SNK - Issues
+    <el-alert title="issues" type="success" :closable="false">
+      <router-view />
+    </el-alert>
+    -->
     <el-search-table-pagination
       :url="url"
       :columns="columns">
@@ -11,14 +17,8 @@
 </template>
 
 <script>
-// import ElSearchTablePagination from 'el-search-table-pagination'
-// import 'element-ui/lib/theme-chalk/index.css'
-
 export default {
-  name: 'GithubIssues',
-  // components: {
-  //  ElSearchTablePagination
-  //},
+  // name: 'GithubSearchIssues',
   mounted () {
     console.log('github-issues mounted, url=', this.url)
   },

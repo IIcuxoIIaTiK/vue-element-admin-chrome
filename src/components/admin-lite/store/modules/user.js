@@ -1,4 +1,5 @@
-import { login, logout, getInfo } from '@/components/admin-lite/api/login'
+// import { login, logout, getInfo } from '@/components/admin-lite/api/login'
+import { login, logout, getInfo } from '@/components/admin-lite/api/user'
 import { getToken, setToken, removeToken } from '@/components/admin-lite/utils/auth'
 
 const user = {

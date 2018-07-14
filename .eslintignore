@@ -1,1 +1,8 @@
 dist/*.js
+build/*.js
+core/*.js
+core/*/*.js
+config/*.js
+src/assets
+src/static
+static

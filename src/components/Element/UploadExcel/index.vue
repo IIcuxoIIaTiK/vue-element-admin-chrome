@@ -16,7 +16,7 @@ export default {
     beforeUpload: Function,
     onSuccess: Function
   },
-  data() {
+  data () {
     return {
       loading: false,
       excelData: {
@@ -26,12 +26,12 @@ export default {
     }
   },
   methods: {
-    generateDate({ header, results }) {
+    generateDate ({ header, results }) {
       this.excelData.header = header
       this.excelData.results = results
       this.onSuccess && this.onSuccess(this.excelData)
     },
-    handleDrop(e) {
+    handleDrop (e) {
       e.stopPropagation()
       e.preventDefault()
       if (this.loading) return
@@ -45,21 +45,21 @@ export default {
       e.stopPropagation()
       e.preventDefault()
     },
-    handleDragover(e) {
+    handleDragover (e) {
       e.stopPropagation()
       e.preventDefault()
       e.dataTransfer.dropEffect = 'copy'
     },
-    handleUpload() {
+    handleUpload () {
       document.getElementById('excel-upload-input').click()
     },
-    handleClick(e) {
+    handleClick (e) {
       const files = e.target.files
       const rawFile = files[0] // only use files[0]
       if (!rawFile) return
       this.upload(rawFile)
     },
-    upload(rawFile) {
+    upload (rawFile) {
       this.$refs['excel-upload-input'].value = null // fix can't select the same excel
 
       if (!this.beforeUpload) {
@@ -71,7 +71,7 @@ export default {
         this.readerData(rawFile)
       }
     },
-    readerData(rawFile) {
+    readerData (rawFile) {
       this.loading = true
       return new Promise((resolve, reject) => {
         const reader = new FileReader()
@@ -90,7 +90,7 @@ export default {
         reader.readAsArrayBuffer(rawFile)
       })
     },
-    fixdata(data) {
+    fixdata (data) {
       let o = ''
       let l = 0
       const w = 10240
@@ -98,7 +98,7 @@ export default {
       o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)))
       return o
     },
-    get_header_row(sheet) {
+    get_header_row (sheet) {
       const headers = []
       const range = XLSX.utils.decode_range(sheet['!ref'])
       let C

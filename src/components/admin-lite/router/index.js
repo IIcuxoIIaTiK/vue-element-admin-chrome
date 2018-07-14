@@ -4,6 +4,11 @@ import Router from 'vue-router'
 /* Layout */
 import Layout from '@/components/admin-lite/views/layout/Layout'
 
+/* Experimental */
+// import { adminRouterMap } from './experimental/admin'
+// import { automateRouterMap } from './experimental/automate'
+// import { collectRouterMap } from './experimental/collect'
+
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
 Vue.use(Router)
@@ -39,30 +44,70 @@ export const constantRouterMap = [
   {
     path: '/vcs',
     component: Layout,
-    redirect: '/vcs/github-search',
-    name: 'Vcs',
-    meta: { title: 'VCS', icon: 'vcs' },
+    name: 'vcs',
+    meta: {
+      title: 'Insights',
+      icon: 'nested'
+    },
     children: [
       {
-        path: 'github-search',
-        name: 'GithubSearch',
-        component: () => import('@/components/admin-lite/views/vcs/github/search'),
-        meta: { title: 'Github Search', icon: 'github-search' }
-      },
-      {
-        path: 'github-issue',
-        name: 'GithubIssues',
-        component: () => import('@/components/admin-lite/views/vcs/github/issues'),
-        meta: { title: 'Github Issues Paginate', icon: 'github-issue' }
-      },
-      {
-        path: 'github-tree',
-        name: 'GithubRepoTree',
-        component: () => import('@/components/admin-lite/views/vcs/github/tree'),
-        meta: { title: 'Github Tree', icon: 'github-tree' }
+        path: 'github',
+        name: 'Github',
+        component: () => import('@/components/admin-lite/views/vcs/github/index.vue'),
+        meta: { title: 'Github', icon: 'table' },
+        children: [
+          // Search
+          {
+            path: 'search',
+            name: 'GithubSearch',
+            component: () => import('@/components/admin-lite/views/vcs/github/index.vue'),
+            meta: { title: 'Search', icon: 'table' },
+            children:
+            [
+              {
+                path: 'gh-repo',
+                name: 'GithubSearchRepo',
+                component: () => import('@/components/admin-lite/views/vcs/github/search.vue'),
+                meta: { title: 'Repository', icon: 'table' }
+              },
+              /*
+              {
+                path: 'gh-code',
+                name: 'GithubSearchCode',
+                component: () => import('@/components/admin-lite/views/vcs/github/search'),
+                meta: { title: 'Code', icon: 'table' }
+              },*/
+              {
+                path: 'gh-tree',
+                name: 'GithubRepoTree',
+                component: () => import('@/components/admin-lite/views/vcs/github/tree.vue'),
+                meta: { title: 'File Tree', icon: 'table' }
+              },
+              {
+                path: 'gh-issues',
+                name: 'GithubSearchIssues',
+                component: () => import('@/components/admin-lite/views/vcs/github/issues.vue'),
+                meta: { title: 'Issues', icon: 'table' }
+              }
+            ]
+          }
+        ]
       }
     ]
   },
+
+  /*
+  {
+    path: '/components',
+    component: Layout,
+    name: 'components',
+    meta: {
+      title: 'Components',
+      icon: 'example'
+    },
+    children: [adminRouterMap, automateRouterMap, collectRouterMap]
+  },
+  */
 
   {
     path: '/example',
@@ -76,6 +121,12 @@ export const constantRouterMap = [
         name: 'Table',
         component: () => import('@/components/admin-lite/views/table/index'),
         meta: { title: 'Table', icon: 'table' }
+      },
+      {
+        path: 'complex-table',
+        name: 'complexTable',
+        component: () => import('@/components/admin-lite/views/table/complex-table'),
+        meta: { title: 'ComplexTable', icon: 'table' }
       },
       {
         path: 'tree',
@@ -103,7 +154,7 @@ export const constantRouterMap = [
 ]
 
 export default new Router({
-  // mode: 'history', // Backend support can be opened
+  // mode: 'history', //后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })

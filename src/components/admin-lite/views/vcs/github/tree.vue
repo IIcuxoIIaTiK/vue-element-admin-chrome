@@ -1,13 +1,19 @@
 <template>
   <div class="app-container">
+    <!--
+    Github SNK - Tree
+    <el-alert title="tree" type="success" :closable="false">
+      <router-view />
+    </el-alert>
+    -->
+
     <el-input placeholder="Filter keyword" v-model="filterText" style="margin-bottom:30px;"></el-input>
-    <el-tree class="filter-tree" 
-        :data="res" 
-        :props="defaultProps" 
-        :filter-node-method="filterNode" 
-        v-loading.body="resLoading" 
+    <el-tree class="filter-tree"
+        :data="res"
+        :props="defaultProps"
+        :filter-node-method="filterNode"
+        v-loading="resLoading"
         ref="tree2">
-        
     </el-tree>
   </div>
 </template>
@@ -17,6 +23,7 @@ import { getTree } from '@/components/admin-lite/api/3rdparty/github'
 var _ = require('lodash/core')
 
 export default {
+  // name: 'githubRepoTree',
   data () {
     return {
       res: null,
@@ -42,25 +49,23 @@ export default {
     }
   },
   mounted () {
-    // console.log('github-tree mounted')
+    console.log('github-tree mounted')
   },
   created () {
-    // console.log('github-tree created')
+    console.log('github-tree created')
     this.fetchData()
   },
   methods: {
     fetchData () {
       this.resLoading = true
-      // console.log('github-tree fetchData')
+      console.log('github-tree fetchData')
       getTree(this.treeQuery).then(response => {
         var res
         this.arrangeIntoTree(response.tree, function (tree) {
-          // console.log('tree: ', tree)
+          console.log('tree: ', tree)
           res = _.sortBy(tree, ['type'], ['asc'])
         })
-        // console.log('res: ', res)
         this.res = res
-        // console.log('this.res: ', this.res)
         this.resLoading = false
       })
     },

@@ -3,37 +3,61 @@
     <!-- <el-input placeholder="Filter keyword" v-model="filterText" style="margin-bottom:30px;"></el-input> -->
 
     <div class="filter-container">
-      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" :placeholder="$t('table.title')" v-model="listQuery.title">
+      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" :placeholder="$t('table.name')" v-model="listQuery.name">
       </el-input>
-      <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.importance" :placeholder="$t('table.importance')">
-        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item">
+
+      <el-select clearable style="width: 90px"
+        class="filter-item"
+        v-model="listQuery.language"
+        :placeholder="$t('table.language')">
+        <el-option v-for="item in importanceOptions"
+          :key="item"
+          :label="item"
+          :value="item">
         </el-option>
       </el-select>
-      <el-select clearable class="filter-item" style="width: 130px" v-model="listQuery.type" :placeholder="$t('table.type')">
-        <el-option v-for="item in  calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key">
+
+      <el-select clearable class="filter-item"
+         style="width: 130px"
+         v-model="listQuery.topics"
+         :placeholder="$t('table.topics')">
+          <el-option v-for="item in calendarTypeOptions"
+           :key="item.key"
+           :label="item.name+'('+item.id+')'"
+           :value="item.id">
+          </el-option>
+      </el-select>
+
+      <el-select @change='handleFilter'
+         style="width: 140px"
+         class="filter-item"
+         v-model="listQuery.sort">
+        <el-option v-for="item in sortOptions"
+         :key="item.key"
+         :label="item.label"
+         :value="item.key">
         </el-option>
       </el-select>
-      <el-select @change='handleFilter' style="width: 140px" class="filter-item" v-model="listQuery.sort">
-        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key">
-        </el-option>
-      </el-select>
-      <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">{{$t('table.search')}}</el-button>
-      <el-button class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">{{$t('table.add')}}</el-button>
-      <el-button class="filter-item" type="primary" :loading="downloadLoading" v-waves icon="el-icon-download" @click="handleDownload">{{$t('table.export')}}</el-button>
-      <el-checkbox class="filter-item" style='margin-left:15px;' @change='tableKey=tableKey+1' v-model="showReviewer">{{$t('table.reviewer')}}</el-checkbox>
+
+      <el-button class="filter-item"
+       type="primary"
+       v-waves icon="el-icon-search"
+       @click="handleFilter">
+        {{$t('table.search')}}
+      </el-button>
+
     </div>
 
-    <el-table :data="res" v-loading.body="resLoading" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table :data="res" v-loading="resLoading" element-loading-text="Loading" border fit highlight-current-row>
 
-      <el-table-column label="Project" width="180">
+      <el-table-column min-width="180px" :label="$t('table.name')">
         <template slot-scope="scope">
-          <a :href="scope.row.html_url" :rel="scope.row.full_name">
-            {{scope.row.name}}
-          </a>
+          <span class="link-type" @click="handleUpdate(scope.row)">{{scope.row.name}}</span>
+          <el-tag>{{scope.row.type | typeFilter}}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column label="Owner" width="120" align="center">
+      <el-table-column :label="$t('table.owner')" min-width="120px" align="center">
         <template slot-scope="scope">
           <a :href="scope.row.owner.html_url" :rel="scope.row.owner.name">
             <img :alt="scope.row.owner.name" class="list-avatar" :src="scope.row.owner.avatar_url" />
@@ -42,19 +66,19 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="Language" width="120">
+      <el-table-column min-width="80px" :label="$t('table.language')">
         <template slot-scope="scope">
           {{scope.row.language}}
         </template>
       </el-table-column>
 
-      <el-table-column label="Stargazers" width="110" align="center">
+      <el-table-column :label="$t('table.stargazers')" min-width="110px" align="center">
         <template slot-scope="scope">
           {{scope.row.stargazers_count}}
         </template>
       </el-table-column>
 
-      <el-table-column label="Topics">
+      <el-table-column :label="$t('table.topics')">
         <template slot-scope="scope">
           <span v-for="topic in scope.row.topics" class="gh-topics">
             <a :href="'https://github.com/topics/'+topic" target="_blank">{{topic}}</a> 
@@ -90,7 +114,7 @@
 <script>
 import { getSearchResults, fetchPv } from '@/components/admin-lite/api/3rdparty/github.js'
 
-import waves from '@/components/admin-lite/directive/waves' // 水波纹指令
+import waves from '@/components/admin-lite/directive/waves' // Water ripple command
 import { parseTime } from '@/components/admin-lite/utils'
 
 const calendarTypeOptions = [
@@ -107,7 +131,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'complexTable',
+  // name: 'GithubSearchRepo',
   directives: {
     waves
   },
@@ -122,9 +146,9 @@ export default {
       listQuery: {
         page: 1,
         limit: 20,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
+        language: undefined,
+        name: undefined,
+        topics: undefined,
         sort: '+id'
       },
       importanceOptions: [1, 2, 3],
@@ -179,10 +203,10 @@ export default {
     }
   },
   mounted () {
-    // console.log('github-search mounted')
+    console.log('github-search mounted')
   },
   created () {
-    // console.log('github-search created')
+    console.log('github-search created')
     this.fetchData()
   },
   methods: {
@@ -211,7 +235,7 @@ export default {
     },
     handleModifyStatus (row, status) {
       this.$message({
-        message: '操作成功',
+        message: 'Successful operation',
         type: 'success'
       })
       row.status = status
@@ -245,8 +269,8 @@ export default {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
-              title: '成功',
-              message: '创建成功',
+              title: 'success',
+              message: 'Created successfully',
               type: 'success',
               duration: 2000
             })
@@ -280,8 +304,8 @@ export default {
             }
             this.dialogFormVisible = false
             this.$notify({
-              title: '成功',
-              message: '更新成功',
+              title: 'success',
+              message: 'update completed',
               type: 'success',
               duration: 2000
             })
@@ -292,8 +316,8 @@ export default {
     */
     handleDelete (row) {
       this.$notify({
-        title: '成功',
-        message: '删除成功',
+        title: 'success',
+        message: 'successfully deleted',
         type: 'success',
         duration: 2000
       })
@@ -349,7 +373,6 @@ export default {
 </script>
 
 <style>
-
   .gh-topics + .gh-topics:before {
     content: ", ";
     font-size: 10px;

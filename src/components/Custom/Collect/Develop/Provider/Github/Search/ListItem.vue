@@ -7,7 +7,7 @@
                     <div class="input-group col-md-12">
                         <input @input='update' id="keyword" type="text" class="form-control input-lg" placeholder="Search" />
                     </div>
-                    
+
                     <div v-if="emptyItems"  id="noResult">
                         <span>No matches</span>
                     </div>
@@ -16,10 +16,10 @@
                        <Item v-else  v-for="item in items" :item="item" ></Item>
                     </div>
                 </div>
-                
+
             </div>
       </div>
-    </div>        
+    </div>
 </template>
 
 <script>
@@ -68,7 +68,7 @@ export default {
       })
     }, 300),
   }
-} 
+}
 </script>
 
 <style lang="css">

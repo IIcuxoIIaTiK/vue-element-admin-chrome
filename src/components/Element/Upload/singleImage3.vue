@@ -33,27 +33,27 @@ export default {
     value: String
   },
   computed: {
-    imageUrl() {
+    imageUrl () {
       return this.value
     }
   },
-  data() {
+  data () {
     return {
       tempUrl: '',
       dataObj: { token: '', key: '' }
     }
   },
   methods: {
-    rmImage() {
+    rmImage () {
       this.emitInput('')
     },
-    emitInput(val) {
+    emitInput (val) {
       this.$emit('input', val)
     },
-    handleImageScucess(file) {
+    handleImageScucess (file) {
       this.emitInput(file.files.file)
     },
-    beforeUpload() {
+    beforeUpload () {
       const _self = this
       return new Promise((resolve, reject) => {
         getToken().then(response => {

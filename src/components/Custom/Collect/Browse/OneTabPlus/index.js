@@ -1,14 +1,17 @@
 import Vue from 'vue'
-import App from './App.vue'
+import Content from './content.vue'
 import router from './router'
 import Vuetify from 'vuetify'
 
 Vue.config.productionTip = false
+
 Vue.use(Vuetify)
 
-const app = new Vue({
-  el: '#app',
+const OneTabPlus = new Vue({
+  el: '#one-tab-plus',
   router,
-  template: '<App/>',
-  components: { App }
+  template: '<OneTabPlus/>',
+  components: { Content }
 })
+
+// Vue.component('one-tab-plus', OneTabPlus)

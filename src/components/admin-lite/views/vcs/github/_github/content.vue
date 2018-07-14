@@ -1,6 +1,6 @@
 <template>
   <div id="gh-search-results">
-    <ListItem></ListItem>        
+    <ListItem></ListItem>
   </div>
 </template>
 
@@ -20,10 +20,10 @@ export default {
     ListItem: ListItem
   },
   computed: {
-   
+
   },
   methods: {
-   
+
   }
 }
 </script>

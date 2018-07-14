@@ -23,8 +23,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Element/Breadcrumb'
-import Hamburger from '@/components/Generic/Hamburger'
+import Breadcrumb from '@/components/admin-lite/components/Breadcrumb'
+import Hamburger from '@/components/admin-lite/components/Hamburger'
 
 export default {
   components: {
@@ -43,7 +43,7 @@ export default {
     },
     logout () {
       this.$store.dispatch('LogOut').then(() => {
-        location.reload() // In order to re-instantiate the vue-router object to avoid bugs
+        location.reload() // 为了重新实例化vue-router对象 避免bug
       })
     }
   }

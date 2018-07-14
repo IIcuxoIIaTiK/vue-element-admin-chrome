@@ -12,13 +12,13 @@ import 'dropzone/dist/dropzone.css'
 Dropzone.autoDiscover = false
 
 export default {
-  data() {
+  data () {
     return {
       dropzone: '',
       initOnce: true
     }
   },
-  mounted() {
+  mounted () {
     const element = document.getElementById(this.id)
     const vm = this
     this.dropzone = new Dropzone(element, {
@@ -34,7 +34,7 @@ export default {
       dictDefaultMessage: '<i style="margin-top: 3em;display: inline-block" class="material-icons">' + this.defaultMsg + '</i><br>Drop files here to upload',
       dictMaxFilesExceeded: '只能一个图',
       previewTemplate: '<div class="dz-preview dz-file-preview">  <div class="dz-image" style="width:' + this.thumbnailWidth + 'px;height:' + this.thumbnailHeight + 'px" ><img style="width:' + this.thumbnailWidth + 'px;height:' + this.thumbnailHeight + 'px" data-dz-thumbnail /></div>  <div class="dz-details"><div class="dz-size"><span data-dz-size></span></div> <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>  <div class="dz-error-message"><span data-dz-errormessage></span></div>  <div class="dz-success-mark"> <i class="material-icons">done</i> </div>  <div class="dz-error-mark"><i class="material-icons">error</i></div></div>',
-      init() {
+      init () {
         const val = vm.defaultImg
         if (!val) return
         if (Array.isArray(val)) {
@@ -96,19 +96,19 @@ export default {
     })
   },
   methods: {
-    removeAllFiles() {
+    removeAllFiles () {
       this.dropzone.removeAllFiles(true)
     },
-    processQueue() {
+    processQueue () {
       this.dropzone.processQueue()
     },
-    pasteImg(event) {
+    pasteImg (event) {
       const items = (event.clipboardData || event.originalEvent.clipboardData).items
       if (items[0].kind === 'file') {
         this.dropzone.addFile(items[0].getAsFile())
       }
     },
-    initImages(val) {
+    initImages (val) {
       if (!val) return
       if (Array.isArray(val)) {
         val.map((v, i) => {
@@ -129,12 +129,12 @@ export default {
     }
 
   },
-  destroyed() {
+  destroyed () {
     document.removeEventListener('paste', this.pasteImg)
     this.dropzone.destroy()
   },
   watch: {
-    defaultImg(val) {
+    defaultImg (val) {
       if (val.length === 0) {
         this.initOnce = false
         return
