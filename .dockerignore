@@ -1,0 +1,97 @@
+# IDE
+.vscode
+
+.DS_Store
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+
+
+.staging
+
+# dependencies
+node_modules
+
+# logs
+npm-debug.log
+*.log
+
+dist
+dist/
+dist/*
+dist/**
+
+# Backpack build
+eadmin-extension.prod.zip
+eadmin-extension.dev.zip
+extension.zip
+
+src/components/Custom/Collect/Browse/Bookmarks/Goblet
+
+*.pem
+*.crt
+*.key
+
+.secret*
+.env
+secret.*
+
+.dev
+.dev/
+.dev/*
+.dev/**
+
+bin
+bin/
+bin/*
+bin/**
+
+vendor
+vendor/
+vendor/*
+vendor/**
+
+.meta
+.meta/
+.meta/*
+.meta/**
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Folders
+_obj
+_test
+__pycache__
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+*.cgo1.go
+*.cgo2.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+
+_testmain.go
+
+*.exe
+*.test
+*.prof
+.idea/
+*.iml
+.gx/
+dist
+
+# Development environment files
+.ackrc
+.tags*
+*.sw?

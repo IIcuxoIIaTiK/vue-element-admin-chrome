@@ -15,6 +15,10 @@ const { cssLoaders, htmlPage } = require('./tools')
 const vueLoaderConfig = require('./vue-loader.conf')
 const rootDir = path.resolve(__dirname, '..')
 
+// These sizes are pretty large. We'll warn for bundles exceeding them.
+const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024
+const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024
+
 let resolve = (dir) => path.join(rootDir, 'src', dir)
 
 const createLintingRule = () => ({
