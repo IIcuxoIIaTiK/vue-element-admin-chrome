@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import root from './root.vue'
+
 Vue.config.productionTip = false
 
 // used in Vue rendering

@@ -2,7 +2,7 @@
 const path = require('path')
 const utils = require('./utils')
 const webpack = require('webpack')
-const config = require('./config')
+const config = require('../config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 
@@ -10,7 +10,6 @@ const portfinder = require('portfinder')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const ZipPlugin = require('zip-webpack-plugin')
 const ZipFolder = require('zip-folder')
 
 function resolve (dir) {
@@ -48,7 +47,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': require('./config/dev.env')
+      'process.env': require('../config/dev.env')
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
@@ -62,14 +61,30 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       title: 'vue-element-admin'
     }),
 
-    new ZipPlugin({
-      // path: '..',
-      path: path.resolve(__dirname, '..', 'tarball', 'web'),
-      filename: 'frontend.dev.zip'
-    }),
-
   ]
 })
+
+if (config.dev.webpackStats) {
+  const WebpackOnBuildPlugin = require('on-build-webpack')
+  const debug = require('util')
+  devWebpackConfig.plugins.push(
+    new WebpackOnBuildPlugin(function(stats) {
+      console.log('webpack.dev.stats: ', debug.inspect(stats, {depth: 2, maxArrayLength: 50, colors: true}))
+    })
+  )
+}
+
+if (config.dev.generateTarball) {
+  const ZipPlugin = require('zip-webpack-plugin')
+  const tarballPrefixPath = resolve(path.join('shared', 'tarball', 'web'))
+  devWebpackConfig.plugins.push(
+    new ZipPlugin({
+      path: tarballPrefixPath,
+      filename: 'frontend.dev.zip'
+    })
+  )
+  console.log('tarballPrefixPath: ', tarballPrefixPath)
+}
 
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port

@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const GenerateLocaleJsonPlugin = require('./plugins/GenerateLocaleJsonPlugin')
 const WebpackOnBuildPlugin = require('on-build-webpack')
 const WebpackCdnPlugin = require('webpack-cdn-plugin')
+const HardSourceWebpackPlugin = require("hard-source-webpack-plugin")
 // const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const { cssLoaders, htmlPage } = require('./tools')
@@ -50,7 +51,7 @@ module.exports = {
     background: resolve('./extension/background'),
   },
   output: {
-    path: path.join(rootDir, 'dist', 'extension', 'chrome'),
+    path: path.join(rootDir, 'shared', 'dist', 'extension', 'chrome'),
     publicPath: '/',
     filename: 'js/[name].js',
     chunkFilename: 'js/[id].[name].js?[hash]',
@@ -141,7 +142,7 @@ module.exports = {
     {
       test: /\.(woff2?|woff|eot|ttf|otf)(\?.*)?$/,
       // use: 'file-loader?name=[name].[hash:7].[ext]'
-      use: 'file-loader?name=[name].[ext]'
+      use: 'file-loader?name=fonts/[name].[ext]'
     },
 
     /*

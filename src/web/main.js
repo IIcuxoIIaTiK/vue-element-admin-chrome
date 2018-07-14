@@ -1,10 +1,6 @@
 // global - components
 import Vue from 'vue'
 
-// external - components
-// --> https://github.com/nchutchind/vue-outside-events
-import vOutsideEvents from 'vue-outside-events'
-
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -28,7 +24,6 @@ Vue.config.productionTip = false
 Vue.use(ElSearchTablePagination)
 
 Vue.use(ElementUI, { locale })
-Vue.use(vOutsideEvents)
 
 router.beforeEach(function (to, from, next) {
   console.log('router.beforeEach.to: ', to)
@@ -47,4 +42,4 @@ new Vue({
   render: h => h(Content)
 })
 
-console.log('[chrome-ext] - content initialized...')
+console.log('[web-app] - initialized...')

@@ -1,4 +1,10 @@
-const scenarios = ['js', 'ts']
+const scenarios = [
+  'full',
+  'full-airbnb',
+  'minimal',
+  'js',
+  'ts'
+]
 
 const index = scenarios.indexOf(process.env.VUE_TEMPL_TYPE)
 console.log('VUE_TEMPL_TYPE', process.env.VUE_TEMPL_TYPE)

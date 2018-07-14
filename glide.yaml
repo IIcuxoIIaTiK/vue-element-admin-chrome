@@ -1,7 +1,59 @@
 package: github.com/sniperkit/vue-element-admin-chrome
+ignore:
+- github.com/sniperkit/goes
+- github.com/jijeshmohan/janus
 import:
+- package: github.com/asm-jaime/gen
+- package: github.com/birkelund/boltdbcache
+- package: github.com/devopsfaith/krakend
+  subpackages:
+  - config
+  - logging
+  - proxy
+  - router/gin
+- package: github.com/dgrijalva/jwt-go
+- package: github.com/die-net/lrucache
+  subpackages:
+  - twotier
 - package: github.com/fsnotify/fsnotify
-- package: github.com/jijeshmohan/janus
+- package: github.com/gin-gonic/contrib
+  subpackages:
+  - cache
+  - jwt
+  - secure
+- package: github.com/gin-gonic/gin
+- package: github.com/googollee/go-socket.io
+- package: github.com/gregjones/httpcache
+  subpackages:
+  - diskcache
+  - leveldbcache
+  - memcache
+- package: github.com/jinzhu/gorm
+  subpackages:
+  - dialects/mssql
+  - dialects/mysql
+  - dialects/postgres
+  - dialects/sqlite
+- package: github.com/kataras/iris
+  subpackages:
+  - middleware/logger
+  - middleware/recover
+  - sessions
+  - sessions/sessiondb/badger
+  - sessions/sessiondb/boltdb
+  - sessions/sessiondb/redis
+  - websocket
+- package: github.com/sniperkit/goes
+  subpackages:
+  - config
+  - logger
+  - model
+  - route
+- package: github.com/sniperkit/janus
   subpackages:
   - config
   - server
+- package: golang.org/x/net
+  subpackages:
+  - websocket
+- package: gopkg.in/gin-contrib/cors.v1

@@ -71,7 +71,7 @@ module.exports = merge(baseWebpack, {
     */
 
     new OptimizeCSSPlugin({ cssProcessorOptions: { safe: true } }),
-    new ExtractTextPlugin({ filename: 'css/[name].css' }),
+    new ExtractTextPlugin({ filename: 'css/[name].css?[contenthash]' }),
     // new ExtractTextPlugin({ filename: 'css/[name].[contenthash].css' }),
     new webpack.HashedModuleIdsPlugin(),
 
@@ -82,7 +82,7 @@ module.exports = merge(baseWebpack, {
     */
 
     new ZipPlugin({
-      path: path.resolve(__dirname, '..', 'tarball', 'extension', 'chrome'),
+      path: path.resolve(__dirname, '..', 'shared', 'tarball', 'extension', 'chrome'),
       filename: 'extension.prod.zip'
     })
 

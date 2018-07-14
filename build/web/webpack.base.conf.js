@@ -1,14 +1,13 @@
 'use strict'
 const path = require('path')
 const utils = require('./utils')
-const config = require('./config')
+const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const offlinePlugin = require('offline-plugin')
 
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const GenerateLocaleJsonPlugin = require('../plugins/GenerateLocaleJsonPlugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-
 
 function resolve (dir) {
   return path.join(__dirname, '..', '..', dir)
@@ -100,7 +99,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['*'], {root: path.join('..', '..', 'dist', 'web')}),
+    new CleanWebpackPlugin(['*'], {root: path.join('..', '..', 'shared', 'dist', 'web')}),
     new GenerateLocaleJsonPlugin({
       _locales: path.resolve(__dirname, '..', '..', 'src', '_locales')
     }),

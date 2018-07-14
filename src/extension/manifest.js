@@ -1,7 +1,10 @@
 /**
  * @see {@link https://developer.chrome.com/extensions/manifest}
  */
-module.exports = {
+
+const debug = require('util')
+
+const manifest = {
   name: '__MSG_extName__', // Vue Extension
   description: '__MSG_extDescription__', // Vue.js Webpack Chrome Extension Template
   author: 'Rosco Pecoltran <rosco_pecoltran@msn.com>',
@@ -74,9 +77,7 @@ module.exports = {
 
   options_page: 'pages/options.html',
   content_scripts: [{
-    css: [
-      'css/content.css'
-    ],
+    css: ['css/content.css'],
     js: [
       'js/manifest.js',
       'js/vendor.js',
@@ -146,3 +147,44 @@ module.exports = {
     'js/content.js'
   ]
 }
+
+console.log('process.env.SNK_MODE: ', process.env.SNK_MODE)
+
+if (process.env.SNK_MODE === 'dev' ) {
+
+  // Load the full build.
+  var _ = require('lodash')
+  // var glob = require("glob")
+  var glob = require('glob-fs')({ gitignore: true })
+  // Load the core build.
+  // var _ = require('lodash/core');
+  // Load the FP build for immutable auto-curried iteratee-first data-last methods.
+  // var fp = require('lodash/fp');
+
+  // Load method categories.
+  // var array = require('lodash/array');
+  var object = require('lodash/fp/object');
+
+  const defaultContentScriptsJS = ['js/manifest.js', 'js/vendor.js', 'js/content.js']
+  const buildDir = path.Join('..', 'shared', 'dist', 'extension', 'chrome')
+  const buildDirJS = path.Join(buildDir, 'js')
+
+  var chunkJSfiles = glob.readdirSync(path.Join(buildDirJS, '*.*.js'))
+
+  console.log('defaultContentScriptsJS: ', defaultContentScriptsJS)
+  console.log('buildDir: ', buildDir)
+  console.log('buildDirJS: ', buildDirJS)
+  console.log('manifest.dev.js.files: ', debug.inspect(chunkJSfiles, {depth: 4, colors: true}))
+
+  // _.
+
+  // Cherry-pick methods for smaller browserify/rollup/webpack bundles.
+  // var at = require('lodash/at');
+  // var curryN = require('lodash/fp/curryN');
+
+  manifest.content_scripts.js  = defaultContentScriptsJS
+  manifest.content_scripts.css = ['css/content.css']
+  console.log('manifest.dev.obj: ', debug.inspect(manifest, {depth: 4, colors: true}))
+}
+
+module.exports = manifest

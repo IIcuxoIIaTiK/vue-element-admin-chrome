@@ -5,6 +5,7 @@
   "author": "Rosco Pecoltran <rosco_pecoltran@msn.com>",
   "license": "MIT",
   "private": true,
+  "main": "./shared/dist/desktop/main.js",
   "lint-staged": {
     "src/**/*.{js,vue}": [
       "eslint --fix",
@@ -25,10 +26,56 @@
     "web-dist": "npm run web-build",
     "web-build": "node ./build/web/build.js",
     "web-build:report": "npm_config_report=true node ./build/web/build.js",
+
+    "dsk-build": "node ./build/desktop/build.js && electron-builder",
+    "dsk-build:dir": "node ./build/desktop/build.js && electron-builder --dir",
+    "dsk-build:clean": "cross-env BUILD_TARGET=clean node ./build/desktop/build.js",
+    "dsk-build:web": "cross-env BUILD_TARGET=web node ./build/desktop/build.js",
+    "dsk-dev": "node ./build/desktop/dev-runner.js",
+    "dsk-pack": "npm run dsk-pack:main && npm run dsk-pack:renderer",
+    "dsk-pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config ./build/desktop/webpack.main.config.js",
+    "dsk-pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config ./build/desktop/webpack.renderer.config.js",
+    "dsk-lint": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter src",
+    "dsk-lint:fix": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter --fix src",
+
     "lint": "eslint --ext .js,.vue src",
     "test": "npm run lint",
     "archive": "zip -q -r tarball/extension-all.zip dist",
     "clear": "rm -rf tarball dist"
+  },
+  "build": {
+    "productName": "desktop-vue-admin",
+    "appId": "org.snk.desktop-vue-admin",
+    "directories": {
+      "output": "shared/build/desktop"
+    },
+    "files": [
+      "static/dist/desktop/**/*"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "mac": {
+      "icon": "static/icons/icon.icns"
+    },
+    "win": {
+      "icon": "static/icons/icon.ico"
+    },
+    "linux": {
+      "icon": "static/icons"
+    }
   },
   "dependencies": {
     "@finpo/vue2-dependency-selector": "^0.1.0",
@@ -153,7 +200,7 @@
     "linker": "^0.0.6",
     "linkify-it": "^2.0.3",
     "localforage-observable": "^1.4.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.10",
     "lodash.clonedeep": "^4.5.0",
     "lru-cache": "^4.1.3",
     "markdown-it": "^8.4.1",
@@ -275,6 +322,7 @@
     "vue-crud-x": "^0.0.16",
     "vue-data-tables": "^3.4.2",
     "vue-draggable-nested-tree": "^2.0.2",
+    "vue-electron": "^1.0.6",
     "vue-error-page": "^1.1.5",
     "vue-event-handler": "^1.1.0",
     "vue-event-manager": "^2.0.1",
@@ -415,11 +463,14 @@
     "babel-plugin-transform-react-to-vue": "^0.2.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-plugin-vue-jsx-sync": "^0.0.5",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-preset-transform-react-to-vue": "^0.1.0",
+    "babili-webpack-plugin": "^0.1.2",
     "bili": "^3.1.2",
     "bower": "^1.8.4",
+    "cfonts": "^2.1.3",
     "chalk": "^2.4.1",
     "chrome-webstore-upload": "^0.2.2",
     "chrome-webstore-upload-cli": "^1.1.1",
@@ -433,9 +484,14 @@
     "css-loader": "^1.0.0",
     "ctrace": "^1.1.5",
     "debug": "^3.1.0",
+    "del": "^3.0.0",
+    "devtron": "^1.4.0",
     "download-git-repo": "^1.0.2",
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
     "elasticbulk": "^1.0.7",
+    "electron-builder": "^20.20.4",
+    "electron-debug": "^2.0.0",
+    "electron-devtools-installer": "^2.2.4",
     "enzyme": "^3.3.0",
     "eslint": "^4.18.1",
     "eslint-config-standard": "^11.0.0",
@@ -452,6 +508,7 @@
     "file-loader": "^1.1.8",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "gaze": "^1.1.3",
+    "glob-fs": "^0.1.7",
     "hard-source-webpack-plugin": "^0.11.1",
     "html-webpack-plugin": "^2.30.1",
     "husky": "0.14.3",
@@ -463,6 +520,7 @@
     "mocha": "^5.2.0",
     "mom": "^0.0.0",
     "moxios": "^0.4.0",
+    "multispinner": "^0.2.1",
     "ncp": "^2.0.0",
     "njstrace": "^1.0.1",
     "node-notifier": "^5.2.1",
@@ -510,6 +568,7 @@
     "webpack-chrome-extension-reloader": "^0.8.3",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "2.9.7",
+    "webpack-hot-middleware": "^2.22.2",
     "webpack-merge": "4.1.1",
     "webpack-shell-plugin": "^0.5.0",
     "webpack-stream": "^4.0.3",

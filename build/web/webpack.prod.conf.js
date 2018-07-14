@@ -2,7 +2,7 @@
 const path = require('path')
 const utils = require('./utils')
 const webpack = require('webpack')
-const config = require('./config')
+const config = require('../config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 
@@ -11,14 +11,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const ZipPlugin = require('zip-webpack-plugin')
 const ZipFolder = require('zip-folder')
 
 function resolve (dir) {
   return path.join(__dirname, '..', '..', dir)
 }
 
-const env = require('./config/prod.env')
+const env = require('../config/prod.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -123,16 +122,32 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ]),
-
-    new ZipPlugin({
-      // path: '..',
-      path: path.resolve(__dirname, '..', 'tarball', 'web'),
-      filename: 'frontend.prod.zip'
-    })
+    ])
 
   ]
 })
+
+if (config.build.webpackStats) {
+  const WebpackOnBuildPlugin = require('on-build-webpack')
+  const debug = require('util')
+  webpackConfig.plugins.push(
+    new WebpackOnBuildPlugin(function(stats) {
+      console.log('webpack.dev.stats: ', debug.inspect(stats, {depth: 2, maxArrayLength: 50, colors: true}))
+    })
+  )
+}
+
+if (config.build.generateTarball) {
+  const ZipPlugin = require('zip-webpack-plugin')
+  const tarballPrefixPath = resolve(path.join('shared', 'tarball', 'web'))
+  webpackConfig.plugins.push(
+    new ZipPlugin({
+      path: tarballPrefixPath,
+      filename: 'frontend.prod.zip'
+    })
+  )
+  console.log('tarballPrefixPath: ', tarballPrefixPath)
+}
 
 if (config.build.productionGzip) {
   const CompressionWebpackPlugin = require('compression-webpack-plugin')

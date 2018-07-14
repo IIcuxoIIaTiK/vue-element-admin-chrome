@@ -46,10 +46,14 @@ module.exports = merge(baseWebpack, {
     }),
     */
 
+    /*
     new WebpackOnBuildPlugin(function(stats) {
       console.log('webpack.dev.stats: ', debug.inspect(stats, {depth: 2, maxArrayLength: 50, colors: true}))
       // console.log('webpack.dev.stats: ', JSON.stringify(stats, null, 2))
     }),
+    */
+
+    new ChromeExtensionReloader(),
 
     /*
     new webpack.HotModuleReplacementPlugin(),
@@ -66,7 +70,7 @@ module.exports = merge(baseWebpack, {
 
     new ZipPlugin({
       // path: '..',
-      path: path.resolve(__dirname, '..', 'tarball', 'extension', 'chrome'),
+      path: path.resolve(__dirname, '..', 'shared', 'tarball', 'extension', 'chrome'),
       filename: 'extension.dev.zip'
     })
     // new ProgressBarPlugin()

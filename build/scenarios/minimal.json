@@ -1,0 +1,12 @@
+{
+  "name": "minimal",
+  "description": "Extension generated with Kocal/vue-web-extension",
+  "author": "Travis",
+  "options": false,
+  "router": false,
+  "store": false,
+  "axios": false,
+  "lint": false,
+  "prettier": false,
+  "autoInstall": false
+}

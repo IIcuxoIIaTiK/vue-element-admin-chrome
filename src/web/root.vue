@@ -14,6 +14,6 @@ import '@/components/admin-lite/styles/index.scss' // local css
 import '@/components/admin-lite/icons' // icon
 
 export default {
-  name: 'SnkExtensionOpts'
+  name: 'SnkWebApp'
 }
 </script>
