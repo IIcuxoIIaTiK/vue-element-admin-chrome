@@ -46,7 +46,7 @@ module.exports = merge(baseWebpack, {
     }),
     // new OptimizeCSSPlugin({ cssProcessorOptions: { safe: true } }),
     new ExtractTextPlugin({
-      filename: 'css/[name].css?[contenthash]'
+      filename: 'css/[name].[contenthash].css'
     }),
     new FriendlyErrorsPlugin(),
     /*

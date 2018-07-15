@@ -6,7 +6,7 @@ import Layout from '@/components/admin-lite/views/layout/Layout'
 
 /* Experimental */
 // import { adminRouterMap } from './experimental/admin'
-// import { automateRouterMap } from './experimental/automate'
+import { automateRouterMap } from './experimental/automate'
 // import { collectRouterMap } from './experimental/collect'
 
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
@@ -96,7 +96,6 @@ export const constantRouterMap = [
     ]
   },
 
-  /*
   {
     path: '/components',
     component: Layout,
@@ -105,9 +104,8 @@ export const constantRouterMap = [
       title: 'Components',
       icon: 'example'
     },
-    children: [adminRouterMap, automateRouterMap, collectRouterMap]
+    children: automateRouterMap // /*adminRouterMap,*/ automateRouterMap, collectRouterMap]
   },
-  */
 
   {
     path: '/example',

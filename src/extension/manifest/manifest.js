@@ -2,13 +2,7 @@
  * @see {@link https://developer.chrome.com/extensions/manifest}
  */
 
-// import processor from './processor.js'
-// import '*' as processor from './processor.js'
-// import {merge, template} from 'lodash'
-
-// var proc = require('./processor.js')
-
-module.exports =  {
+module.exports = {
   name: '__MSG_extName__', // Vue Extension
   description: '__MSG_extDescription__', // Vue.js Webpack Chrome Extension Template
   author: 'Rosco Pecoltran <rosco_pecoltran@msn.com>',
@@ -83,54 +77,8 @@ module.exports =  {
 
   options_page: 'pages/options.html',
   content_scripts: [{
-    css: [
-      'css/content.css'
-      // 'css/file_icon.css',
-      // 'css/devicons.css'
-    ],
-    js: [
-      'js/manifest.js',
-      'js/vendor.js',
-
-      'js/0.0.js',
-      'js/1.1.js',
-      'js/2.2.js',
-      'js/3.3.js',
-      'js/4.4.js',
-      'js/5.5.js',
-      'js/6.6.js',
-      'js/7.7.js',
-      'js/8.8.js',
-      'js/9.9.js',
-
-      'js/10.10.js',
-      'js/11.11.js',
-
-      /*
-      'js/12.12.js',
-      'js/13.13.js',
-      'js/14.14.js',
-      'js/15.15.js',
-      'js/16.16.js',
-      'js/17.17.js',
-      'js/18.18.js',
-      'js/19.19.js',
-      */
-
-      'js/20.20.js',
-
-      /*
-      'js/21.21.js',
-      'js/22.22.js',
-      'js/23.23.js',
-      'js/24.24.js',
-      'js/25.25.js',
-
-      'js/34.34.js',
-      */
-
-      'js/content.js'
-    ],
+    // css: [],
+    // js: [],
     // run_at: 'document_end',
     run_at: 'document_idle',
     matches: [
@@ -142,8 +90,6 @@ module.exports =  {
   default_locale: 'en',
   manifest_version: 2,
   content_security_policy: "script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self'; object-src 'self'",
-  // "default-src 'self'; connect-src *;",
-  // content_security_policy: "default-src 'self'; connect-src *; script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com https://fonts.googleapis.com https://code.jquery.com; object-src 'self'; font-src 'self' 'unsafe-inline' data:font/tff data:font/woff",
   web_accessible_resources: [
     'panel.html',
     "icons/*.*",
@@ -153,11 +99,3 @@ module.exports =  {
     'js/content.js'
   ]
 }
-
-// console.log('process.env.SNK_MODE: ', process.env.SNK_MODE)
-
-// if (process.env.SNK_MODE === 'dev' ) {
-//   proc.OptimizeManifest(manifest)
-// }
-
-// module.exports = manifest

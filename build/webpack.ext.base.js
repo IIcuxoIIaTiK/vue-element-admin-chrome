@@ -1,10 +1,18 @@
 const path = require('path')
+const fs = require('fs')
+
 const webpack = require('webpack')
 const chalk = require('chalk')
 const debug = require('util')
+const Module = require('module')
 
-// const prettyPrint = require('prettyprint')
-// import prettyprint from 'prettyprint'
+const _get = require('lodash/get')
+const glob = require("glob")
+
+const prettyJson = require('prettyjson')
+const writeYaml = require('write-yaml')
+const writeJson = require('write-json')
+const pkg = require('../package.json')
 
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ChromeReloadPlugin = require('wcer')
@@ -23,17 +31,161 @@ const rootDir = path.resolve(__dirname, '..')
 const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024
 
-process.traceDeprecation = true
+// process.traceDeprecation = true
 
 let resolve = (dir) => path.join(rootDir, 'src', dir)
 
-console.log('!!!! destination dir: ', path.join(rootDir, 'dist', 'extension', 'chrome'))
+const extDestDir =  path.join(rootDir, 'dist', 'extension', 'chrome')
+const extOutputDir = path.resolve('shared', 'dist', 'extension', 'chrome')
+const extManifestBasename = path.resolve('shared', 'dist', 'extension', 'chrome', 'manifest')
+const extManifestFile = path.resolve('shared', 'dist', 'extension', 'chrome', 'manifest.json')
+console.log('!!!! destination dir: ', extDestDir)
+
+// module.exports =
+const UpdateManifest = (file = "", options = {drymode: false, browser: 'chrome', verbose: false}) => {
+  var context = {
+    cwd: '',
+    build: {
+      path: path.join('shared', 'dist', 'extension', 'chrome'),
+      version: '',
+      tag: ''
+    },
+    options: options,
+    manifest: {
+      filePath: file,
+      original: {},
+      next: {}
+    },
+    js: {
+      build: {
+        path: '',
+        pattern: '',
+        matches: {
+          relative: [],
+          filtered: []
+        }
+      }
+    },
+    css: {
+      build: {
+        path: '',
+        pattern: '',
+        matches: {
+          relative: [],
+          filtered: []
+        }
+      }
+    }
+  }
+  context.cwd = process.cwd()
+  context.js.defaultFiles = ['js/manifest.js', 'js/vendor.js', 'js/content.js']
+  context.css.defaultFiles = ['css/content.css']
+
+  fs.readFile(context.manifest.filePath, 'utf8', (err, content) => {
+    if (err) {
+      console.error('manifest.json does not exists, expected: ', context.manifest.filePath, ', error: ', err)
+      return
+    }
+
+    ////////////////////////////////////////
+    // manifest
+    context.manifest.original = JSON.parse(content.toString())
+    context.manifest.next =  context.manifest.original
+
+    ////////////////////////////////////////
+    // JS Files
+    context.js.build.path = path.join(context.build.path, 'js')
+    context.js.build.pattern = path.join(context.build.path, 'js', '*.*.js')
+
+    if (!fs.existsSync(context.js.build.path)) {
+      console.error('context.js.build.path does not exists, expected: ', context.js.build.path)
+      return
+    }
+
+    const chunkJSfiles = glob.sync(context.js.build.pattern, {nodir: true})
+    context.js.build.matches.found = chunkJSfiles
+
+    chunkJSfiles.forEach(function(part, index, matches) {
+      matches[index] = matches[index].replace(context.js.build.path, 'js')
+    })
+    context.js.build.matches.filtered = chunkJSfiles
+
+    context.manifest.next.content_scripts[0].js = []
+    // if (context.manifest.original.content_scripts[0].js !== undefined ) {
+    //   context.manifest.next.content_scripts[0].js = context.manifest.original.content_scripts[0].js
+    // }
+
+    context.manifest.next.content_scripts[0].js.push('js/manifest.js')
+    context.manifest.next.content_scripts[0].js.push('js/vendor.js')
+
+    context.js.build.matches.filtered.forEach(function(part, index, matches) {
+      context.manifest.next.content_scripts[0].js.push(matches[index])
+    })
+    context.manifest.next.content_scripts[0].js.push('js/content.js')
+
+    ////////////////////////////////////////
+    // CSS Files
+    context.css.build.path = path.join(context.build.path, 'css')
+    context.css.build.pattern = path.join(context.build.path, 'css', 'content.*.css')
+
+    if (!fs.existsSync(context.css.build.path)) {
+      console.error('context.css.build.path does not exists, expected: ', context.css.build.path)
+      return
+    }
+
+    const chunkCSSfiles = glob.sync(context.css.build.pattern, {nodir: true})
+    context.css.build.matches.found = chunkCSSfiles
+    chunkCSSfiles.forEach(function(part, index, matches) {
+      matches[index] = matches[index].replace(context.css.build.path, 'css')
+    })
+    context.css.build.matches.filtered = chunkCSSfiles
+
+    context.manifest.next.content_scripts[0].css = []
+    // if (context.manifest.original.content_scripts[0].css !== undefined ) {
+    //  context.manifest.next.content_scripts[0].css = context.manifest.original.content_scripts[0].css
+    // }
+
+    context.css.build.matches.filtered.forEach(function(part, index, matches) {
+      context.manifest.next.content_scripts[0].css.push(matches[index])
+    })
+
+    ////////////////////////////////////////
+    // Verbose / Debug
+    if (options.verbose) {
+      // console.log('context.manifest.next: ', debug.inspect(context.manifest.next, {depth: 5, colors: true}))
+      // console.log('options: ', debug.inspect(options, {depth: 5, colors: true}))
+    }
+
+    ////////////////////////////////////////
+    // Output/Write Files
+    if (!options.drymode) {
+      // const data = context.manifest.next
+      console.log(prettyJson.render(context.manifest.next))
+
+      ////////////////////////////////////////
+      // Write JSON
+      console.log('writeJson, file=', file)
+      writeJson.sync(file, context.manifest.next, {indent: 2})
+
+      ////////////////////////////////////////
+      // Write YAML
+      const fileYaml = extManifestBasename+'.yaml'
+      console.log('writeYaml, file=', fileYaml)
+      writeYaml.sync(fileYaml, context.manifest.next)
+    }
+
+    return
+  })
+}
 
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
   enforce: 'pre',
-  include: [resolve(''), resolve('test')],
+  include: [
+    resolve(''),
+    resolve('test')
+  ],
   options: {
     formatter: require('eslint-friendly-formatter'),
     emitWarning: !config.dev.showEslintErrorsInOverlay
@@ -42,6 +194,8 @@ const createLintingRule = () => ({
 
 module.exports = {
   entry: {
+    // components
+    // components: resolve('./components'),
     // popup
     popup: resolve('./extension/popup'),
     tab: resolve('./extension/tab'),
@@ -49,8 +203,6 @@ module.exports = {
     options: resolve('./extension/options'),
     // content
     content: resolve('./extension/content'),
-    // components
-    // components: resolve('./components'),
     // devtool
     devtools: resolve('./extension/devtools'),
     panel: resolve('./extension/devtools/panel'),
@@ -119,7 +271,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'img/[name].[ext]?[hash:7]',
+          name: 'img/[name].[hash:7].[ext]',
           exclude: [
             path.join(rootDir, 'src', 'components', 'admin-lite', 'icons')
           ]
@@ -130,69 +282,23 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'media/[name].[ext]?[hash:7]'
+          name: 'media/[name].[hash:7].[ext]'
         }
       },
-
-      /*
-      {
-        test: /\.svg$/,
-        loader: 'svg-url-loader',
-        include: [
-          path.join(rootDir, 'src', 'assets', 'icons'),
-          path.join(rootDir, 'src', 'components', 'admin-lite', 'icons')
-        ],
-        options: {
-          limit: 1 * 1024,
-          publicPath: 'chrome-extension://__MSG_@@extension_id__/', // isProduction ? 'chrome-extension://__MSG_@@extension_id__/' : '',
-          noquotes: true,
-          symbolId: 'icon-[name]',
-          name: 'assets/svg/[name].[ext]?[hash:7]' // utils.assetsPath('img/[name].[hash:7].[ext]')
-        }
-      },
-      */
-
-
       {
         test: /\.svg$/,
         loader: 'svg-sprite-loader',
-        // include: [
-          // path.join(rootDir, 'src'),
-          // path.join(rootDir, 'src', 'assets', 'icons'),
-          // path.join(rootDir, 'src', 'components', 'admin-lite', 'icons')
-        // ],
         options: {
-          // extract: true,
-          // spriteFilename: 'css/svg.[ext]?[hash:7]',
           symbolId: 'icon-[name]'
         }
       },
-
-      /*
-      {
-        test: /\.svg$/,
-        loader: 'svg-sprite-loader',
-        include: [
-          path.join(rootDir, 'src', 'assets', 'icons'),
-          path.join(rootDir, 'src', 'components', 'admin-lite', 'icons')
-        ],
-        options: {
-          limit: 1 * 1024,
-          publicPath: 'chrome-extension://__MSG_@@extension_id__/',
-          noquotes: true,
-          symbolId: 'icon-[name]',
-          name: 'assets/svg/[name].[ext]?[hash:7]' // utils.assetsPath('img/[name].[hash:7].[ext]')
-        }
-      },
-      */
-
       {
         test: /\.(woff2?|woff|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',
         options: {
           limit: 10 * 1024,
           publicPath: 'chrome-extension://__MSG_@@extension_id__/', // isProduction ? 'chrome-extension://__MSG_@@extension_id__/' : '',
-          name: 'fonts/[name].[ext]?[hash:7]'
+          name: 'fonts/[name].[hash:7].[ext]'
         }
       }
     ]
@@ -253,21 +359,22 @@ module.exports = {
       name: 'manifest',
       chunks: ['vendor']
     }),
-
     /*
     new WebpackShellPlugin({
       onBuildEnd: ['node build/check-evals.js'],
     }),
     */
-
-    /*
     new WebpackOnBuildPlugin(function(stats) {
-      console.log('webpack.dev.stats: ', debug.inspect(stats.compilation.assets, {depth: 2, colors: true}))
+      // console.log('webpack.dev.stats: ', debug.inspect(stats.compilation.assets, {depth: 2, colors: true}))
       // var statsKeys = Object.keys(stats.compilation)
       // console.log('webpack.dev.statsKeys: ', debug.inspect(statsKeys, {depth: 2, colors: true}))
+      const manifestOpts = {
+        verbose: true,
+        drymode: false,
+        browser: 'chrome'
+      }
+      UpdateManifest(extManifestFile, manifestOpts)
     }),
-    */
-
   ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue

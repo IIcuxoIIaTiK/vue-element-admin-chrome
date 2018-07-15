@@ -45,7 +45,7 @@ module.exports = merge(baseWebpack, {
     }),
     // new ExtractTextPlugin({ filename: 'css/[name].css?[contenthash]' }),
     new ExtractTextPlugin({
-      filename: 'css/[name].css?[contenthash]'
+      filename: 'css/[name].[contenthash].css'
     }),
     new webpack.HashedModuleIdsPlugin(),
     /*
