@@ -12,24 +12,43 @@ const ChromeExtensionReloader = require('webpack-chrome-extension-reloader')
 const WebpackShellPlugin = require('webpack-shell-plugin')
 const WebpackCdnPlugin = require('webpack-cdn-plugin')
 const ZipPlugin = require('zip-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 // const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const baseWebpack = require('./webpack.ext.base')
 const { styleLoaders, increaseVersion } = require('./tools')
 
+/*
 module.exports = merge(baseWebpack, {
   watch: true,
   module: { rules: styleLoaders({ sourceMap: false }) },
-  // module: { rules: styleLoaders({ extract: true, sourceMap: false }) },
+  devtool: '#cheap-module-source-map',
+  plugins: [
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
+    new FriendlyErrorsPlugin()
+  ]
+})
+*/
+
+module.exports = merge(baseWebpack, {
+  watch: true,
+  // module: { rules: styleLoaders({ sourceMap: false }) },
+  module: { rules: styleLoaders({ extract: true, sourceMap: false }) },
   devtool: '#cheap-module-source-map',
   // devtool: '#cheap-module-eval-source-map',
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     // new WriteFilePlugin(),
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"development"'
+    }),
     // new OptimizeCSSPlugin({ cssProcessorOptions: { safe: true } }),
+    new ExtractTextPlugin({
+      filename: 'css/[name].css?[contenthash]'
+    }),
     new FriendlyErrorsPlugin(),
-
     /*
     new WebpackCdnPlugin({
       modules: [
@@ -45,16 +64,13 @@ module.exports = merge(baseWebpack, {
       publicPath: path.join(__dirname, '../node_modules')
     }),
     */
-
     /*
     new WebpackOnBuildPlugin(function(stats) {
       console.log('webpack.dev.stats: ', debug.inspect(stats, {depth: 2, maxArrayLength: 50, colors: true}))
       // console.log('webpack.dev.stats: ', JSON.stringify(stats, null, 2))
     }),
     */
-
-    new ChromeExtensionReloader(),
-
+    // new ChromeExtensionReloader(),
     /*
     new webpack.HotModuleReplacementPlugin(),
 
@@ -67,7 +83,6 @@ module.exports = merge(baseWebpack, {
       },
     }),
     */
-
     new ZipPlugin({
       // path: '..',
       path: path.resolve(__dirname, '..', 'shared', 'tarball', 'extension', 'chrome'),

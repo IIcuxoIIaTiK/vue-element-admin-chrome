@@ -332,11 +332,11 @@ export default {
     },
     handleDownload () {
       this.downloadLoading = true
-      import('@/components/admin-lite/vendor/Export2Excel').then(excel => {
+      import('@/components/admin-lite/plugins/Export2Excel').then(excel => {
         const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
         const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
         const data = this.formatJson(filterVal, this.list)
-        excel.export_json_to_excel({
+        excel.exportJsonToExcel({
           header: tHeader,
           data,
           filename: 'table-list'

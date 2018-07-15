@@ -3,6 +3,9 @@ const webpack = require('webpack')
 const chalk = require('chalk')
 const debug = require('util')
 
+// const prettyPrint = require('prettyprint')
+// import prettyprint from 'prettyprint'
+
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ChromeReloadPlugin = require('wcer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -20,7 +23,11 @@ const rootDir = path.resolve(__dirname, '..')
 const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024
 
+process.traceDeprecation = true
+
 let resolve = (dir) => path.join(rootDir, 'src', dir)
+
+console.log('!!!! destination dir: ', path.join(rootDir, 'dist', 'extension', 'chrome'))
 
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
@@ -65,122 +72,88 @@ module.exports = {
     }
   },
   module: {
-    rules: [{
-      test: /\.(js|vue)$/,
-      loader: 'eslint-loader',
-      enforce: 'pre',
-      include: [ path.join(rootDir, 'src') ],
-      options: { formatter: require('eslint-friendly-formatter') }
-    },
-    {
-      test: /\.vue$/,
-      loader: 'vue-loader',
-      // options: vueLoaderConfig
-      options: {
-        extractCSS: true,
-        loaders: {
-          ...cssLoaders(),
-          js: { loader: 'babel-loader' }
-        },
-        transformToRequire: {
-          video: 'src',
-          source: 'src',
-          img: 'src',
-          image: 'xlink:href'
+    rules: [
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: [ path.join(rootDir, 'src') ],
+        options: { formatter: require('eslint-friendly-formatter') }
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        // options: vueLoaderConfig
+        options: {
+          extractCSS: true,
+          loaders: {
+            // https://github.com/babel/babel-loader#options
+            ...cssLoaders(),
+            js: { loader: 'babel-loader' },
+            cacheDirectory: true,
+          },
+          transformToRequire: {
+            video: 'src',
+            source: 'src',
+            img: 'src',
+            image: 'xlink:href'
+          }
+        }
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        // exclude: /(node_modules|bower_components)/,
+        include: [
+          path.join(rootDir, 'src'),
+          // https://github.com/sagalbot/vue-select/issues/71#issuecomment-229453096
+          path.join(rootDir, 'node_modules', 'element-ui', 'src', 'utils')
+        ]
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: [
+          resolve('icons')
+        ],
+        options: {
+          symbolId: 'icon-[name]'
+        }
+      },
+      {
+        test: /\.(gql|graphql)$/,
+        loader: "graphql-tag/loader",
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'img/[name].[ext]?[hash:7]'
+        }
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'media/[name].[ext]?[hash:7]'
+        }
+      },
+      {
+        test: /\.(woff2?|woff|eot|ttf|otf)(\?.*)?$/,
+        loader: 'file-loader',
+        options: {
+          limit: 10 * 1024,
+          publicPath: 'chrome-extension://__MSG_@@extension_id__/', // isProduction ? 'chrome-extension://__MSG_@@extension_id__/' : '',
+          name: 'fonts/[name].[ext]?[hash:7]'
         }
       }
-    },
-    {
-      test: /\.js$/,
-      loader: 'babel-loader',
-      include: [
-        path.join(rootDir, 'src'),
-        // https://github.com/sagalbot/vue-select/issues/71#issuecomment-229453096
-        path.join(rootDir, 'node_modules', 'element-ui', 'src', 'utils')
-      ]
-    },
-    /*
-    {
-      test: /\.scss$/,
-      use: ["vue-style-loader", "css-loader", "sass-loader"],
-    },
-    */
-    {
-      test: /\.svg$/,
-      loader: 'svg-sprite-loader',
-      include: [resolve('icons')],
-      options: {
-        symbolId: 'icon-[name]'
-      }
-    },
-    {
-      test: /\.(gql|graphql)$/,
-      loader: "graphql-tag/loader",
-    },
-    {
-      test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-      loader: 'url-loader',
-      options: {
-        limit: 10000,
-        name: 'img/[name].[hash:7].[ext]'
-      }
-    },
-    /*
-    {
-      test: /\.(jpg|jpeg|png|gif|ico|svg)$/,
-      use: 'file-loader?name=[name].[ext]'
-    },
-    */
-    {
-      test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-      loader: 'url-loader',
-      options: {
-        limit: 10000,
-        name: 'media/[name].[hash:7].[ext]'
-      }
-    },
-    {
-      test: /\.(woff2?|woff|eot|ttf|otf)(\?.*)?$/,
-      // use: 'file-loader?name=[name].[hash:7].[ext]'
-      use: 'file-loader?name=fonts/[name].[ext]'
-    },
-
-    /*
-    {
-      test: /\.(png|jpg|gif|svg|ico)$/,
-      loader: 'file-loader',
-      options: {
-        name: '[name].[ext]?emitFile=false',
-      }
-    },
-    */
-    /*
-    {
-      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-      loader: 'url-loader',
-      options: {
-        // limit: 10000,
-        name: 'fonts/[name].[ext]?emitFile=false'
-      }
-    }
-    */
-    /*,
-    {
-      test: /(fontawesome.js)$/,
-      use: 'file-loader?name=[name].[ext]'
-    },{
-      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-      loader: 'url-loader',
-      options: {
-        limit: 10000,
-        name: 'fonts/[name].[hash:7].[ext]'
-      }
-    }*/
     ]
   },
   plugins: [
     // path.join(rootDir, 'dist')
-  	new CleanWebpackPlugin(['*'], { root: path.join(rootDir, 'dist', 'extension', 'chrome')}),
+  	new CleanWebpackPlugin(['*'], { root: path.join(rootDir, 'shared', 'dist', 'extension', 'chrome')}),
     // Customize your extension structure.
     // popup-tab
     htmlPage('home', 'app', ['manifest', 'vendor', 'tab']),
@@ -207,7 +180,7 @@ module.exports = {
 
     new ChromeReloadPlugin({
       port: 9090,
-      manifest: path.join(rootDir, 'src', 'extension', 'manifest.js')
+      manifest: path.join(rootDir, 'src', 'extension', 'manifest', 'manifest.js')
     }),
 
     new GenerateLocaleJsonPlugin({
@@ -240,9 +213,12 @@ module.exports = {
       onBuildEnd: ['node build/check-evals.js'],
     }),
     */
+
     /*
     new WebpackOnBuildPlugin(function(stats) {
-      console.log('webpack.dev.stats: ', debug.inspect(stats, {depth: 2, colors: true}))
+      console.log('webpack.dev.stats: ', debug.inspect(stats.compilation.assets, {depth: 2, colors: true}))
+      // var statsKeys = Object.keys(stats.compilation)
+      // console.log('webpack.dev.statsKeys: ', debug.inspect(statsKeys, {depth: 2, colors: true}))
     }),
     */
 

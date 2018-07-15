@@ -4,4 +4,4 @@ script.setAttribute('type', 'text/javascript')
 script.setAttribute('src', content)
 document.body.appendChild(script)
 
-console.log('inject')
+console.log('[chrome-ext] - inject initialized...')

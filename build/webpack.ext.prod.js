@@ -17,43 +17,12 @@ const baseWebpack = require('./webpack.ext.base')
 const { styleLoaders, increaseVersion } = require('./tools')
 
 module.exports = merge(baseWebpack, {
+  watch: true,
   module: { rules: styleLoaders({ extract: true, sourceMap: true }) },
   // devtool: '#cheap-module-source-map',
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    /*
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    }),
-    new WebpackOnBuildPlugin(stats => {
-      increaseVersion(manifest)
-      try {
-        fs.writeFileSync(manifestSrcPath, JSON.stringify(manifest, null, 2))
-        fs.writeFileSync(manifestDistPath, JSON.stringify(manifest, null, 2))
-      } catch (e) {
-        console.log(
-          chalk.red('\n  update manifest(dist) file error: ' + e.message)
-        )
-      }
-      console.log(chalk.cyan('\n  manifest file updated successfully'))
-
-      zipFolder('./dist/', './ext.zip', err => {
-        if (err) {
-          console.log(chalk.red('Failed to zip dist folder ' + err))
-        } else {
-          console.log(chalk.cyan('An zip of ext is available in ./ext.zip'))
-        }
-      })
-    }),
-    */
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }),
-
     /*
     new WebpackCdnPlugin({
       modules: [
@@ -69,18 +38,21 @@ module.exports = merge(baseWebpack, {
       publicPath: path.join(__dirname, '../node_modules')
     }),
     */
-
-    new OptimizeCSSPlugin({ cssProcessorOptions: { safe: true } }),
-    new ExtractTextPlugin({ filename: 'css/[name].css?[contenthash]' }),
-    // new ExtractTextPlugin({ filename: 'css/[name].[contenthash].css' }),
+    new OptimizeCSSPlugin({
+      cssProcessorOptions: {
+        safe: true
+      }
+    }),
+    // new ExtractTextPlugin({ filename: 'css/[name].css?[contenthash]' }),
+    new ExtractTextPlugin({
+      filename: 'css/[name].css?[contenthash]'
+    }),
     new webpack.HashedModuleIdsPlugin(),
-
     /*
     new WebpackOnBuildPlugin(function(stats) {
       console.log('webpack.prod.stats: ', debug.inspect(stats.compilation.assets, {depth: 1, maxArrayLength: 10, colors: true}))
     }),
     */
-
     new ZipPlugin({
       path: path.resolve(__dirname, '..', 'shared', 'tarball', 'extension', 'chrome'),
       filename: 'extension.prod.zip'

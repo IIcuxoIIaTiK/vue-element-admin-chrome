@@ -1,5 +1,5 @@
 const _get = require('lodash/get');
-const pkg = require('../package.json');
+const pkg = require('../../package.json');
 
 module.exports = buildEnv => (content) => {
     const manifest = JSON.parse(content.toString());

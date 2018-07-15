@@ -1,13 +1,14 @@
 const { resolve } = require('path')
 const { extract } = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const packageConfig = require('../package.json')
 
 // auto increaseVersion of manifest.json
 exports.increaseVersion = (package) => {
   if (increaseVersion.versionUpdated) return
   increaseVersion.versionUpdated = true
 
-  let version = package.version
+  let version = packageConfig.version
   const max = 20
   const vs = version.split('.').map(i => +i)
   let len = vs.length
@@ -15,7 +16,16 @@ exports.increaseVersion = (package) => {
     if (++vs[len] < max) break
     vs[len] = 0
   }
-  package.version = vs.join('.')
+  packageConfig.version = vs.join('.')
+}
+
+exports.assetsPath = function (_path) {
+  const assetsSubDirectory =
+    process.env.NODE_ENV === 'production' ?
+    config.build.assetsSubDirectory :
+    config.dev.assetsSubDirectory
+
+  return path.posix.join(assetsSubDirectory, _path)
 }
 
 exports.htmlPage = (title, filename, chunks, template) => new HtmlWebpackPlugin({
@@ -45,7 +55,7 @@ exports.cssLoaders = (options = {}) => {
   for (let key in prePprocessors) {
     let loader = [{
       loader: 'css-loader',
-      options: { minimize: process.env.NODE_ENV === 'production', sourceMap: options.sourceMap }
+      options: { /*minimize: process.env.NODE_ENV === 'production',*/ sourceMap: options.sourceMap }
     }]
 
     if (prePprocessors[key].loader) {
@@ -64,6 +74,19 @@ exports.cssLoaders = (options = {}) => {
   }
   return loaders
 }
+
+/*
+{
+    test: /\.(scss|css)$/,
+    loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&' +
+              'includePaths[]=' +
+                (path.resolve(__dirname, './src/assets/fonts/')) + '&' +
+              'includePaths[]=' +
+                (path.resolve(__dirname, './src/assets/stylesheets/')) + '&' +
+              'includePaths[]=' +
+                (path.resolve(__dirname, './src/assets/images/'))
+)},
+*/
 
 exports.styleLoaders = function (options) {
   const output = []
