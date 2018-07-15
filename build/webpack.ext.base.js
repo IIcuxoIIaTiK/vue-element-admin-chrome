@@ -111,25 +111,18 @@ module.exports = {
         ]
       },
       {
-        test: /\.svg$/,
-        loader: 'svg-sprite-loader',
-        include: [
-          resolve('icons')
-        ],
-        options: {
-          symbolId: 'icon-[name]'
-        }
-      },
-      {
         test: /\.(gql|graphql)$/,
         loader: "graphql-tag/loader",
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'img/[name].[ext]?[hash:7]'
+          name: 'img/[name].[ext]?[hash:7]',
+          exclude: [
+            path.join(rootDir, 'src', 'components', 'admin-lite', 'icons')
+          ]
         }
       },
       {
@@ -140,6 +133,59 @@ module.exports = {
           name: 'media/[name].[ext]?[hash:7]'
         }
       },
+
+      /*
+      {
+        test: /\.svg$/,
+        loader: 'svg-url-loader',
+        include: [
+          path.join(rootDir, 'src', 'assets', 'icons'),
+          path.join(rootDir, 'src', 'components', 'admin-lite', 'icons')
+        ],
+        options: {
+          limit: 1 * 1024,
+          publicPath: 'chrome-extension://__MSG_@@extension_id__/', // isProduction ? 'chrome-extension://__MSG_@@extension_id__/' : '',
+          noquotes: true,
+          symbolId: 'icon-[name]',
+          name: 'assets/svg/[name].[ext]?[hash:7]' // utils.assetsPath('img/[name].[hash:7].[ext]')
+        }
+      },
+      */
+
+
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        // include: [
+          // path.join(rootDir, 'src'),
+          // path.join(rootDir, 'src', 'assets', 'icons'),
+          // path.join(rootDir, 'src', 'components', 'admin-lite', 'icons')
+        // ],
+        options: {
+          // extract: true,
+          // spriteFilename: 'css/svg.[ext]?[hash:7]',
+          symbolId: 'icon-[name]'
+        }
+      },
+
+      /*
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: [
+          path.join(rootDir, 'src', 'assets', 'icons'),
+          path.join(rootDir, 'src', 'components', 'admin-lite', 'icons')
+        ],
+        options: {
+          limit: 1 * 1024,
+          publicPath: 'chrome-extension://__MSG_@@extension_id__/',
+          noquotes: true,
+          symbolId: 'icon-[name]',
+          name: 'assets/svg/[name].[ext]?[hash:7]' // utils.assetsPath('img/[name].[hash:7].[ext]')
+        }
+      },
+      */
+
       {
         test: /\.(woff2?|woff|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',

@@ -55,13 +55,21 @@ exports.cssLoaders = (options = {}) => {
   for (let key in prePprocessors) {
     let loader = [{
       loader: 'css-loader',
-      options: { /*minimize: process.env.NODE_ENV === 'production',*/ sourceMap: options.sourceMap }
+      options: {
+        /*minimize: process.env.NODE_ENV === 'production',*/
+        sourceMap: options.sourceMap
+      }
     }]
 
     if (prePprocessors[key].loader) {
       loader.push({
         loader: prePprocessors[key].loader + '-loader',
-        options: Object.assign({}, prePprocessors[key].options, { sourceMap: options.sourceMap })
+        options: Object.assign(
+          {},
+          prePprocessors[key].options,
+          {
+            sourceMap: options.sourceMap
+          })
       })
     }
 
