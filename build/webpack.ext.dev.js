@@ -2,8 +2,8 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const debug = require('util')
 const path = require('path')
-// const webpack = require('webpack-stream')
 
+const ChromeReloadPlugin = require('wcer')
 const WebpackDevServer = require('webpack-dev-server')
 const WebpackOnBuildPlugin = require('on-build-webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
@@ -14,28 +14,21 @@ const WebpackCdnPlugin = require('webpack-cdn-plugin')
 const ZipPlugin = require('zip-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-// const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const baseWebpack = require('./webpack.ext.base')
 const { styleLoaders, increaseVersion } = require('./tools')
 
 /*
-module.exports = merge(baseWebpack, {
-  watch: true,
-  module: { rules: styleLoaders({ sourceMap: false }) },
-  devtool: '#cheap-module-source-map',
-  plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
-    new FriendlyErrorsPlugin()
-  ]
-})
+  Refs:
+  - https://github.com/YuraDev/vue-chrome-extension-template/blob/master/template/core/webpack.dev.js
+  - https://github.com/cucygh/vue-chrome-extension-example/blob/master/app/scripts/background.js
+  - https://github.com/ik9999/popupsearch/blob/master/webpack.config.js#/components/automate/selector
 */
 
 module.exports = merge(baseWebpack, {
-  watch: true,
-  // module: { rules: styleLoaders({ sourceMap: false }) },
-  module: { rules: styleLoaders({ extract: true, sourceMap: false }) },
+  watch: false,
+  module: { rules: styleLoaders({ sourceMap: false }) },
+  // module: { rules: styleLoaders({ extract: true, sourceMap: false }) },
   devtool: '#cheap-module-source-map',
   // devtool: '#cheap-module-eval-source-map',
   plugins: [
@@ -49,45 +42,16 @@ module.exports = merge(baseWebpack, {
       filename: 'css/[name].[contenthash].css'
     }),
     new FriendlyErrorsPlugin(),
-    /*
-    new WebpackCdnPlugin({
-      modules: [
-        {
-          name: 'vue',
-          var: 'Vue',
-          style: 'dist/vue.css'
-        },
-        {
-          name: 'vue-router'
-        }
-      ],
-      publicPath: path.join(__dirname, '../node_modules')
-    }),
-    */
-    /*
-    new WebpackOnBuildPlugin(function(stats) {
-      console.log('webpack.dev.stats: ', debug.inspect(stats, {depth: 2, maxArrayLength: 50, colors: true}))
-      // console.log('webpack.dev.stats: ', JSON.stringify(stats, null, 2))
-    }),
-    */
-    // new ChromeExtensionReloader(),
-    /*
-    new webpack.HotModuleReplacementPlugin(),
-
-    new ChromeExtensionReloader({
-      entries: {
-        background: 'background',
-        options: 'options',
-        popup: 'popup',
-        contentScripts: 'contentScripts/index',
-      },
-    }),
-    */
     new ZipPlugin({
-      // path: '..',
       path: path.resolve(__dirname, '..', 'shared', 'tarball', 'extension', 'chrome'),
       filename: 'extension.dev.zip'
-    })
+    }),
+    /*
+    new ChromeReloadPlugin({
+      port: 9090,
+      manifest: path.resolve(__dirname, '..', 'src', 'extension', 'manifest', 'manifest.js')
+    }),
+    */
     // new ProgressBarPlugin()
   ]
 })

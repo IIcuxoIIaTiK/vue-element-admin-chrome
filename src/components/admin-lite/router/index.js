@@ -148,6 +148,28 @@ export const constantRouterMap = [
     ]
   },
 
+  {
+    path: '/network',
+    component: Layout,
+    name: 'Network',
+    meta: { title: 'Network', icon: 'message' },
+    children: [
+      {
+        path: 'index',
+        name: 'Websocket',
+        component: () => import('@/components/Custom/Network/vue-websocket/root'),
+        meta: { title: 'Socket.IO', icon: 'message' }
+      },
+
+      {
+        path: 'index',
+        name: 'SocketIO',
+        component: () => import('@/components/Custom/Network/vue-socket-cluster/root'),
+        meta: { title: 'Socket Cluster', icon: 'message' }
+      }
+    ]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 

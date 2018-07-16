@@ -11,6 +11,8 @@ const portfinder = require('portfinder')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const ZipFolder = require('zip-folder')
+const ZipPlugin = require('zip-webpack-plugin')
+const WebpackOnBuildPlugin = require('on-build-webpack')
 
 function resolve (dir) {
   return path.join(__dirname, '..', '..', dir)
@@ -58,33 +60,23 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       favicon: resolve('favicon.ico'),
-      title: 'vue-element-admin'
+      title: 'snk-vue-element-admin'
     }),
-
+    /*
+    new WebpackOnBuildPlugin(function(stats) {
+      console.log('config.dev.tarballRoot=', config.dev.tarballRoot)
+      console.log('config.dev.assetsRoot=', config.dev.assetsRoot)
+      ZipFolder(config.dev.assetsRoot, config.dev.assetsRoot, function(err) {
+        if(err) {
+            console.log('oh no!', err);
+        } else {
+            console.log('EXCELLENT');
+        }
+      })
+    })
+    */
   ]
 })
-
-if (config.dev.webpackStats) {
-  const WebpackOnBuildPlugin = require('on-build-webpack')
-  const debug = require('util')
-  devWebpackConfig.plugins.push(
-    new WebpackOnBuildPlugin(function(stats) {
-      console.log('webpack.dev.stats: ', debug.inspect(stats, {depth: 2, maxArrayLength: 50, colors: true}))
-    })
-  )
-}
-
-if (config.dev.generateTarball) {
-  const ZipPlugin = require('zip-webpack-plugin')
-  const tarballPrefixPath = resolve(path.join('shared', 'tarball', 'web'))
-  devWebpackConfig.plugins.push(
-    new ZipPlugin({
-      path: tarballPrefixPath,
-      filename: 'frontend.dev.zip'
-    })
-  )
-  console.log('tarballPrefixPath: ', tarballPrefixPath)
-}
 
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port
@@ -106,6 +98,27 @@ module.exports = new Promise((resolve, reject) => {
         ? utils.createNotifierCallback()
         : undefined
       }))
+
+      if (config.dev.webpackStats) {
+        const WebpackOnBuildPlugin = require('on-build-webpack')
+        const debug = require('util')
+        devWebpackConfig.plugins.push(
+          new WebpackOnBuildPlugin(function(stats) {
+            /*
+            console.log('config.dev.tarballRoot=', config.dev.tarballRoot)
+            console.log('config.dev.assetsRoot=', config.dev.assetsRoot)
+            ZipFolder(config.dev.assetsRoot, config.dev.assetsRoot, function(err) {
+              if(err) {
+                  console.log('oh no!', err);
+              } else {
+                  console.log('EXCELLENT');
+              }
+            })
+            */
+            // console.log('webpack.dev.stats: ', debug.inspect(stats, {depth: 2, maxArrayLength: 50, colors: true}))
+          })
+        )
+      }
 
       resolve(devWebpackConfig)
     }

@@ -6,6 +6,12 @@
 
 <script>
 export default {
+  // name: 'NodeRedUIBuilder',
+  data () {
+    return {
+      context: {}
+    }
+  },
   mounted () {
     console.log('nodered-uibuilder mounted')
   },

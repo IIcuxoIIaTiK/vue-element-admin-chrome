@@ -12,12 +12,15 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const ZipFolder = require('zip-folder')
+const ZipPlugin = require('zip-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', '..', dir)
 }
 
 const env = require('../config/prod.env')
+
+console.log('config.build.assetsRoot=', config.build.assetsRoot)
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -70,7 +73,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       favicon: resolve('favicon.ico'),
-      title: 'vue-element-admin',
+      title: 'snk-vue-element-admin',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -138,20 +141,16 @@ if (config.build.webpackStats) {
 }
 
 if (config.build.generateTarball) {
-  const ZipPlugin = require('zip-webpack-plugin')
-  const tarballPrefixPath = resolve(path.join('shared', 'tarball', 'web'))
   webpackConfig.plugins.push(
     new ZipPlugin({
-      path: tarballPrefixPath,
+      path: config.build.tarballRoot,
       filename: 'frontend.prod.zip'
     })
   )
-  console.log('tarballPrefixPath: ', tarballPrefixPath)
 }
 
 if (config.build.productionGzip) {
   const CompressionWebpackPlugin = require('compression-webpack-plugin')
-
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
       asset: '[path].gz[query]',

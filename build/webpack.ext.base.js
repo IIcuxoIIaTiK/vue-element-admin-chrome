@@ -14,6 +14,8 @@ const writeYaml = require('write-yaml')
 const writeJson = require('write-json')
 const pkg = require('../package.json')
 
+const defaultManifest = require('../src/extension/manifest/manifest')
+
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ChromeReloadPlugin = require('wcer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -31,7 +33,7 @@ const rootDir = path.resolve(__dirname, '..')
 const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024
 
-// process.traceDeprecation = true
+process.traceDeprecation = true
 
 let resolve = (dir) => path.join(rootDir, 'src', dir)
 
@@ -82,14 +84,15 @@ const UpdateManifest = (file = "", options = {drymode: false, browser: 'chrome',
   context.css.defaultFiles = ['css/content.css']
 
   fs.readFile(context.manifest.filePath, 'utf8', (err, content) => {
-    if (err) {
-      console.error('manifest.json does not exists, expected: ', context.manifest.filePath, ', error: ', err)
-      return
-    }
-
     ////////////////////////////////////////
     // manifest
-    context.manifest.original = JSON.parse(content.toString())
+    if (err) {
+      // console.error('manifest.json does not exists, expected: ', context.manifest.filePath, ', error: ', err)
+      context.manifest.original = defaultManifest // JSON.parse(defaultManifest)
+    } else {
+      context.manifest.original = JSON.parse(content.toString())
+    }
+
     context.manifest.next =  context.manifest.original
 
     ////////////////////////////////////////
@@ -97,57 +100,58 @@ const UpdateManifest = (file = "", options = {drymode: false, browser: 'chrome',
     context.js.build.path = path.join(context.build.path, 'js')
     context.js.build.pattern = path.join(context.build.path, 'js', '*.*.js')
 
-    if (!fs.existsSync(context.js.build.path)) {
-      console.error('context.js.build.path does not exists, expected: ', context.js.build.path)
-      return
+    if (fs.existsSync(context.js.build.path)) {
+      // console.error('context.js.build.path does not exists, expected: ', context.js.build.path)
+      // return
+
+      const chunkJSfiles = glob.sync(context.js.build.pattern, {nodir: true})
+      context.js.build.matches.found = chunkJSfiles
+
+      chunkJSfiles.forEach(function(part, index, matches) {
+        matches[index] = matches[index].replace(context.js.build.path, 'js')
+      })
+      context.js.build.matches.filtered = chunkJSfiles
+
+      context.manifest.next.content_scripts[0].js = []
+      // if (context.manifest.original.content_scripts[0].js !== undefined ) {
+      //   context.manifest.next.content_scripts[0].js = context.manifest.original.content_scripts[0].js
+      // }
+
+      context.manifest.next.content_scripts[0].js.push('js/manifest.js')
+      context.manifest.next.content_scripts[0].js.push('js/vendor.js')
+
+      context.js.build.matches.filtered.forEach(function(part, index, matches) {
+        context.manifest.next.content_scripts[0].js.push(matches[index])
+      })
+      context.manifest.next.content_scripts[0].js.push('js/content.js')
     }
-
-    const chunkJSfiles = glob.sync(context.js.build.pattern, {nodir: true})
-    context.js.build.matches.found = chunkJSfiles
-
-    chunkJSfiles.forEach(function(part, index, matches) {
-      matches[index] = matches[index].replace(context.js.build.path, 'js')
-    })
-    context.js.build.matches.filtered = chunkJSfiles
-
-    context.manifest.next.content_scripts[0].js = []
-    // if (context.manifest.original.content_scripts[0].js !== undefined ) {
-    //   context.manifest.next.content_scripts[0].js = context.manifest.original.content_scripts[0].js
-    // }
-
-    context.manifest.next.content_scripts[0].js.push('js/manifest.js')
-    context.manifest.next.content_scripts[0].js.push('js/vendor.js')
-
-    context.js.build.matches.filtered.forEach(function(part, index, matches) {
-      context.manifest.next.content_scripts[0].js.push(matches[index])
-    })
-    context.manifest.next.content_scripts[0].js.push('js/content.js')
 
     ////////////////////////////////////////
     // CSS Files
     context.css.build.path = path.join(context.build.path, 'css')
     context.css.build.pattern = path.join(context.build.path, 'css', 'content.*.css')
 
-    if (!fs.existsSync(context.css.build.path)) {
-      console.error('context.css.build.path does not exists, expected: ', context.css.build.path)
-      return
+    if (fs.existsSync(context.css.build.path)) {
+      // console.error('context.css.build.path does not exists, expected: ', context.css.build.path)
+      // return
+
+      const chunkCSSfiles = glob.sync(context.css.build.pattern, {nodir: true})
+      context.css.build.matches.found = chunkCSSfiles
+      chunkCSSfiles.forEach(function(part, index, matches) {
+        matches[index] = matches[index].replace(context.css.build.path, 'css')
+      })
+      context.css.build.matches.filtered = chunkCSSfiles
+
+      context.manifest.next.content_scripts[0].css = []
+      // if (context.manifest.original.content_scripts[0].css !== undefined ) {
+      //  context.manifest.next.content_scripts[0].css = context.manifest.original.content_scripts[0].css
+      // }
+
+      context.css.build.matches.filtered.forEach(function(part, index, matches) {
+        context.manifest.next.content_scripts[0].css.push(matches[index])
+      })
+
     }
-
-    const chunkCSSfiles = glob.sync(context.css.build.pattern, {nodir: true})
-    context.css.build.matches.found = chunkCSSfiles
-    chunkCSSfiles.forEach(function(part, index, matches) {
-      matches[index] = matches[index].replace(context.css.build.path, 'css')
-    })
-    context.css.build.matches.filtered = chunkCSSfiles
-
-    context.manifest.next.content_scripts[0].css = []
-    // if (context.manifest.original.content_scripts[0].css !== undefined ) {
-    //  context.manifest.next.content_scripts[0].css = context.manifest.original.content_scripts[0].css
-    // }
-
-    context.css.build.matches.filtered.forEach(function(part, index, matches) {
-      context.manifest.next.content_scripts[0].css.push(matches[index])
-    })
 
     ////////////////////////////////////////
     // Verbose / Debug
@@ -160,17 +164,17 @@ const UpdateManifest = (file = "", options = {drymode: false, browser: 'chrome',
     // Output/Write Files
     if (!options.drymode) {
       // const data = context.manifest.next
-      console.log(prettyJson.render(context.manifest.next))
+      // console.log(prettyJson.render(context.manifest.next))
 
       ////////////////////////////////////////
       // Write JSON
-      console.log('writeJson, file=', file)
+      // console.log('writeJson, file=', file)
       writeJson.sync(file, context.manifest.next, {indent: 2})
 
       ////////////////////////////////////////
       // Write YAML
       const fileYaml = extManifestBasename+'.yaml'
-      console.log('writeYaml, file=', fileYaml)
+      // console.log('writeYaml, file=', fileYaml)
       writeYaml.sync(fileYaml, context.manifest.next)
     }
 
@@ -323,17 +327,11 @@ module.exports = {
     // htmlPage('components', 'components', ['manifest', 'vendor', 'components']),
     // End customize
     new CopyWebpackPlugin([{ from: path.join(rootDir, 'static') }]),
-
     /*
     new WebpackShellPlugin({
       onBuildEnd: ['node scripts/remove-evals.js'],
     }),
     */
-
-    new ChromeReloadPlugin({
-      port: 9090,
-      manifest: path.join(rootDir, 'src', 'extension', 'manifest', 'manifest.js')
-    }),
 
     new GenerateLocaleJsonPlugin({
       _locales: path.join(rootDir, 'src', '_locales')
@@ -376,6 +374,7 @@ module.exports = {
       UpdateManifest(extManifestFile, manifestOpts)
     }),
   ],
+  /*
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).
@@ -388,5 +387,6 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty'
   },
+  */
   performance: { hints: false }
 }

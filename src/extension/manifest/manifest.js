@@ -70,8 +70,9 @@ module.exports = {
     }
   },
   background: {
-    persistent: false,
-    page: 'pages/background.html'
+    persistent: true,
+    page: 'pages/background.html',
+    // scripts: ['js/background.js']
   },
   devtools_page: 'pages/devtools.html',
 
@@ -79,8 +80,8 @@ module.exports = {
   content_scripts: [{
     // css: [],
     // js: [],
-    // run_at: 'document_end',
-    run_at: 'document_idle',
+    run_at: 'document_end',
+    // run_at: 'document_idle',
     matches: [
       // '<all_urls>',
       'https://github.com/*'

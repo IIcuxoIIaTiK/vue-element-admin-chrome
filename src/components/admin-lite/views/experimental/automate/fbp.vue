@@ -6,7 +6,12 @@
 
 <script>
 export default {
-  name: 'AutomateFbpIndex',
+  // name: 'AutomateFbpIndex',
+  data () {
+    return {
+      context: {}
+    }
+  },
   mounted () {
     console.log('automate-fbp mounted')
   },

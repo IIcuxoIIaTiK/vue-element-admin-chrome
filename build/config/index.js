@@ -17,7 +17,7 @@ module.exports = {
     port: 9528, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
-    notifyOnErrors: false,
+    notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
     // Use Eslint Loader?
@@ -26,7 +26,7 @@ module.exports = {
     useEslint: true,
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
-    showEslintErrorsInOverlay: false,
+    showEslintErrorsInOverlay: true,
 
     /**
      * Source Maps
@@ -48,7 +48,13 @@ module.exports = {
     cssSourceMap: false,
 
     // generate tarball
-    generateTarball: true,
+    generateTarball: false,
+
+    // Template for index.html
+    // index: path.resolve(__dirname, '..', '..', 'shared', 'dist', 'web/index.html'),
+    // assetsRoot: path.resolve(__dirname, '..', '..', 'shared', 'dist', 'web'),
+
+    tarballRoot: path.resolve(__dirname, '..', '..', 'shared', 'tarball', 'web'),
 
     // callback for webpack stats
     webpackStats: false,
@@ -57,11 +63,13 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '..', '..', '..', 'shared', 'dist', 'web/index.html'),
+    index: path.resolve(__dirname, '..', '..', 'shared', 'dist', 'web/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '..', '..', '..', 'shared', 'dist', 'web'),
+    assetsRoot: path.resolve(__dirname, '..', '..', 'shared', 'dist', 'web'),
     assetsSubDirectory: 'static',
+
+    tarballRoot: path.resolve(__dirname, '..', '..', 'shared', 'tarball', 'web'),
 
     /**
      * You can set by youself according to actual condition
@@ -70,7 +78,7 @@ module.exports = {
      * then assetsPublicPath should be set to "/bar/".
      * In most cases please use '/' !!!
      */
-    assetsPublicPath: '/vueAdmin-template/', // If you are deployed on the root path, please use '/'
+    assetsPublicPath: '/admin/', // If you are deployed on the root path, please use '/'
 
     /**
      * Source Maps
@@ -81,7 +89,7 @@ module.exports = {
     devtool: '#source-map',
 
     // generate tarball
-    generateTarball: true,
+    generateTarball: false,
 
     // callback for webpack stats
     webpackStats: false,

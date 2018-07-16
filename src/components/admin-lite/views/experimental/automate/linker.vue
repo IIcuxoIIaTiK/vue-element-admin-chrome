@@ -6,6 +6,12 @@
 
 <script>
 export default {
+  // name: 'LinkerAutomation',
+  data () {
+    return {
+      context: {}
+    }
+  },
   mounted () {
     console.log('fbp-linker mounted')
   },

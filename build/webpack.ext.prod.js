@@ -2,7 +2,6 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const debug = require('util')
 const path = require('path')
-// const webpack = require('webpack-stream')
 
 const ZipPlugin = require('zip-webpack-plugin')
 const ZipFolder = require('zip-folder')
@@ -11,13 +10,13 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const WebpackShellPlugin = require('webpack-shell-plugin')
 const WebpackCdnPlugin = require('webpack-cdn-plugin')
 const WebpackOnBuildPlugin = require('on-build-webpack')
-// const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 
 const baseWebpack = require('./webpack.ext.base')
 const { styleLoaders, increaseVersion } = require('./tools')
 
 module.exports = merge(baseWebpack, {
-  watch: true,
+  // watch: false,
   module: { rules: styleLoaders({ extract: true, sourceMap: true }) },
   // devtool: '#cheap-module-source-map',
   plugins: [
@@ -43,16 +42,10 @@ module.exports = merge(baseWebpack, {
         safe: true
       }
     }),
-    // new ExtractTextPlugin({ filename: 'css/[name].css?[contenthash]' }),
     new ExtractTextPlugin({
       filename: 'css/[name].[contenthash].css'
     }),
     new webpack.HashedModuleIdsPlugin(),
-    /*
-    new WebpackOnBuildPlugin(function(stats) {
-      console.log('webpack.prod.stats: ', debug.inspect(stats.compilation.assets, {depth: 1, maxArrayLength: 10, colors: true}))
-    }),
-    */
     new ZipPlugin({
       path: path.resolve(__dirname, '..', 'shared', 'tarball', 'extension', 'chrome'),
       filename: 'extension.prod.zip'

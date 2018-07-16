@@ -45,6 +45,16 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    // no-unused-vars
+    'no-unused-vars': 0,
+    // no-return-assign
+    'no-return-assign': 0,
+    // no-unneeded-ternary
+    'no-unneeded-ternary': 0,
+    // no-mixed-operators
+    'no-mixed-operators': 0,
+    // no-return-assign
+    'no-return-assign': 0,
     // one-var
     'one-var': 0,
     // no-useless-escape

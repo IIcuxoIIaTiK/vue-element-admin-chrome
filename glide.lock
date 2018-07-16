@@ -1,32 +1,16 @@
-hash: 43a770f86f23548891c28059b160c7e7f6321678f3b97055cb560e7f17328b37
-updated: 2018-07-14T16:17:40.886703767+02:00
+hash: ec3b5f2f6e8cd52884ec4525ab41cf05ad782eb4b80d95f663888e24916124ef
+updated: 2018-07-16T23:31:55.86971515+02:00
 imports:
-- name: cloud.google.com/go
-  version: 845f3e70a23496e5641bedb484e85f6e6cbfc20a
-  subpackages:
-  - civil
 - name: github.com/asm-jaime/gen
   version: 04cd8ee4dfcbc0dee48a83d444fe346b9c9f0168
-- name: github.com/aymerick/raymond
-  version: b565731e1464263de0bda75f2e45d97b54b60110
-  subpackages:
-  - ast
-  - lexer
-  - parser
 - name: github.com/birkelund/boltdbcache
   version: d9be082dca00d07899b8993c70e68bfc3fb8ac21
 - name: github.com/bradfitz/gomemcache
   version: bc664df9673713a0ccf26e3b55a673ec7301088b
   subpackages:
   - memcache
-- name: github.com/BurntSushi/toml
-  version: a368813c5e648fee92e5f6c30e3944ff9d5e8895
 - name: github.com/coreos/bbolt
   version: af9db2027c98c61ecd8e17caa5bd265792b9b9a2
-- name: github.com/denisenkom/go-mssqldb
-  version: 242fa5aa1b45aeb9fcdfeee88822982e3f548e22
-  subpackages:
-  - internal/cp
 - name: github.com/devopsfaith/krakend
   version: 1e232acc93ec82324426468630b8624730268fed
   subpackages:
@@ -48,14 +32,6 @@ imports:
   version: 04b9315ab7a61886b4e51dba37a9c7cc14885fae
   subpackages:
   - twotier
-- name: github.com/eknkc/amber
-  version: cdade1c073850f4ffc70a829e31235ea6892853b
-  subpackages:
-  - parser
-- name: github.com/fatih/structs
-  version: ebf56d35bba727c68ac77f56f2fcf90b181851aa
-- name: github.com/flosch/pongo2
-  version: 67f4ff8560dfa2b00920118f228c0a2f68760631
 - name: github.com/fsnotify/fsnotify
   version: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
 - name: github.com/garyburd/redigo
@@ -75,8 +51,6 @@ imports:
   subpackages:
   - binding
   - render
-- name: github.com/go-sql-driver/mysql
-  version: 749ddf1598b47e3cd909414bda735fe790ef3d30
 - name: github.com/golang/protobuf
   version: 2402d76f3d41f928c7902a765dfc872356dd3aad
   subpackages:
@@ -107,107 +81,18 @@ imports:
   - diskcache
   - leveldbcache
   - memcache
-- name: github.com/hashicorp/go-version
-  version: 23480c0665776210b5fbbac6eaaee40e3e6a96b7
-- name: github.com/iris-contrib/formBinder
-  version: ad9fb86c356f971f30319c40ddbdcf72129a2791
-- name: github.com/jinzhu/gorm
-  version: 0fd395ab37aefd2d50854f0556a4311dccc6f45a
-  subpackages:
-  - dialects/mssql
-  - dialects/mysql
-  - dialects/postgres
-  - dialects/sqlite
-- name: github.com/jinzhu/inflection
-  version: 04140366298a54a039076d798123ffa108fff46c
-- name: github.com/Joker/jade
-  version: 8828253bfc54f2f91aaef5f32b44a244b0a98e4f
-- name: github.com/json-iterator/go
-  version: ab8a2e0c74be9d3be70b3184d9acc634935ded82
-- name: github.com/juju/errors
-  version: c7d06af17c68cd34c835053720b21f6549d9b0ee
-- name: github.com/kataras/golog
-  version: 03be101463868edc5a81f094fc68a5f6c1b5503a
-- name: github.com/kataras/iris
-  version: 640daf094c74d8172a5e1805453405df7bdf1a97
-  subpackages:
-  - cache
-  - cache/cfg
-  - cache/client
-  - cache/client/rule
-  - cache/entry
-  - cache/ruleset
-  - cache/uri
-  - context
-  - core/errors
-  - core/handlerconv
-  - core/host
-  - core/maintenance
-  - core/maintenance/version
-  - core/memstore
-  - core/netutil
-  - core/router
-  - core/router/macro
-  - core/router/macro/interpreter/ast
-  - core/router/macro/interpreter/lexer
-  - core/router/macro/interpreter/parser
-  - core/router/macro/interpreter/token
-  - core/router/node
-  - middleware/logger
-  - middleware/recover
-  - sessions
-  - sessions/sessiondb/badger
-  - sessions/sessiondb/boltdb
-  - sessions/sessiondb/redis
-  - view
-  - websocket
-- name: github.com/kataras/pio
-  version: a9733b5b6b83d32b479aacd51d26ef6018261963
-  subpackages:
-  - terminal
-- name: github.com/kataras/survey
-  version: 00934ae069eda15df26fa427ac393e67e239380c
-  subpackages:
-  - core
-  - terminal
-- name: github.com/klauspost/compress
-  version: b939724e787a27c0005cabe3f78e7ed7987ac74f
-  subpackages:
-  - flate
-  - gzip
-- name: github.com/klauspost/cpuid
-  version: e7e905edc00ea8827e58662220139109efea09db
-- name: github.com/lib/pq
-  version: 90697d60dd844d5ef6ff15135d0203f65d2f53b8
-  subpackages:
-  - hstore
-  - oid
+- name: github.com/k0kubun/pp
+  version: e057ee7a28277be4d2af303443b6da377768181f
 - name: github.com/manucorporat/sse
   version: ee05b128a739a0fb76c7ebd3ae4810c1de808d6d
 - name: github.com/mattn/go-colorable
-  version: efa589957cd060542a26d2dd7832fd6a6c6c3ade
+  version: d228849504861217f796da67fae4f6e347643f15
 - name: github.com/mattn/go-isatty
-  version: 6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c
-- name: github.com/mattn/go-sqlite3
-  version: 3aefd9f0a162514f66d0e4ceda3edc44e66b502e
-- name: github.com/mgutz/ansi
-  version: 9520e82c474b0a04dd04f8a40959027271bab992
-- name: github.com/microcosm-cc/bluemonday
-  version: f0761eb8ed07c1cc892ef631b00c33463b9b6868
-- name: github.com/modern-go/concurrent
-  version: bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94
-- name: github.com/modern-go/reflect2
-  version: 4b7aa43c6742a2c18fdef89dd197aaae7dac7ccd
+  version: 30a891c33c7cde7b02a981314b4228ec99380cca
 - name: github.com/peterbourgon/diskv
   version: 0646ccaebea1ed1539efcab30cae44019090093f
 - name: github.com/robfig/go-cache
   version: 9fc39e0dbf62c034ec4e45e6120fc69433a3ec51
-- name: github.com/ryanuber/columnize
-  version: abc90934186a77966e2beeac62ed966aac0561d5
-- name: github.com/satori/go.uuid
-  version: 36e9d2ebbde5e3f13ab2e25625fd453271d6522e
-- name: github.com/shurcooL/sanitized_anchor_name
-  version: 86672fcb3f950f35f2e675df2240550f2a50762f
 - name: github.com/sniperkit/janus
   version: a052031165470a18fee2628dcf7026bebe166ea8
   subpackages:
@@ -229,35 +114,19 @@ imports:
   - leveldb/storage
   - leveldb/table
   - leveldb/util
-- name: github.com/valyala/bytebufferpool
-  version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
-- name: golang.org/x/crypto
-  version: a49355c7e3f8fe157a85be2f77e6e269a0f89602
-  subpackages:
-  - acme
-  - acme/autocert
-  - md4
 - name: golang.org/x/net
   version: f315505cf3349909cdf013ea56690da34e96a451
   subpackages:
   - context
-  - html
-  - html/atom
   - websocket
 - name: golang.org/x/sys
-  version: 1b2967e3c290b7c545b3db0deeda16e9be4f98a2
+  version: d75a52659825e75fff6158388dddc6a5b04f9ba5
   subpackages:
   - unix
-- name: google.golang.org/appengine
-  version: b1f26356af11148e710935ed1ac8a7f5702c7612
-  subpackages:
-  - cloudsql
 - name: gopkg.in/gin-contrib/cors.v1
   version: cf4846e6a636a76237a28d9286f163c132e841bc
 - name: gopkg.in/go-playground/validator.v8
   version: c193cecd124b5cc722d7ee5538e945bdb3348435
-- name: gopkg.in/russross/blackfriday.v2
-  version: cadec560ec52d93835bf2f15bd794700d3a2473b
 - name: gopkg.in/yaml.v2
   version: e4d366fc3c7938e2958e662b4258c7a89e1f0e3e
 testImports: []

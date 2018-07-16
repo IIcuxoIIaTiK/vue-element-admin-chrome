@@ -39,7 +39,7 @@ export default {
       default: 360
     }
   },
-  data() {
+  data () {
     return {
       hasChange: false,
       hasInit: false,
@@ -48,24 +48,24 @@ export default {
     }
   },
   watch: {
-    value(val) {
+    value (val) {
       if (!this.hasChange && this.hasInit) {
         this.$nextTick(() =>
           window.tinymce.get(this.tinymceId).setContent(val || ''))
       }
     }
   },
-  mounted() {
+  mounted () {
     this.initTinymce()
   },
-  activated() {
+  activated () {
     this.initTinymce()
   },
-  deactivated() {
+  deactivated () {
     this.destroyTinymce()
   },
   methods: {
-    initTinymce() {
+    initTinymce () {
       const _this = this
       window.tinymce.init({
         selector: `#${this.tinymceId}`,
@@ -95,7 +95,7 @@ export default {
             this.$emit('input', editor.getContent())
           })
         },
-        setup(editor) {
+         (editor) {
           editor.on('FullscreenStateChanged', (e) => {
             _this.fullscreen = e.state
           })
@@ -135,25 +135,25 @@ export default {
         // },
       })
     },
-    destroyTinymce() {
+    destroyTinymce () {
       if (window.tinymce.get(this.tinymceId)) {
         window.tinymce.get(this.tinymceId).destroy()
       }
     },
-    setContent(value) {
+    setContent (value) {
       window.tinymce.get(this.tinymceId).setContent(value)
     },
-    getContent() {
+    getContent () {
       window.tinymce.get(this.tinymceId).getContent()
     },
-    imageSuccessCBK(arr) {
+    imageSuccessCBK (arr) {
       const _this = this
       arr.forEach(v => {
         window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`)
       })
     }
   },
-  destroyed() {
+  destroyed () {
     this.destroyTinymce()
   }
 }

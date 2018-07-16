@@ -39,7 +39,7 @@ module.exports = class GenerateLocaleJsonPlugin {
 
     for (let locale of this._locales) {
       comp.fileDependencies.push(locale.src)
-      const source = JSON.stringify(locale.content)
+      const source = JSON.stringify(locale.content, null, 2)
       comp.assets[join('_locales', locale.localeName, 'messages.json')] = {
         source: () => source,
         size: () => source.length

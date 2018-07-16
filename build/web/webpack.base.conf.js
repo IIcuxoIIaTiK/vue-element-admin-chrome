@@ -27,6 +27,9 @@ const createLintingRule = () => ({
   }
 })
 
+console.log('config.build.tarballRoot=', config.build.tarballRoot)
+console.log('config.build.assetsRoot=', config.build.assetsRoot)
+
 module.exports = {
   context: path.resolve(__dirname, '..', '..'),
   entry: {
@@ -99,7 +102,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['*'], {root: path.join('..', '..', 'shared', 'dist', 'web')}),
+    new CleanWebpackPlugin(['*'], {root: path.resolve(__dirname, '..', '..', 'shared', 'dist', 'web')}),
     new GenerateLocaleJsonPlugin({
       _locales: path.resolve(__dirname, '..', '..', 'src', '_locales')
     }),

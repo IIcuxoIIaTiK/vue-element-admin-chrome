@@ -42,9 +42,9 @@ const VERSION = "1.3.0"
 
 var (
 	currentWorkDir, _ = os.Getwd()
+	resDefaultDir     = filepath.Join(currentWorkDir, "data")
 	configPrefixPath  = flag.String("config-dir", currentWorkDir, "Config prefix path")
 	configFilename    = flag.String("config-file", "config.json", "Config filename")
-	resDefaultDir     = filepath.Join(currentWorkDir, "data")
 	resPrefixPath     = flag.String("resource-dir", resDefaultDir, "Resources prefix path")
 )
 

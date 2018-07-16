@@ -1,7 +1,10 @@
 package: github.com/sniperkit/vue-element-admin-chrome
 ignore:
+- github.com/jinzhu/gorm
+- github.com/kataras/iris
 - github.com/sniperkit/goes
 - github.com/jijeshmohan/janus
+- github.com/sniperkit/snk.golang.vuejs-multi-backend
 import:
 - package: github.com/asm-jaime/gen
 - package: github.com/birkelund/boltdbcache
@@ -21,6 +24,7 @@ import:
   - cache
   - jwt
   - secure
+  - static
 - package: github.com/gin-gonic/gin
 - package: github.com/googollee/go-socket.io
 - package: github.com/gregjones/httpcache
@@ -34,14 +38,11 @@ import:
   - dialects/mysql
   - dialects/postgres
   - dialects/sqlite
+- package: github.com/k0kubun/pp
 - package: github.com/kataras/iris
   subpackages:
   - middleware/logger
   - middleware/recover
-  - sessions
-  - sessions/sessiondb/badger
-  - sessions/sessiondb/boltdb
-  - sessions/sessiondb/redis
   - websocket
 - package: github.com/sniperkit/goes
   subpackages:
@@ -53,6 +54,12 @@ import:
   subpackages:
   - config
   - server
+- package: github.com/sniperkit/snk.golang.vuejs-multi-backend
+  subpackages:
+  - config
+  - logger
+  - model
+  - route
 - package: golang.org/x/net
   subpackages:
   - websocket

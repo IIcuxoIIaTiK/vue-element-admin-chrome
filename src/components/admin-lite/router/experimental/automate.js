@@ -34,14 +34,14 @@ export const automateRouterMap = [
         name: 'Linker',
         component: () => import('@/components/admin-lite/views/experimental/automate/linker.vue'),
         meta: { title: 'Linker', icon: 'example' }
-      },
+      }/*,
       // 2 - Selector
       {
         path: 'selector',
         name: 'Selector',
-        component: () => import('@/components/admin-lite/views/experimental/automate/css-selector-mate.vue'),
+        component: () => import('@/components/Custom/Automate/scrape/css-selector/component.vue'),
         meta: { title: 'Css Selector', icon: 'example' }
-      }
+      }*/
     ]
   }
 ]
