@@ -5,6 +5,7 @@
 const path = require('path')
 
 module.exports = {
+  rootDir: path.resolve(__dirname, '..', '..'),
   dev: {
 
     // Paths
@@ -59,6 +60,18 @@ module.exports = {
     // callback for webpack stats
     webpackStats: false,
 
+    // generate embeddable binary data for Golang based programs
+    generateBindata: true,
+
+    // generate embeddable binary data shell command
+    generateBindataCmd: [
+      'bindata',
+      '-ignore=\\\.DS_Store', '-ignore=\\\.secret', '-ignore=\\\.env',
+      '-pkg', 'main',
+      '-o', path.resolve(__dirname, '..', '..', 'shared', 'dist', 'bindata', 'dev', 'gz-bindata.go'),
+      path.join('shared', 'dist', 'web', '...')
+    ]
+
   },
 
   build: {
@@ -88,11 +101,23 @@ module.exports = {
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 
-    // generate tarball
-    generateTarball: false,
-
     // callback for webpack stats
     webpackStats: false,
+
+    // generate embeddable binary data for Golang based programs
+    generateBindata: true,
+
+    // generate embeddable binary data shell command
+    generateBindataCmd: [
+      'bindata',
+      '-ignore=\\\.DS_Store', '-ignore=\\\.secret', '-ignore=\\\.env',
+      '-pkg', 'main',
+      '-o', path.resolve(__dirname, '..', '..', 'shared', 'dist', 'bindata', 'prod', 'gz-bindata.go'),
+      path.join('shared', 'dist', 'web', '...')
+    ],
+
+    // generate tarball
+    generateTarball: false,
 
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -106,7 +131,6 @@ module.exports = {
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
-
 
   }
 }

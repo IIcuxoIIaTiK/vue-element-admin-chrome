@@ -11,7 +11,7 @@ const app = {
       withoutAnimation: false
     },
     sidebar: {
-      opened: !+Cookies.get('sidebarStatus'),
+      opened: false, // !+Cookies.get('sidebarStatus'),
       withoutAnimation: false
     },
     device: 'desktop',

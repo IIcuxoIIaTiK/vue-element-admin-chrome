@@ -1,34 +1,54 @@
 import Vue from 'vue'
+
+import App from './root.vue' // option app-main page
+import router from '@/extension/popup/router/index.js' // custom router
+import store from '@/components/admin-lite/store'
+// import '@/permission' // permission control
+
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
-import Content from './root.vue'
-// import OneTabPlus from '@/components/Custom/Collect/Browse/OneTabPlus/index'
+import i18n from './lang' // Internationalization
+import '@/extension/popup/icons' // icon
+import './errorLog'// error log
 
-import Vuetify from 'vuetify'
+import * as filters from './filters' // global filters
+Vue.use(ElementUI, { locale })
 
-Vue.use(Vuetify)
-Vue.use(ElementUI)
+/*
+router.beforeEach(function (to, from, next) {
+  console.log('router.beforeEach.to: ', to)
+  console.log('router.beforeEach.from: ', from)
+  next()
+})
+
+router.afterEach(function (a) {
+  console.log('router.afterEach: ', a)
+})
+*/
+
+const snkOpts = document.createElement('div')
+snkOpts.setAttribute('id', 'app')
+document.body.appendChild(snkOpts)
+
+/*
+Vue.use(ElementUI, {
+  size: 'medium', // set element-ui default size
+  i18n: (key, value) => i18n.t(key, value)
+})
+*/
+
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 Vue.config.productionTip = false
 
-// const root = document.createElement('div')
-// document.getElementsByTagName('body')[0].appendChild(root)
-
-/*
 new Vue({
-    render: (h) => h(Content)
-}).$mount(root)
-*/
-
-// new Vue({ // eslint-disable-line no-new
-//   el: '#root',
-//   render: h => h(root)
-// })
-
-/* eslint-disable no-new */
-new Vue({
-  el: '#root',
-  // OneTabPlus,
-  render: h => h(Content)
-}) //.$mount(root)
+  el: '#app',
+  router,
+  store,
+  i18n,
+  render: h => h(App)
+})

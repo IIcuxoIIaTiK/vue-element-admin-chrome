@@ -27,8 +27,9 @@ const createLintingRule = () => ({
   }
 })
 
-console.log('config.build.tarballRoot=', config.build.tarballRoot)
+console.log('config.rootDir=', config.rootDir)
 console.log('config.build.assetsRoot=', config.build.assetsRoot)
+console.log('config.build.tarballRoot=', config.build.tarballRoot)
 
 module.exports = {
   context: path.resolve(__dirname, '..', '..'),

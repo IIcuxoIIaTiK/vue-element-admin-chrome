@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     <h3>vue-socket-cluster</h3>
+    <div id="snk_wamp"></div>
     <!-- bind documented events using :on['Event_name'] first letter being a capital letter -->
     <echo-client event="echo" :onConnect="connected" :onMessage="anyMessageData"></echo-client>
 
@@ -29,16 +30,17 @@ import VueSocketCluster from 'vue-socket-cluster'
 
 Vue.use(VueSocketCluster, {
   connections: [{
-    name: 'echo', // Each connection object must have a name and the name must be unique in the array
-    hostname: '127.0.0.1',
+    name: 'ws', // Each connection object must have a name and the name must be unique in the array
+    hostname: 'localhost',
     secure: false,
-    port: 8000,
+    port: 3000,
     rejectUnauthorized: false
     // Other socket cluster options
   }]
 })
 
 export default {
+  // name: 'snk-cluster-ws',
   data () {
     return {
       connected: false,
@@ -72,7 +74,7 @@ export default {
     triggerEvent (name, data) {
       this.$echoClient.emit('name', data)
     },
-    connected () {
+    status () {
       console.log('connected to echo socket server')
     },
     anyMessageData (data) {

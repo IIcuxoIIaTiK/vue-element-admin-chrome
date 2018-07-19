@@ -7,9 +7,11 @@
 <script>
 import Vue from 'vue'
 import VueWebsocket from 'vue-websocket'
-Vue.use(VueWebsocket, 'ws://localhost:8080')
+Vue.use(VueWebsocket, 'ws://localhost:3000/ws')
+// Vue.use(VueWebsocket, 'ws://localhost:3000/todos/sync')
 
 export default {
+  // name: 'snk-websocket',
   methods: {
     add () {
       // Emit the server side

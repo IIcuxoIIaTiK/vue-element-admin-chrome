@@ -1,13 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import { checkBackendApiEnv } from '@/components/admin-lite/utils/request'
+
 /* Layout */
 import Layout from '@/components/admin-lite/views/layout/Layout'
 
 /* Experimental */
 // import { adminRouterMap } from './experimental/admin'
 import { automateRouterMap } from './experimental/automate'
+import { authRouterMap } from './experimental/authenticate'
 // import { collectRouterMap } from './experimental/collect'
+
+Vue.config.productionTip = false
 
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
@@ -108,6 +113,17 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/auth',
+    component: Layout,
+    name: 'authenticate',
+    meta: {
+      title: 'Authenticate',
+      icon: 'login'
+    },
+    children: authRouterMap // /*adminRouterMap,*/ automateRouterMap, collectRouterMap]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
@@ -152,6 +168,7 @@ export const constantRouterMap = [
     path: '/network',
     component: Layout,
     name: 'Network',
+    // redirect: '/network/ws-iris',
     meta: { title: 'Network', icon: 'message' },
     children: [
       {
@@ -162,11 +179,42 @@ export const constantRouterMap = [
       },
 
       {
-        path: 'index',
-        name: 'SocketIO',
+        path: 'ws-native',
+        name: 'WsNative',
+        component: () => import('@/components/Custom/Network/vue-native-websocket/root'),
+        meta: { title: 'Socket Native', icon: 'message' }
+      },
+
+      {
+        path: 'ws-socketio',
+        name: 'WsSocketIO',
+        component: () => import('@/components/Custom/Network/vue-socketio/root'),
+        meta: { title: 'Socket IO', icon: 'message' }
+      },
+
+      {
+        path: 'ws-iris',
+        name: 'SocketTodoMvc',
+        component: () => import('@/components/Custom/Network/vue-iris-todo/root'),
+        meta: { title: 'Socket Iris / TodoMVC', icon: 'message' }
+      }
+
+      /*
+      {
+        path: 'ws-wamp',
+        name: 'WampWS',
+        component: () => import('@/components/Custom/Network/vue-wamp/root'),
+        meta: { title: 'Socket WAMP', icon: 'message' }
+      },
+
+      {
+        path: 'ws-cluster',
+        name: 'SocketCluster',
         component: () => import('@/components/Custom/Network/vue-socket-cluster/root'),
         meta: { title: 'Socket Cluster', icon: 'message' }
       }
+      */
+
     ]
   },
 

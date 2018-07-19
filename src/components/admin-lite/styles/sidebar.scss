@@ -10,8 +10,7 @@
   // Sidebar
   .sidebar-container {
     transition: width 0.28s;
-    // width: 180px !important;
-    min-width: 180px !important;
+    min-width: 36px !important;
     max-width: 300px !important;
     height: 100%;
     position: fixed;
@@ -88,7 +87,7 @@
 
   .sidebar-container .nest-menu .el-submenu>.el-submenu__title,
   .sidebar-container .el-submenu .el-menu-item {
-    min-width: 180px !important;
+    min-width: 36px !important;
     transition: transform 0.3s;
     background-color: $subMenuBg !important;
     &:hover {
@@ -96,7 +95,7 @@
     }
   }
   .el-menu--collapse .el-menu .el-submenu {
-    min-width: 180px !important;
+    min-width: 36px !important;
     // transition: transform 0.3s;
   }
 
@@ -107,7 +106,7 @@
     }
     .sidebar-container {
       transition: transform 0.3s;
-      min-width: 180px !important;
+      min-width: 36px !important;
     }
     &.hideSidebar {
       .sidebar-container {

@@ -1,12 +1,29 @@
 language: node_js
+
 node_js:
   - "6"
   - "6.1"
   - "5.11"
+
 before_install:
   - npm install -g yarn
+
 install:
   - yarn install
+
 script:
   - yarn run lint
   - yarn run build
+  - ./travis-build.sh
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: docs
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
+    condition: -n "${HUGO_VERSION}"
+
+notifications:
+  email: false

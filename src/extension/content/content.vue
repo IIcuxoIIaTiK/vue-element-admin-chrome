@@ -12,6 +12,7 @@
       </nav>
       <div class="st-pusher" @click="closeMenu">
         <div class="st-content">
+          <admin-panel></admin-panel>
           <div id="body-wrapper" class="st-content-inner">
             <slot></slot>
           </div>
@@ -24,29 +25,27 @@
 <script>
 import AdminPanel from '@/components/admin-lite/root.vue'
 
-import 'normalize.css/normalize.css'// A modern alternative to CSS resets
-
-import 'element-ui/lib/theme-chalk/index.css'
-
-import '@/components/admin-lite/styles/index.scss' // local css
-import '@/components/admin-lite/icons' // icon
-
 export default {
   name: 'App',
   components: {
     AdminPanel
   },
+  //Listen for path changes in the component and get a list of paths
+  watch: {
+    '$history.routes' (val) {
+      console.log('$history.routes, new: ', val)
+      ///this.path = val;
+    }
+  },
+  directives: { },
+  computed: { },
+  services: ['$http', '$tablePaginate', '$outsideEvents'],
   data: () => ({
-    // menuWidth: 300,
     menuState: false,
     menuExtend: false,
     menuEffect: 'st-effect-1',
     bodyHost: document.querySelectorAll('body > *')
   }),
-  // directives: {
-  // resize
-  // },
-  computed: { },
   mounted () {
     console.log('[chrome-ext] - content mounted !!!')
     var i
@@ -93,22 +92,6 @@ export default {
 </script>
 
 <style>
-
-  /*
-  #app {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    height: 100%;
-    width: 100%;
-  }
-  */
-
-  /*
-  #sidepanel li a {
-    color: #000;
-  }
-  */
 
   .user-avatar {
     visibility: hidden;

@@ -26,9 +26,8 @@ const { styleLoaders, increaseVersion } = require('./tools')
 */
 
 module.exports = merge(baseWebpack, {
-  watch: false,
+  watch: true,
   module: { rules: styleLoaders({ sourceMap: false }) },
-  // module: { rules: styleLoaders({ extract: true, sourceMap: false }) },
   devtool: '#cheap-module-source-map',
   // devtool: '#cheap-module-eval-source-map',
   plugins: [
@@ -46,12 +45,9 @@ module.exports = merge(baseWebpack, {
       path: path.resolve(__dirname, '..', 'shared', 'tarball', 'extension', 'chrome'),
       filename: 'extension.dev.zip'
     }),
-    /*
     new ChromeReloadPlugin({
       port: 9090,
       manifest: path.resolve(__dirname, '..', 'src', 'extension', 'manifest', 'manifest.js')
     }),
-    */
-    // new ProgressBarPlugin()
   ]
 })

@@ -19,3 +19,9 @@ export default {
   methods: { }
 }
 </script>
+
+<style>
+.vue-admin-lite {
+  visibility: hidden;
+}
+</style>

@@ -23,7 +23,7 @@ const GenerateLocaleJsonPlugin = require('./plugins/GenerateLocaleJsonPlugin')
 const WebpackOnBuildPlugin = require('on-build-webpack')
 const WebpackCdnPlugin = require('webpack-cdn-plugin')
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin")
-// const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const WebpackShellPlugin = require('webpack-shell-plugin')
 
 const { cssLoaders, htmlPage } = require('./tools')
 const vueLoaderConfig = require('./vue-loader.conf')
@@ -308,38 +308,39 @@ module.exports = {
     ]
   },
   plugins: [
-    // path.join(rootDir, 'dist')
   	new CleanWebpackPlugin(['*'], { root: path.join(rootDir, 'shared', 'dist', 'extension', 'chrome')}),
-    // Customize your extension structure.
+    ////////////////////////////////////////////////////////
+    ////
+    //// [START] - Customize your extension structure.
+    ////
+    ////////////////////////////////////////////////////////
     // popup-tab
     htmlPage('home', 'app', ['manifest', 'vendor', 'tab']),
     htmlPage('popup', 'popup', ['manifest', 'vendor', 'popup']),
+    ////////////////////////////////////////////////////////
     // dev-tools
     htmlPage('panel', 'panel', ['manifest', 'vendor', 'panel']),
     htmlPage('devtools', 'devtools', ['manifest', 'vendor', 'devtools']),
+    ////////////////////////////////////////////////////////
     // options/settings page
     htmlPage('options', 'options', ['manifest', 'vendor', 'options']),
+    ////////////////////////////////////////////////////////
     // background scripts
     htmlPage('background', 'background', ['manifest', 'vendor', 'background']),
+    ////////////////////////////////////////////////////////
     // content scripts
     htmlPage('content', 'content', ['manifest', 'vendor', 'content']),
-    // components
-    // htmlPage('components', 'components', ['manifest', 'vendor', 'components']),
-    // End customize
+    ////////////////////////////////////////////////////////
+    ////
+    //// [END] - Customize your extension structure.
+    ////
+    ////////////////////////////////////////////////////////
     new CopyWebpackPlugin([{ from: path.join(rootDir, 'static') }]),
-    /*
-    new WebpackShellPlugin({
-      onBuildEnd: ['node scripts/remove-evals.js'],
-    }),
-    */
-
     new GenerateLocaleJsonPlugin({
       _locales: path.join(rootDir, 'src', '_locales')
     }),
-
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      // minChunks: Infinity,
       // (with more entries, this ensures that no other module
       //  goes into the vendor chunk)
       minChunks: function (module) {
@@ -352,7 +353,6 @@ module.exports = {
         )
       }
     }),
-
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']

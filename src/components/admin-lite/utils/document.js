@@ -7,7 +7,7 @@ export const loadStyle = url => {
   head.appendChild(link)
 }
 
-export const setTitle = function(title) {
+export const setTitle = function (title) {
   title = title ? `${title}` : 'NxAdmin'
   window.document.title = title
 }

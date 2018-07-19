@@ -21,6 +21,7 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 
+/*
 router.beforeEach(function (to, from, next) {
   console.log('router.beforeEach.to: ', to)
   console.log('router.beforeEach.from: ', from)
@@ -30,6 +31,7 @@ router.beforeEach(function (to, from, next) {
 router.afterEach(function (a) {
   console.log('router.afterEach: ', a)
 })
+*/
 
 const VueAdminLite = new Vue({
   el: '#admin',

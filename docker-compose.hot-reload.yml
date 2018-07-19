@@ -1,0 +1,47 @@
+version: '3'
+services:
+  api:
+    image: sniperkit/hot-reload-go:1.8.1
+    ports:
+    - "3001:80"
+    # goconvey is exposed on port 8080
+    - "3002:8080"
+    volumes:
+    # mount the project into the docker container. Please note, that the
+    # app directory is symlinked into the project path specified as
+    # environment variable. For goconvey to work, the package must be
+    # linked directly into the the package directory i.e. /go/src/[PROJECTPATH]
+    - ..:/app
+    environment:
+    # project is required to make sure that the import paths to
+    # optional other packages in the same directory will work as expected
+    - PROJECT=github.com/sniperkit/vue-element-admin-chrome
+    # directory is required to set the current directory that should be
+    # used for building, it can be omitted if it is the same directory
+    # as the project
+    - DIRECTORY=backend/snk-server
+    # specify the command that should be run, can be 'build', 'test' or
+    # 'goconvey'. please note, that for goconvey to work the package
+    # directory should not be mounted in /app but in /go/src/[PROJECTPATH]
+    - CMD=build
+    # arguments can be used to specify arguments to pass to the executable
+    # on running
+    - ARGUMENTS=-test=someString
+    # ignore will indicate which directories to ignore from watching
+    - IGNORE=/src/web
+
+  frontend:
+    image: sniperkit/hot-reload-webpack:3.1.0
+    # note that the host port and the port on webpack should
+    # match to avoid cross origin request issues
+    ports:
+    - "3000:3000"
+    volumes:
+    - ..:/app
+    environment:
+    # directory will be used to define the folder where webpack should
+    # be started from and where the local node_modules are to be found
+    - DIRECTORY=src/web
+    # command defines the command to run after symlinking the global
+    # node modules into the local directoy
+    - COMMAND=npm run dev

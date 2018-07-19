@@ -1,4 +1,5 @@
 'use strict'
+
 const path = require('path')
 const utils = require('./utils')
 const webpack = require('webpack')
@@ -19,8 +20,6 @@ function resolve (dir) {
 }
 
 const env = require('../config/prod.env')
-
-console.log('config.build.assetsRoot=', config.build.assetsRoot)
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -117,7 +116,6 @@ const webpackConfig = merge(baseWebpackConfig, {
       children: true,
       minChunks: 3
     }),
-
     // copy custom static assets
     new CopyWebpackPlugin([
       {
@@ -125,10 +123,45 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
-
+    ]),
+    /*
+    // vue-container: minifier won't mangle the parameter names of your services
+    // https://github.com/dealloc/vuec
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      },
+      sourceMap: true,
+      mangle: {
+        except: ['Service'], // blacklist your services from being mangled
+      }
+    })
+    */
   ]
 })
+
+console.log('config.build.generateBindata: ', config.build.generateBindata)
+if (config.build.generateBindata) {
+  const WebpackShellPlugin = require('webpack-shell-plugin')
+  const WebpackSynchronizableShellPlugin = require('webpack-synchronizable-shell-plugin')
+  const WebpackShellPluginNext = require('webpack-shell-plugin-next')
+
+  console.log('config.build.generateBindataCmd.Array: ', config.build.generateBindataCmd)
+  console.log('config.build.generateBindataCmd.String: ', config.build.generateBindataCmd.join(' '))
+
+  webpackConfig.plugins.push(
+    new WebpackSynchronizableShellPlugin({
+      onBuildEnd: {
+        scripts: [
+          'cd '+config.rootDir,
+          config.build.generateBindataCmd.join(' '),
+        ],
+        blocking: true,
+        parallel: false
+      },
+    })
+  )
+}
 
 if (config.build.webpackStats) {
   const WebpackOnBuildPlugin = require('on-build-webpack')

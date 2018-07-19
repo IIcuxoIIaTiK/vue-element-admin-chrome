@@ -1,44 +1,126 @@
-version: '2.2'
+---
+version: '3'
 services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.0.1
-    container_name: elasticsearch
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+  backend:
+    init: false
+    image: sniperkit/snk-multi-backend:latest
     volumes:
-      - esdata1:/usr/share/elasticsearch/data
+    - "./shared/conf/config.json:/config/config.json"
+    - "./shared/logs/snk-backend:/logs/snk-backend"
+    expose:
+    - '8080'
+  autobahn-server:
+    init: false
+    image: crossbario/autobahn-python:cpy3-minimal-aio
+    volumes:
+    - "./shared/conf/autobahn/server.json:/config/server.json"
+    - "./shared/logs/autobahn:/reports"
+    expose:
+    - '9001'
+  yawc:
+    init: false
+    image: clojure:alpine
+    volumes:
+    - "./shared/data/yawc:/usr/src/yawc"
+    working_dir: "/usr/src/yawc"
+    command: lein run -m yawc.integration-test "autobahn-server"
+    depends_on:
+    - autobahn-server
+  nginx:
+    init: false
+    image: nginx:alpine
+    container_name: proxy
     ports:
-      - 9200:9200
-    networks:
-      - esnet
-  elasticsearch2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.0.1
-    container_name: elasticsearch2
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "discovery.zen.ping.unicast.hosts=elasticsearch"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+    - 80:80
+    - 443:443
+    links:
+    - tomcat
+    - mongodb
+    - mysql
+    - elastic
+    restart: always
     volumes:
-      - esdata2:/usr/share/elasticsearch/data
-    networks:
-      - esnet
-
-volumes:
-  esdata1:
-    driver: local
-  esdata2:
-    driver: local
-
-networks:
-  esnet:
+    - "./shared/www/htdocs:/var/www/localhost"
+    - "./shared/conf/nginx/default.conf:/etc/nginx/conf.d/default.conf"
+    - "./shared/logs/nginx:/var/log/nginx"
+    depends_on:
+    - tomcat
+    - php
+  tomcat:
+    init: false
+    image: tomcat:8.0-jre8-alpine
+    container_name: tomcat
+    restart: always
+    volumes:
+    - "./shared/www/webapp:/usr/local/tomcat/webapps"
+    depends_on:
+    - postgres
+    - redis
+    - mongodb
+    - mysql
+    links:
+    - postgres
+    - redis
+    - mongodb
+    - elastic
+  elastic:
+    init: false
+    image: elasticsearch:5.5-alpine
+    container_name: elasticsearch
+    restart: always
+    volumes:
+    - "./shared/data/elastic/v5:/usr/share/elasticsearch/data"
+    ports:
+    - 9200:9200
+    - 9300:9300
+    environment:
+    - discovery.type=single-node
+    - cluster.name=elasticluster
+    - ES_JAVA_OPTS=-Xms512m -Xmx512m
+  postgres:
+    init: false
+    image: postgres:9.6.5-alpine
+    container_name: postgresql
+    ports:
+    - 5432:5432
+    restart: always
+    volumes:
+    - "./shared/data/postgres/9.6:/var/lib/postgresql/data"
+    environment:
+    - POSTGRES_USER=aemini
+    - POSTGRES_PASSWORD=secret
+  rabbitmq:
+    image: rabbitmq:3.6-alpine
+    ports:
+    - 127.0.0.1:5672:5672
+  mysql:
+    init: false
+    image: mysql:latest
+    container_name: mysql
+    ports:
+    - 3306:3306
+    restart: always
+    volumes:
+    - "./shared/data/mysql:/var/lib/mysql"
+    environment:
+    - MYSQL_ROOT_PASSWORD=snk1234
+    - MYSQL_USER=snk-db
+    - MYSQL_PASSWORD=snk-123456!
+  redis:
+    init: true
+    image: redis:4.0-alpine
+    container_name: redis
+    ports:
+    - 6379:6379
+    restart: always
+    volumes:
+    - "./shared/data/redis:/data"
+  mongodb:
+    init: false
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+    - 27017:27017
+    restart: always
+    volumes:
+    - "./shared/data/mongodb:/data/db"

@@ -1,17 +1,33 @@
+import Vue from 'vue'
+
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import store from '../store'
 import { getToken } from '@/components/admin-lite/utils/auth'
 
+import VueAxios from 'vue-axios'
+import VueAuthenticate from 'vue-authenticate'
+
 // nb. temporary hack to switch between env or local backend, needs to be moved and wrapped by webpack...
 export function checkBackendApiEnv () {
   var baseAPI = process.env.BASE_API
   if (typeof process.env.BASE_API === 'undefined' || !process.env.BASE_API) {
-    baseAPI = 'http://localhost:3000/api'
+    baseAPI = 'http://localhost:3000/api/v1'
   }
   // add override case by passing argument to function...
   return baseAPI
 }
+
+Vue.use(VueAxios, axios)
+
+Vue.use(VueAuthenticate, {
+  tokenName: 'access_token',
+  baseUrl: checkBackendApiEnv(),
+  storageType: 'cookieStorage',
+  providers: {
+    // Define OAuth providers config
+  }
+})
 
 console.log('process.env.BASE_API', process.env.BASE_API)
 console.log('checkBackendApiEnv()', checkBackendApiEnv())
@@ -19,8 +35,12 @@ console.log('checkBackendApiEnv()', checkBackendApiEnv())
 // Create an axios instance
 const service = axios.create({
   baseURL: checkBackendApiEnv(), // Api's base_url or local backend (dockerized or not...)
-  timeout: 5000, // Request timeout
-  headers: {'X-Auth-Token': 'sample_token'}
+  timeout: 3000, // Request timeout
+  crossDomain: true,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'X-Auth-Token': 'sample_token'
+  }
 })
 
 // Request interceptor
@@ -43,6 +63,8 @@ service.interceptors.response.use(
   /**
   * Code is non-20000 is a mistake can be combined with their own business to modify
   */
+
+    console.log('store.getters.debug: ', store.getters.debug)
     if (store.getters.debug) {
       console.log('service.interceptors.response', response)
       console.log('service.interceptors.response.status', response.status)

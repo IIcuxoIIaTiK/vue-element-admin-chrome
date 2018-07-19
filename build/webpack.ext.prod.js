@@ -11,7 +11,6 @@ const WebpackShellPlugin = require('webpack-shell-plugin')
 const WebpackCdnPlugin = require('webpack-cdn-plugin')
 const WebpackOnBuildPlugin = require('on-build-webpack')
 
-
 const baseWebpack = require('./webpack.ext.base')
 const { styleLoaders, increaseVersion } = require('./tools')
 
