@@ -32,6 +32,7 @@ export const popupRouterMap = [
   { path: '/404', component: () => import('@/extension/popup/views/errorPage/404'), hidden: true },
   { path: '/401', component: () => import('@/extension/popup/views/errorPage/401'), hidden: true },
 
+  /*
   {
     path: '/',
     component: Layout,
@@ -46,6 +47,22 @@ export const popupRouterMap = [
       }
     ]
   },
+  */
+
+  {
+    path: '/',
+    component: Layout,
+    // hidden: true,
+    redirect: '/popupsearch',
+    name: 'PopupSearch',
+    children: [
+      {
+        path: 'popupsearch',
+        component: () => import('@/extension/popup/views/popupsearch/index'),
+        meta: { title: 'Searx Search', icon: 'form' }
+      }
+    ]
+  },
 
   {
     path: '/popupsearch',
@@ -53,9 +70,9 @@ export const popupRouterMap = [
     children: [
       {
         path: 'index',
-        name: 'PopupSearch',
+        name: 'popupsearch',
         component: () => import('@/extension/popup/views/popupsearch/index'),
-        meta: { title: 'OneTab', icon: 'form' }
+        meta: { title: 'Popup Search', icon: 'form' }
       }
     ]
   },
@@ -66,7 +83,7 @@ export const popupRouterMap = [
     children: [
       {
         path: 'index',
-        name: 'OneTab',
+        name: 'onetab',
         component: () => import('@/extension/popup/views/onetab/index'),
         meta: { title: 'OneTab', icon: 'form' }
       }

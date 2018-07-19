@@ -5,8 +5,7 @@
       <v-list-tile
         ripple
         @click="clicked(index)"
-        :key="index"
-      >
+        :key="index">
         <v-list-tile-content>
           <v-list-tile-title><strong>[{{ list.tabs.length }}]</strong> {{ list.title || '(untitled)' }}</v-list-tile-title>
           <v-list-tile-sub-title>{{ formatTime(list.time) }}</v-list-tile-sub-title>
@@ -20,44 +19,47 @@
   </v-list>
 </v-app>
 </template>
+
 <script>
 import tabs from '@/common/tabs'
 import storage from '@/common/storage'
 import {formatTime} from '@/common/utils'
 
 export default {
-  data() {
+  data () {
     return {
       lists: [],
-      action: '',
+      action: ''
     }
   },
-  created() {
+  created () {
     this.init()
   },
   methods: {
     formatTime,
-    async init() {
+    async init () {
       const lists = await storage.getLists()
       this.lists = lists
       const opts = await storage.getOptions()
       this.action = opts.popupItemClickAction
     },
-    clicked(index) {
+    clicked (index) {
       if (this.action === 'restore') {
         tabs.restoreList(this.lists[index])
       } else if (this.action === 'restore-new-window') {
         tabs.restoreListInNewWindow(this.lists[index])
-      } else return
+      } else {
+        return
+      }
 
       if (!this.lists[index].pinned) {
         this.lists.splice(index, 1)
         storage.setLists(this.lists)
       }
-    },
+    }
   }
 }
 </script>
-<style lang="scss">
 
+<style lang="scss">
 </style>

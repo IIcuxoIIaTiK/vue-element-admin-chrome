@@ -1,11 +1,8 @@
 <template>
 <v-app>
-  <v-toolbar
-    color="primary"
-  >
+  <v-toolbar color="primary">
     <v-toolbar-title class="white--text">OneTab</v-toolbar-title>
     <v-spacer></v-spacer>
-
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat dark @click="dialog = true">
         {{ __('ui_export_import') }}
@@ -28,13 +25,11 @@
   </v-content>
   <v-dialog v-model="dialog" max-width="700px">
     <v-card>
-
         <v-tabs
           color="cyan"
           dark
           grow
-          slider-color="yellow"
-        >
+          slider-color="yellow">
           <v-tab key="export">{{ __('ui_export') }}</v-tab>
           <v-tab key="import">{{ __('ui_import') }}</v-tab>
           <v-tab-item key="export">
@@ -64,38 +59,37 @@
             </v-card>
           </v-tab-item>
         </v-tabs>
-
     </v-card>
   </v-dialog>
-
   <v-snackbar
     :timeout="2000"
     bottom
-    v-model="snackbar"
-  >
+    v-model="snackbar">
     {{ snackbarMsg }}
   </v-snackbar>
 </v-app>
 </template>
+
 <script>
 import _ from 'lodash'
 import __ from '@/common/i18n'
 import list from '@/common/list'
 import storage from '@/common/storage'
+
 export default {
-  data() {
+  data () {
     return {
       dialog: false,
       exportData: '',
       importData: '',
       snackbar: false,
       snackbarMsg: '',
-      processing: false,
+      processing: false
     }
   },
   methods: {
     __,
-    async exp(comp) {
+    async exp (comp) {
       if (this.processing) {
         this.snackbarMsg = __('ui_main_processing')
         this.snackbar = true
@@ -121,7 +115,7 @@ export default {
         this.processing = false
       }
     },
-    async imp(comp) {
+    async imp (comp) {
       if (this.processing) {
         this.snackbarMsg = __('ui_main_processing')
         this.snackbar = true

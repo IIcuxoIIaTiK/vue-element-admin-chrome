@@ -41,6 +41,7 @@ export default {
 
 <style scoped>
   .tab-container{
-    margin: 30px;
+    margin: 5px;
+    width: 99%;
   }
 </style>

@@ -24,7 +24,7 @@ add some specific comments: requirements...
 - https://github.com/AlbertLucianto/vue-filter-animated
 - https://github.com/maxie7/searcher (wikipedia)
 - https://github.com/nghiatv/basic-vuex-axios-search-github (github search)
-- https://github.com/joaodelgado/github-branch-status 
+- https://github.com/joaodelgado/github-branch-status
 - https://github.com/seeschweiler/vuejsnewslist
 - https://github.com/tholman/what-have-you-made-today
 
@@ -38,7 +38,6 @@ add some specific comments: requirements...
 - http://panjiachen.github.io/split-pane/demo/index.html
 - https://vue-hn.now.sh/top
 - https://user.api.it120.cc/swagger-ui.html
-- 
 
 ---------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
@@ -103,7 +102,7 @@ npm run dev # or yarn dev
 ---------------------------------------------------------------------------------------------------------------------
 #### https://github.com/BecauseQA/vuejs-template
 - vue init BecauseQA/vuejs-template vuejs-electron
-- Commands: 
+- Commands:
 ```bash
 cd vuejs-electron
 npm install  # or yarn istall
@@ -121,7 +120,7 @@ npm start/npm run start-app/npm run start-chrome-extension
 - To get started:
 ```bash
 cd vuejs-router
-ls -l 
+ls -l
 pwd
 ```
 - Notes:
@@ -143,7 +142,7 @@ pwd
 - https://github.com/Partoo/vue-chrome-template
 - https://github.com/SunlandsTeam/seed-project-chrome-extension
 - https://github.com/AlansCodeLog/vue-chrome-extension-template
- 
+
 ---------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
 ### Utils

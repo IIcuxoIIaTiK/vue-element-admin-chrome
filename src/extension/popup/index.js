@@ -27,6 +27,14 @@ router.afterEach(function (a) {
 })
 */
 
+// Clear after module reload
+window.addEventListener('message', e => {
+  // if ('production' !== process.env.NODE_ENV) {
+  // console.clear()
+  // console.log('[chrome-ext-popup] - console.clear() from \'message\' event: ')
+  // }
+})
+
 const snkOpts = document.createElement('div')
 snkOpts.setAttribute('id', 'app')
 document.body.appendChild(snkOpts)

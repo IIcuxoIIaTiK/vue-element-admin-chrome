@@ -92,23 +92,23 @@ import storage from '@/common/storage'
 import {formatTime} from '@/common/utils'
 
 export default {
-  data() {
+  data () {
     return {
       lists: [],
       itemClickAction: '',
-      itemDisplay: '',
+      itemDisplay: ''
     }
   },
-  created() {
+  created () {
     this.init()
   },
   components: {
-    draggable,
+    draggable
   },
   methods: {
     __,
     formatTime,
-    async itemClicked(listIndex, tabIndex) {
+    async itemClicked (listIndex, tabIndex) {
       const action = this.itemClickAction
       if (action === 'open-and-remove') {
         this.openTab(listIndex, tabIndex)
@@ -117,18 +117,18 @@ export default {
         this.openTab(listIndex, tabIndex)
       }
     },
-    tabMoved() {
+    tabMoved () {
       this.lists = this.lists.filter(list => list.tabs.length !== 0)
       this.storeLists()
     },
-    getLists() {
+    getLists () {
       storage.getLists().then(lists => {
         if (lists) {
           this.lists = lists.filter(i => Array.isArray(i.tabs))
         }
       })
     },
-    async init() {
+    async init () {
       this.getLists()
       const opts = await storage.getOptions()
       this.itemClickAction = opts.itemClickAction
@@ -147,61 +147,61 @@ export default {
         }
       })
     },
-    storeLists: _.debounce(function() {
+    storeLists: _.debounce(function () {
       console.time('store')
       storage.setLists(this.lists).then(() => console.timeEnd('store'))
     }, 200),
-    removeList(listIndex) {
+    removeList (listIndex) {
       this.lists.splice(listIndex, 1)
       this.storeLists()
     },
-    removeTab(listIndex, tabIndex) {
+    removeTab (listIndex, tabIndex) {
       this.lists[listIndex].tabs.splice(tabIndex, 1)
       if (this.lists[listIndex].tabs.length === 0)
         this.removeList(listIndex)
       this.storeLists()
     },
-    openTab(listIndex, tabIndex) {
+    openTab (listIndex, tabIndex) {
       tabs.openTab(this.lists[listIndex].tabs[tabIndex])
     },
-    restoreList(listIndex, inNewWindow = false) {
+    restoreList (listIndex, inNewWindow = false) {
       if (inNewWindow) tabs.restoreListInNewWindow(this.lists[listIndex])
       else tabs.restoreList(this.lists[listIndex])
       if (this.lists[listIndex].pinned) return
       this.removeList(listIndex)
     },
-    openChangeTitle(listIndex) {
+    openChangeTitle (listIndex) {
       this.lists[listIndex].titleEditing = true
     },
-    saveTitle(listIndex) {
+    saveTitle (listIndex) {
       this.lists[listIndex].titleEditing = false
       this.storeLists()
     },
-    getDomain(url) {
+    getDomain (url) {
       try {
         return new URL(url).hostname
       } catch (error) {
         return ''
       }
     },
-    pinList(listIndex, pin = true) {
+    pinList (listIndex, pin = true) {
       this.lists[listIndex].pinned = pin
       this.storeLists()
     },
-    swapListItem(a, b) {
+    swapListItem (a, b) {
       [this.lists[a], this.lists[b]] = [this.lists[b], this.lists[a]]
       this.storeLists()
       this.$forceUpdate()
     },
-    moveListUp(listIndex) {
+    moveListUp (listIndex) {
       if (listIndex === 0) return
       this.swapListItem(listIndex, listIndex - 1)
     },
-    moveListDown(listIndex) {
+    moveListDown (listIndex) {
       if (listIndex === this.lists.length - 1) return
       this.swapListItem(listIndex, listIndex + 1)
     },
-    expandList(expand, listIndex) {
+    expandList (expand, listIndex) {
       this.lists[listIndex].expand = expand
       this.storeLists()
     }

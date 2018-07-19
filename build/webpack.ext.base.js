@@ -202,7 +202,9 @@ module.exports = {
     // components: resolve('./components'),
     // popup
     popup: resolve('./extension/popup'),
-    tab: resolve('./extension/tab'),
+    // NOTE: !!! for dev as it is more easy to debug with the console
+    tab: resolve('./extension/popup'),
+    // tab: resolve('./extension/tab'),
     // options
     options: resolve('./extension/options'),
     // content
@@ -312,6 +314,7 @@ module.exports = {
     ////////////////////////////////////////////////////////
     ////
     //// [START] - Customize your extension structure.
+    //// (title, filename, chunks, template)
     ////
     ////////////////////////////////////////////////////////
     // popup-tab

@@ -1,7 +1,10 @@
 <template>
+  <div class="app-wrapper">
+  <!--
   <div class="app-wrapper" :class="classObj">
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"></div>
     <sidebar class="sidebar-container"></sidebar>
+    -->
     <div class="main-container">
       <!--
       <navbar></navbar>
@@ -13,17 +16,18 @@
 </template>
 
 <script>
-import { Sidebar, PopMain } from './components'
-import ResizeMixin from './mixin/ResizeHandler'
+import { PopMain } from './components'
+// import { Sidebar, PopMain } from './components'
+// import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
   name: 'layout',
   components: {
     // Navbar,
-    Sidebar,
+    // Sidebar,
     PopMain
     // TagsView
-  },
+  }/*,
   mixins: [ResizeMixin],
   computed: {
     sidebar () {
@@ -46,6 +50,7 @@ export default {
       this.$store.dispatch('closeSideBar', { withoutAnimation: false })
     }
   }
+  */
 }
 </script>
 

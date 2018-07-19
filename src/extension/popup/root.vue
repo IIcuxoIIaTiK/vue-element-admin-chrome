@@ -17,7 +17,8 @@ export default {
 
 <style lang="sass">
 body, .app
-  width: 1000px
+  margin: auto
+  width: 1012px
   height: 600px
   overflow: hidden
 .app

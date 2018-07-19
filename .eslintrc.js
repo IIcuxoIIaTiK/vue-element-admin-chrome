@@ -45,6 +45,8 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    // no-undef-init
+    'no-undef-init': 0,
     // no-unused-vars
     'no-unused-vars': 0,
     // no-return-assign

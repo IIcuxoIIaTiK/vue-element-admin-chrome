@@ -12,7 +12,9 @@
                   <v-flex xs8>
                     <v-subheader>
                       {{ option.desc }}
-                      <strong v-if="option.name === 'syncList' && quotaExceeded" :style="{color: 'red', paddingLeft: '8px'}">quota exceeded!</strong>
+                      <strong v-if="option.name === 'syncList' && quotaExceeded" :style="{color: 'red', paddingLeft: '8px'}">
+                        quota exceeded!
+                      </strong>
                     </v-subheader>
                   </v-flex>
                   <v-flex xs4>
@@ -24,14 +26,12 @@
                       label=""
                       item-text="label"
                       item-value="value"
-                      @change="optionsChanged(option.name, $event)"
-                    ></v-select>
+                      @change="optionsChanged(option.name, $event)"></v-select>
                     <v-switch
                       class="switch-amend"
                       v-if="option.type === Boolean"
                       v-model="options[option.name]"
-                      @change="optionsChanged(option.name, $event)"
-                    ></v-switch>
+                      @change="optionsChanged(option.name, $event)"></v-switch>
                   </v-flex>
                 </v-layout>
               </v-list-tile-content>
@@ -45,41 +45,41 @@
   <v-snackbar
     :timeout="2000"
     bottom
-    v-model="snackbar"
-  >
+    v-model="snackbar">
     {{ __('ui_opt_changes_saved') }}
   </v-snackbar>
 </div>
 </template>
+
 <script>
 import storage from '@/common/storage'
 import options from '@/common/options'
 import __ from '@/common/i18n'
 
 export default {
-  data() {
+  data () {
     return {
       optionsList: options.optionsList,
       options: {},
       snackbar: false,
-      quotaExceeded: false,
+      quotaExceeded: false
     }
   },
-  created() {
+  created () {
     this.init()
   },
   methods: {
     __,
-    async optionsChanged(key, value) {
-      console.log(1)
-      console.log(key, value)
+    async optionsChanged (key, value) {
+      console.log('optionsChanged', 1)
+      console.log('optionsChanged', key, value)
       // when type of option is string options can not be set correctly after first storage.setOptions() called
       await storage.setOptions(this.options)
       await storage.setOptions(this.options)
-      console.log(2)
+      console.log('optionsChanged', 2)
       chrome.runtime.sendMessage({optionsChanged: {[key]: value}})
     },
-    async init() {
+    async init () {
       const opts = await storage.getOptions()
       Object.keys(opts).map(key => {
         this.$set(this.options, key, opts[key])
@@ -94,6 +94,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
 .select-amend {
   padding: 4px 0 0;

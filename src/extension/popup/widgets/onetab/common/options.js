@@ -112,7 +112,7 @@ export const optionsList = [
     desc: __('opt_desc_syncList'),
     type: Boolean,
     default: true,
-  },
+  }
 ]
 
 const getDefaultOptions = () => optionsList.reduce((opts, item) => {

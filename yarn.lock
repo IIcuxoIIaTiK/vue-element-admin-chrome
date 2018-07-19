@@ -929,15 +929,31 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@formschema/native/-/native-1.1.1.tgz#52b69b7ea5c6c28e3083fa229aef2f42f5af21f9"
 
+"@fortawesome/fontawesome-common-types@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.1.7.tgz#4336c4b06d0b5608ff1215464b66fcf9f4795284"
+
 "@fortawesome/fontawesome-common-types@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.0.tgz#6bcf6481030f59e7ffd1a40a67cd464d47780f6a"
+
+"@fortawesome/fontawesome-free-solid@^5.0.13":
+  version "5.0.13"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free-solid/-/fontawesome-free-solid-5.0.13.tgz#24b61aaf471a9d34a5364b052d64a516285ba894"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.1.7"
 
 "@fortawesome/fontawesome-svg-core@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.0.tgz#b0ec14af25cdc11d38ede7d8c94b89b478ab67ab"
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.0"
+
+"@fortawesome/fontawesome@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome/-/fontawesome-1.1.8.tgz#75fe66a60f95508160bb16bd781ad7d89b280f5b"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.1.7"
 
 "@fortawesome/free-brands-svg-icons@^5.1.0":
   version "5.1.0"
@@ -957,9 +973,9 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.0"
 
-"@fortawesome/vue-fontawesome@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-0.1.0.tgz#ff45bb6efe2f585f5faebf174a10b1887c06547b"
+"@fortawesome/vue-fontawesome@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-0.1.1.tgz#f54cad4028213a011c6ecb10eaf2b99dbd4a8496"
 
 "@google-cloud/common@^0.18.2":
   version "0.18.9"
@@ -2266,7 +2282,7 @@ async-validator@^1.8.2, async-validator@~1.8.1:
   dependencies:
     babel-runtime "6.x"
 
-async@0.2.x, async@~0.2.10, async@~0.2.9:
+async@0.2.x, async@~0.2.10, async@~0.2.6, async@~0.2.9:
   version "0.2.10"
   resolved "https://registry.yarnpkg.com/async/-/async-0.2.10.tgz#b6bbe0b0674b9d719708ca38de8c237cb526c3d1"
 
@@ -3762,7 +3778,7 @@ bootstrap@^3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
 
-bootstrap@^4.1.1:
+bootstrap@^4.1.1, bootstrap@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.2.tgz#aee2a93472e61c471fc79fb475531dcbc87de326"
 
@@ -4746,6 +4762,10 @@ chrome-promise@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/chrome-promise/-/chrome-promise-3.0.2.tgz#31e273e32ef10eb86a8cb4d61c7a843362d29463"
 
+chrome-storage-promise@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/chrome-storage-promise/-/chrome-storage-promise-0.1.0.tgz#44a0060ae0c465e0c56b52734f68664c0bd2be35"
+
 chrome-webstore-upload-cli@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/chrome-webstore-upload-cli/-/chrome-webstore-upload-cli-1.1.1.tgz#3f8a3211c4d6f474ba3ca597e2bcb9aab227d44b"
@@ -5052,6 +5072,12 @@ cloneable-readable@^1.0.0:
     inherits "^2.0.1"
     process-nextick-args "^2.0.0"
     readable-stream "^2.3.5"
+
+closure-compiler@0.2.12:
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/closure-compiler/-/closure-compiler-0.2.12.tgz#6c3087cad12742c79e47f0ce50e87af91cf8e171"
+  dependencies:
+    google-closure-compiler "20150901.x"
 
 cloudant-follow@^0.13.0:
   version "0.13.0"
@@ -10235,6 +10261,17 @@ glob@7.0.x:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
+glob@7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.1.tgz#805211df04faaf1c63a3600306cdf5ade50b2ec8"
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.2"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
 glob@7.1.2, glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.0.6, glob@^7.1.0, glob@^7.1.1, glob@^7.1.2, glob@~7.1.1, glob@~7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
@@ -10578,6 +10615,10 @@ google-auto-auth@^0.10.0:
     gcp-metadata "^0.6.1"
     google-auth-library "^1.3.1"
     request "^2.79.0"
+
+google-closure-compiler@20150901.x:
+  version "20150901.0.0"
+  resolved "https://registry.yarnpkg.com/google-closure-compiler/-/google-closure-compiler-20150901.0.0.tgz#3d01c6cade65790a9bfb4e30b2158b7635acbade"
 
 google-gax@^0.16.0:
   version "0.16.1"
@@ -11518,6 +11559,10 @@ indexes-of@^1.0.1:
 indexof@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
+
+infinite-autocomplete@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/infinite-autocomplete/-/infinite-autocomplete-3.2.0.tgz#ece8dbc14978c8d2c1469b7999bef1d4d2c9499a"
 
 infinite-tree@^1.16.2:
   version "1.16.2"
@@ -12524,6 +12569,14 @@ itemsapi@^1.0.74:
     validate.js "^0.4.0"
     winston "^2.2.0"
 
+itemsjs@^1.0.39:
+  version "1.0.39"
+  resolved "https://registry.yarnpkg.com/itemsjs/-/itemsjs-1.0.39.tgz#8c5181a0f6d71653e625d9f0c81902d246d1de88"
+  dependencies:
+    lodash "^4.17.4"
+    lodash-cli "^4.17.4"
+    lunr "^1.0.0"
+
 iterall@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.2.2.tgz#92d70deb8028e0c39ff3164fdbf4d8b088130cd7"
@@ -12588,6 +12641,10 @@ jpex@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/jpex/-/jpex-2.1.0.tgz#da389aed51b2296b3095d0ba059db3f2a7f3f69f"
 
+jquery-autocomplete@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/jquery-autocomplete/-/jquery-autocomplete-1.2.8.tgz#9927c5d752cf73fc5b6c707431197e16997cc653"
+
 jquery-knob@^1.2.11:
   version "1.2.11"
   resolved "https://registry.yarnpkg.com/jquery-knob/-/jquery-knob-1.2.11.tgz#f37c39dbc1c7a6a6c12cdb2ed4f6bffb683f10d6"
@@ -12610,7 +12667,7 @@ jquery-ui@^1.12.1:
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/jquery-ui/-/jquery-ui-1.12.1.tgz#bcb4045c8dd0539c134bc1488cdd3e768a7a9e51"
 
-"jquery@2 - 3", "jquery@>= 1.7", jquery@>=1.10, jquery@>=1.5, jquery@>=1.7, "jquery@>=1.7.1 <4.0.0", jquery@>=1.8, jquery@^3.1.1, jquery@^3.2.1, jquery@x.*:
+"jquery@2 - 3", "jquery@>= 1.7", jquery@>=1.10, jquery@>=1.5, jquery@>=1.7, "jquery@>=1.7.1 <4.0.0", jquery@>=1.8, jquery@^3.1.1, jquery@^3.2.1, jquery@^3.3.1, jquery@x.*:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
@@ -13608,6 +13665,16 @@ lockfile@^1.0.4:
   dependencies:
     signal-exit "^3.0.2"
 
+lodash-cli@^4.17.4:
+  version "4.17.5"
+  resolved "https://registry.yarnpkg.com/lodash-cli/-/lodash-cli-4.17.5.tgz#1bab72c8c9980febf4fe7a1900b0971ce040dd0b"
+  dependencies:
+    closure-compiler "0.2.12"
+    glob "7.1.1"
+    lodash "4.17.5"
+    semver "5.3.0"
+    uglify-js "2.7.5"
+
 lodash-compat@^3.0.0:
   version "3.10.2"
   resolved "https://registry.yarnpkg.com/lodash-compat/-/lodash-compat-3.10.2.tgz#c6940128a9d30f8e902cd2cf99fd0cba4ecfc183"
@@ -13978,6 +14045,10 @@ lodash@4.17.2:
   version "4.17.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
 
+lodash@4.17.5:
+  version "4.17.5"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
+
 log-symbols@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-1.0.2.tgz#376ff7b58ea3086a0f09facc74617eca501e1a18"
@@ -14112,6 +14183,10 @@ lru-cache@^4.0.0, lru-cache@^4.0.1, lru-cache@^4.1.1, lru-cache@^4.1.2, lru-cach
   dependencies:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
+
+lunr@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/lunr/-/lunr-1.0.0.tgz#5c9276c92c91ac35a9241b5018d46723d92e2f5f"
 
 macos-release@^1.0.0:
   version "1.1.0"
@@ -20565,13 +20640,13 @@ semver@5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.1.0.tgz#85f2cf8550465c4df000cf7d86f6b054106ab9e5"
 
+semver@5.3.0, semver@~5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
+
 semver@5.4.1:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
-
-semver@~5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
 
 send@0.16.2:
   version "0.16.2"
@@ -23247,6 +23322,15 @@ uglify-es@^3.2.0, uglify-es@^3.3.4, uglify-es@^3.3.7:
     commander "~2.13.0"
     source-map "~0.6.1"
 
+uglify-js@2.7.5:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.7.5.tgz#4612c0c7baaee2ba7c487de4904ae122079f2ca8"
+  dependencies:
+    async "~0.2.6"
+    source-map "~0.5.1"
+    uglify-to-browserify "~1.0.0"
+    yargs "~3.10.0"
+
 uglify-js@3.4.x:
   version "3.4.4"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.4.4.tgz#92e79532a3aeffd4b6c65755bdba8d5bad98d607"
@@ -23797,6 +23881,10 @@ v-autocomplete@^1.8.2:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/v-autocomplete/-/v-autocomplete-1.8.2.tgz#966c7b3eda2c74dd683911114a20284cd096961f"
 
+v-autosuggest@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/v-autosuggest/-/v-autosuggest-1.0.0.tgz#d0b58b1c15e6211d6ccd27ac29d1d9868eefc268"
+
 v-click-outside-x@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/v-click-outside-x/-/v-click-outside-x-3.0.3.tgz#824c2551f9451e1c1cc62cc525c6084185d1fbf4"
@@ -23828,6 +23916,12 @@ v-folder@^2.0.2:
   resolved "https://registry.yarnpkg.com/v-folder/-/v-folder-2.0.2.tgz#28d6b06cceb961c0b40ce624c9611ad6511ab45d"
   dependencies:
     object-assign "^4.1.1"
+
+v-suggest@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/v-suggest/-/v-suggest-1.0.4.tgz#668032cae2caa08bd7584a016c771c7601313335"
+  dependencies:
+    vue "^2.5.11"
 
 v-tippy@^2.0.0:
   version "2.0.0"
@@ -24091,6 +24185,10 @@ vue-authplugin@^0.2.3:
 vue-autofocus-directive@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/vue-autofocus-directive/-/vue-autofocus-directive-0.0.3.tgz#7d9151831e89690e10f7cc8c68bbb487a2c2a6d4"
+
+vue-autosuggest@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/vue-autosuggest/-/vue-autosuggest-1.4.3.tgz#634c87637151b219738d43ee03348c55e3a12233"
 
 vue-awesome-form@^1.0.3:
   version "1.0.3"
@@ -24459,6 +24557,12 @@ vue-i18n@^7.4.1:
 vue-i18n@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.0.0.tgz#ae0c6e05ec8e36151bcf5f47c7b538c8af6d0282"
+
+vue-infinite-autocomplete@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/vue-infinite-autocomplete/-/vue-infinite-autocomplete-2.0.0.tgz#2818e64e260ff94e773a991d5e74b7fef27bf477"
+  dependencies:
+    infinite-autocomplete "3.2.0"
 
 vue-inject@^2.1.0:
   version "2.1.0"

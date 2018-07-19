@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import DetailList from '@/page/DetailList'
 import Options from '@/page/Options'
 import Main from '@/page/Main'
@@ -12,7 +13,7 @@ const router = new Router({
     {
       path: '/popup',
       component: Popup,
-      name: 'popup',
+      name: 'popup'
     },
     {
       path: '/app',
@@ -21,15 +22,15 @@ const router = new Router({
         {
           path: 'options',
           component: Options,
-          name: 'options',
+          name: 'options'
         },
         {
           path: '*',
           component: DetailList,
-          name: 'detailList',
-        },
+          name: 'detailList'
+        }
       ],
-    },
+    }
   ]
 })
 
