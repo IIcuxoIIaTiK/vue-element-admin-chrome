@@ -97,7 +97,7 @@ const actions = {
           // return resolveFn(axios.get('http://suggestqueries.google.com/complete/search?client=firefox', {
           return new Promise((resolve, reject) => {
             // add it to the global config store
-            axios.get('http://suggestqueries.google.com/complete/search?client=firefox', {
+            axios.get('https://suggestqueries.google.com/complete/search?client=firefox', {
               params: {
                 q: keyword
               }

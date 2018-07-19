@@ -51,11 +51,11 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import _ from 'lodash'
 import { mapState } from 'vuex'
 import Mousetrap from 'mousetrap'
 
-import $ from 'jquery'
 import 'jquery-autocomplete/jquery.autocomplete.js'
 import 'jquery-autocomplete/jquery.autocomplete.css'
 
@@ -297,7 +297,11 @@ export default {
       }
     }
   },
+  created () {
+    console.log('popupsearch - search input - created')
+  },
   mounted () {
+    console.log('popupsearch - search input - mounted')
     this.keyword = this.$store.state.keywords.currentKeyword
 
     this.$elem = $('.SearchInput-input')

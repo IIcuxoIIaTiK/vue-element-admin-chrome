@@ -150,7 +150,11 @@ export default {
       this.$store.dispatch('ui/setScrollPos', {pos})
     }
   },
+  created () {
+    console.log('popupsearch - search results - created')
+  },
   mounted () {
+    console.log('popupsearch - search results - mounted')
     this.reservedKeys = _.map([
       this.toggleClosepopupKey, this.scrollUpKey, this.scrollDownKey, this.focusInputKey,
       this.jumpTopKey, this.jumpBottomKey, this.focusInputAltKey, this.toggleHistoryKey

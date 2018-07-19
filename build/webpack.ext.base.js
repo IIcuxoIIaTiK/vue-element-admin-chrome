@@ -202,11 +202,11 @@ module.exports = {
     // components: resolve('./components'),
     // popup
     popup: resolve('./extension/popup'),
-    // NOTE: !!! for dev as it is more easy to debug with the console
-    tab: resolve('./extension/popup'),
-    // tab: resolve('./extension/tab'),
+    tab: resolve('./extension/tab'),
     // options
-    options: resolve('./extension/options'),
+    // options: resolve('./extension/options'),
+    // NOTE: !!! for dev as it is more easy to debug with the console
+    options: resolve('./extension/popup'),
     // content
     content: resolve('./extension/content'),
     // devtool
@@ -311,6 +311,7 @@ module.exports = {
   },
   plugins: [
   	new CleanWebpackPlugin(['*'], { root: path.join(rootDir, 'shared', 'dist', 'extension', 'chrome')}),
+    new webpack.ProvidePlugin({ jQuery: "jquery", $: "jquery" }),
     ////////////////////////////////////////////////////////
     ////
     //// [START] - Customize your extension structure.
@@ -326,7 +327,9 @@ module.exports = {
     htmlPage('devtools', 'devtools', ['manifest', 'vendor', 'devtools']),
     ////////////////////////////////////////////////////////
     // options/settings page
+    // dev
     htmlPage('options', 'options', ['manifest', 'vendor', 'options']),
+    // htmlPage('options', 'options', ['manifest', 'vendor', 'popup']),
     ////////////////////////////////////////////////////////
     // background scripts
     htmlPage('background', 'background', ['manifest', 'vendor', 'background']),

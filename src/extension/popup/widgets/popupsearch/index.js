@@ -2,9 +2,13 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Vue from 'vue'
-import App from './App'
-import store from './store'
-import router from './router'
+// import App from './App'
+import Content from '@/extension/popup/widgets/popupsearch/root.vue'
+
+import router from '@/extension/popup/widgets/popupsearch/router'
+import store from '@/extension/popup/widgets/popupsearch/store'
+// import store from './store'
+// import router from './router'
 
 import fontawesome from '@fortawesome/fontawesome'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
@@ -26,16 +30,27 @@ fontawesome.library.add(faEllipsisH)
 fontawesome.library.add(faSort)
 fontawesome.library.add(faSortDown)
 fontawesome.library.add(faSortUp)
-fontawesome.library.add(faArrowLeft
+fontawesome.library.add(faArrowLeft)
 
 window.store = store
 
 Vue.use(Datatable)
 
-/* eslint-disable no-new */
-window.App = new Vue({
-  el: '#app',
+export default function install (Vue) {
+  Vue.component('PopupSearch', Content)
+}
+
+// auto install
+if (typeof window !== 'undefined' && typeof window.Vue !== 'undefined') {
+  window.Vue.use(install)
+}
+
+// eslint-disable no-new
+/*
+window.Content = new Vue({
+  el: '#popupsearch',
   store,
   router,
-  render: h => h(App)
+  render: h => h(Content)
 })
+*/

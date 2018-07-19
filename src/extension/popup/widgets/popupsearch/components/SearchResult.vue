@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import $ from 'jquery'
 import _ from 'lodash'
 
 export default {
@@ -123,7 +122,11 @@ export default {
       }, 500)
     }
   },
+  created () {
+    console.log('popupsearch - search result - created')
+  },
   mounted () {
+    console.log('popupsearch - search result - mounted')
     this.sublinkKeyList = _.fill(Array(this.result.subLinkList.length), undefined)
   }
 }

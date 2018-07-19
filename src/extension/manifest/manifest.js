@@ -40,13 +40,13 @@ module.exports = {
     'https://fonts.googleapis.com/css?family=Open+Sans',
     'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
     'https://libraries.io/api/',
+    'https://cn.bing.com/*',
     'https://www.google.com/search*',
-    'http://suggestqueries.google.com/complete/search/*',
+    '*://suggestqueries.google.com/complete/search/*',
     'chrome://favicon/',
     'https://fonts.googleapis.com/',
     'http://*/*',
     'https://*/*',
-    'ws://localhost:9090/',
     'ws://localhost:9090/*',
     'http://localhost:3000/*',
     'https://localhost:3000/*',
@@ -77,6 +77,13 @@ module.exports = {
         mac: 'Alt+B'
       },
       description: 'Add Current page to Bookmarks'
+    },
+    _execute_browser_action: {
+      suggested_key: {
+        "default": "Ctrl+E",
+        "mac": "Ctrl+E"
+      },
+      description: 'Open snk popupsearch panel'
     }
   },
   background: {
@@ -100,7 +107,7 @@ module.exports = {
   }],
   default_locale: 'en',
   manifest_version: 2,
-  content_security_policy: "default-src 'self'; script-src 'self' 'unsafe-eval' https://ssl.dev:3001 https://localhost:3000 http://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 ws://localhost:3000 ws://localhost:35729 ws://localhost:3000 ws://localhost:9090; style-src * 'self' 'unsafe-inline'; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data:; object-src 'self'",
+  content_security_policy: "default-src 'self'; script-src 'self' 'unsafe-eval' https://ssl.dev:3001 https://localhost:3000 http://localhost:3000 'unsafe-eval'; connect-src 'self' http://localhost:3000 ws://localhost:3000 ws://localhost:35729 ws://localhost:3000 ws://localhost:9090 http://cn.bing.com https://suggestqueries.google.com https://www.google.com https://www.bing.com; style-src * 'self' 'unsafe-inline'; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' https://cn.bing.com data:; object-src 'self'",
   //content_security_policy: "script-src 'self' 'unsafe-eval' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; object-src 'self'",
   web_accessible_resources: [
     'panel.html',

@@ -15,6 +15,12 @@ export default {
     searchText: {
       required: true
     }
+  },
+  created () {
+    console.log('popupsearch - suggestion template - created')
+  },
+  mounted () {
+    console.log('popupsearch - suggestion mounted - created')
   }
 }
 </script>

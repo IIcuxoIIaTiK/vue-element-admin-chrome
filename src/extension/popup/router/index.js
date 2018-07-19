@@ -58,7 +58,7 @@ export const popupRouterMap = [
     children: [
       {
         path: 'popupsearch',
-        component: () => import('@/extension/popup/views/popupsearch/index'),
+        component: () => import('@/extension/popup/views/popupsearch/main.js'),
         meta: { title: 'Searx Search', icon: 'form' }
       }
     ]

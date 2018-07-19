@@ -9,8 +9,8 @@
 
 <script>
 import $ from 'jquery'
-import { mapState } from 'vuex'
 import _ from 'lodash'
+import { mapState } from 'vuex'
 import Mousetrap from 'mousetrap'
 
 export default {
@@ -67,10 +67,6 @@ export default {
       this.processData()
     }
   },
-  created () {
-    this.query = this.$store.state.keywords.historyQuery
-    this.$store.dispatch('keywords/updateHistory', this.query)
-  },
   methods: {
     getShortcutByIdx (idx) {
       let shortcut = undefined
@@ -101,17 +97,27 @@ export default {
       })
     }
   },
+  created () {
+    console.log('popupsearch - history - created')
+    this.query = this.$store.state.keywords.historyQuery
+    this.$store.dispatch('keywords/updateHistory', this.query)
+  },
   mounted () {
+    console.log('popupsearch - history - mounted')
     let that = this
     this.processData()
+
+    // document.getElementById("demo").onclick = function() { myFunction() }
     $(this.$el).on('click', 'td', function () {
       let idx = $(this).closest('tr').index()
       that.openByIdx(idx)
     })
+
     this.HI = new Mousetrap()
     this.HI.stopCallback = (e) => {
       return false
     }
+
     _.each(_.range(0, 10), (idx) => {
       let shortcut = this.getShortcutByIdx(idx)
       if (!shortcut) {
@@ -121,12 +127,15 @@ export default {
         that.openByIdx(idx)
       })
     })
+
     this.HI.bind('left', () => {
       this.$refs.datatable.$refs.pagination.turnPage(-1)
     })
+
     this.HI.bind('right', () => {
       this.$refs.datatable.$refs.pagination.turnPage(1)
     })
+
     this.HI.bind([this.toggleHistoryKey.toLowerCase(), 'esc'], () => {
       this.$router.push('/')
       return false

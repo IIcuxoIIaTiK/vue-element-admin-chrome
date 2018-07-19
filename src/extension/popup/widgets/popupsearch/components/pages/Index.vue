@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import $ from 'jquery'
 import _ from 'lodash'
+import { mapState } from 'vuex'
+import Mousetrap from 'mousetrap'
+
 import SearchInput from '../../components/SearchInput.vue'
 import SearchResults from '../../components/SearchResults.vue'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-import { mapState } from 'vuex'
-import Mousetrap from 'mousetrap'
 
 export default {
   data () {
@@ -69,7 +69,11 @@ export default {
       })
     }
   },
+  created () {
+    console.log('popupsearch - index - created')
+  },
   mounted () {
+    console.log('popupsearch - index - mounted')
     this.HI = new Mousetrap(this.$el)
     this.HI.stopCallback = (e) => {
       return false

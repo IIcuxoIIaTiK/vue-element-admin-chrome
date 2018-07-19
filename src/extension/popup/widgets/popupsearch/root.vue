@@ -1,13 +1,14 @@
 <template>
-  <div class="App">
+  <div id="App">
     <router-view v-if="loaded"></router-view>
   </div>
 </template>
 
 <script>
-import _ from 'lodash';
+import _ from 'lodash'
 
 export default {
+  // name: 'SnkPopupSearch',
   data () {
     return {
       loaded: false
@@ -22,6 +23,7 @@ export default {
           keyword: this.$store.state.keywords.currentKeyword
         })
       } catch (e) {
+        console.log('popupsearch created, error: ', e)
       }
     }
     this.loaded = true
